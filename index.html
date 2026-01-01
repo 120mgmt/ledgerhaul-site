@@ -1,0 +1,461 @@
+<!-- File: index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LedgerHaul</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#0F766E;
+      --green-2:#2DD4BF;
+      --dark:#0F172A;
+      --text:#0B1220;
+      --muted:#475569;
+      --border:#E5E7EB;
+      --bg:#FFFFFF;
+      --bg-alt:#F8FAFC;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+      --radius: 16px;
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .nav{
+      position:sticky; top:0;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:saturate(160%) blur(8px);
+      border-bottom:1px solid var(--border);
+      z-index:10;
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:72px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
+    .brand-badge{
+      width:30px;height:30px;border-radius:10px;
+      background:linear-gradient(135deg, var(--green), #0B5F59);
+      box-shadow: 0 8px 18px rgba(15,118,110,.25);
+    }
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{font-weight:500; color:var(--muted)}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:12px;
+      font-weight:600; border:1px solid transparent;
+      transition:transform .05s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:var(--green); color:#fff}
+    .btn-primary:hover{background:#0B5F59}
+    .btn-outline{background:#fff; border-color:rgba(15,118,110,.35); color:var(--green)}
+    .btn-outline:hover{border-color:rgba(15,118,110,.6)}
+    .btn-link{color:var(--green); font-weight:600}
+    .btn-link:hover{text-decoration:underline}
+
+    .section{padding:72px 0}
+    .section.alt{background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border)}
+    .hero{
+      padding:72px 0 56px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:40px;
+      align-items:center;
+    }
+    .kicker{
+      color:var(--green);
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin:0 0 10px;
+    }
+    h1{
+      font-size:44px;
+      line-height:1.08;
+      margin:0 0 14px;
+      letter-spacing:-.02em;
+    }
+    .lead{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size:18px;
+      max-width:54ch;
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap}
+    .hero-card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      background:#fff;
+      padding:18px;
+    }
+    .svg-box{
+      width:100%;
+      aspect-ratio: 4 / 3;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:
+        radial-gradient(600px 280px at 35% 25%, rgba(15,118,110,.16), transparent 60%),
+        radial-gradient(420px 240px at 70% 65%, rgba(45,212,191,.14), transparent 58%),
+        #fff;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:18px 18px 16px;
+      box-shadow: 0 6px 18px rgba(2,6,23,.05);
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .card .icon{
+      width:34px;height:34px;border-radius:12px;
+      background:rgba(15,118,110,.10);
+      border:1px solid rgba(15,118,110,.20);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:10px;
+      color:var(--green);
+      font-weight:800;
+    }
+
+    .h2{font-size:28px; margin:0 0 10px; letter-spacing:-.01em}
+    .sub{margin:0 0 22px; color:var(--muted); max-width:70ch}
+    .flow{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .step{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px;
+    }
+    .step .n{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:26px; height:26px; border-radius:10px;
+      background:rgba(15,118,110,.10);
+      border:1px solid rgba(15,118,110,.20);
+      color:var(--green);
+      font-weight:800;
+      margin-bottom:10px;
+      font-size:12px;
+    }
+    .step h4{margin:0 0 6px; font-size:15px}
+    .step p{margin:0; color:var(--muted); font-size:14px}
+
+    .cols-3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+    .colbox{
+      padding:14px 6px;
+    }
+    .colbox h4{margin:0 0 6px; font-size:15px}
+    .colbox p{margin:0; color:var(--muted); font-size:14px}
+    .support-line{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .bullets{
+      margin:16px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      max-width:860px;
+    }
+    .bullets li{
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .check{
+      margin-top:3px;
+      width:16px;height:16px;border-radius:6px;
+      background:rgba(15,118,110,.10);
+      border:1px solid rgba(15,118,110,.22);
+      flex:0 0 16px;
+    }
+
+    .cta{
+      text-align:center;
+      padding:56px 0;
+    }
+    .cta h2{margin:0 0 10px; font-size:30px; letter-spacing:-.01em}
+    .cta p{margin:0 auto 18px; color:var(--muted); max-width:68ch}
+    .cta-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+    footer{
+      background:var(--dark);
+      color:#fff;
+      padding:44px 0;
+    }
+    .foot{
+      display:grid;
+      grid-template-columns: 1.2fr .9fr .9fr;
+      gap:22px;
+    }
+    .foot h4{margin:0 0 10px; font-size:14px; color:rgba(255,255,255,.92)}
+    .foot a{display:block; color:rgba(255,255,255,.72); margin:8px 0; font-size:14px}
+    .foot a:hover{color:#fff}
+    .foot p{margin:10px 0 0; color:rgba(255,255,255,.72); font-size:14px}
+    .copy{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.62);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr; gap:18px}
+      h1{font-size:36px}
+      .grid-3, .flow, .cols-3{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>LedgerHaul</span>
+      </a>
+
+      <div class="nav-links" aria-label="Primary">
+        <a href="./product.html">Product</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./contact.html">Contact</a>
+      </div>
+
+      <div class="nav-cta">
+        <a class="btn btn-outline" href="./contact.html">Contact Sales</a>
+        <a class="btn btn-primary" href="./pricing.html">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">Cloud-based payroll infrastructure</p>
+      <div class="hero-grid">
+        <div>
+          <h1>Payroll and contractor management for growing businesses</h1>
+          <p class="lead">LedgerHaul simplifies payroll, settlements, and subscriptions so teams can scale with confidence.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="./pricing.html">Get Started</a>
+            <a class="btn btn-outline" href="./contact.html">Contact Sales</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <div class="svg-box">
+            <!-- abstract graphic (no images) -->
+            <svg viewBox="0 0 520 380" width="100%" height="100%" role="img" aria-label="Abstract ledger flow">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(15,118,110,.85)"/>
+                  <stop offset="1" stop-color="rgba(45,212,191,.75)"/>
+                </linearGradient>
+              </defs>
+
+              <rect x="70" y="85" width="170" height="70" rx="14" fill="rgba(15,118,110,.10)" stroke="rgba(15,118,110,.25)"/>
+              <rect x="280" y="75" width="170" height="80" rx="14" fill="rgba(45,212,191,.10)" stroke="rgba(15,118,110,.18)"/>
+              <rect x="95" y="210" width="170" height="80" rx="14" fill="rgba(2,6,23,.03)" stroke="rgba(15,118,110,.18)"/>
+              <rect x="305" y="220" width="145" height="70" rx="14" fill="rgba(2,6,23,.03)" stroke="rgba(15,118,110,.18)"/>
+
+              <path d="M240 120 C265 120, 275 115, 280 115" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M180 155 C180 185, 180 195, 180 210" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M365 155 C365 190, 365 205, 365 220" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M265 250 C290 250, 300 255, 305 255" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+
+              <circle cx="240" cy="120" r="6" fill="rgba(15,118,110,.85)"/>
+              <circle cx="280" cy="115" r="6" fill="rgba(15,118,110,.85)"/>
+              <circle cx="180" cy="210" r="6" fill="rgba(15,118,110,.85)"/>
+              <circle cx="365" cy="220" r="6" fill="rgba(15,118,110,.85)"/>
+              <circle cx="305" cy="255" r="6" fill="rgba(15,118,110,.85)"/>
+
+              <text x="92" y="128" font-family="Inter, Arial" font-size="13" fill="rgba(71,85,105,.9)">Payroll rules</text>
+              <text x="302" y="120" font-family="Inter, Arial" font-size="13" fill="rgba(71,85,105,.9)">Subscriptions</text>
+              <text x="116" y="255" font-family="Inter, Arial" font-size="13" fill="rgba(71,85,105,.9)">Settlements</text>
+              <text x="322" y="260" font-family="Inter, Arial" font-size="13" fill="rgba(71,85,105,.9)">Access</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHAT IT DOES -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Everything you need to manage payroll and payments as you grow</h2>
+      <p class="sub">LedgerHaul provides a structured backend for payroll calculations, billing enforcement, and integrations—built for clarity and consistency.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon">1</div>
+          <h3>Payroll &amp; Settlements</h3>
+          <p>Payroll and contractor settlements with support for multiple pay models, accessorials, and deductions.</p>
+        </div>
+        <div class="card">
+          <div class="icon">2</div>
+          <h3>Billing &amp; Subscriptions</h3>
+          <p>Subscription billing with per-employee pricing, automated access control, and payment enforcement.</p>
+        </div>
+        <div class="card">
+          <div class="icon">3</div>
+          <h3>Integrations &amp; Control</h3>
+          <p>Integrated backend services for payroll and payments, designed to fit into existing operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section alt">
+    <div class="wrap">
+      <h2 class="h2">Designed to fit into your operation</h2>
+
+      <div class="flow">
+        <div class="step">
+          <div class="n">1</div>
+          <h4>Configure</h4>
+          <p>Set up pay rules, subscriptions, and integrations based on how your business operates.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h4>Run</h4>
+          <p>Process payroll logic, settlements, and billing automatically in the background.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h4>Stay in control</h4>
+          <p>Maintain visibility, enforce access, and scale without changing systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Built for teams that are scaling</h2>
+
+      <div class="cols-3">
+        <div class="colbox">
+          <h4>Operators</h4>
+          <p>Teams managing payroll, contractors, and payments across day-to-day operations.</p>
+        </div>
+        <div class="colbox">
+          <h4>Finance &amp; Admin</h4>
+          <p>Staff responsible for accuracy, compliance, and payment visibility.</p>
+        </div>
+        <div class="colbox">
+          <h4>Owners &amp; Leaders</h4>
+          <p>Decision-makers who need control, clarity, and systems that grow with the business.</p>
+        </div>
+      </div>
+
+      <p class="support-line">LedgerHaul supports growing organizations without locking you into rigid workflows.</p>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Built with security and compliance in mind</h2>
+      <ul class="bullets">
+        <li><span class="check" aria-hidden="true"></span> Secure payment processing and subscription enforcement</li>
+        <li><span class="check" aria-hidden="true"></span> OAuth-based payroll integrations</li>
+        <li><span class="check" aria-hidden="true"></span> Audit-safe payroll and settlement calculations</li>
+        <li><span class="check" aria-hidden="true"></span> Environment-driven configuration for production use</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section alt">
+    <div class="wrap cta">
+      <h2>Ready to simplify payroll and settlements?</h2>
+      <p>LedgerHaul gives growing teams the structure they need to scale with confidence.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="./pricing.html">Get Started</a>
+        <a class="btn btn-outline" href="./contact.html">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <div class="brand" style="gap:10px;">
+            <span class="brand-badge" aria-hidden="true"></span>
+            <span>LedgerHaul</span>
+          </div>
+          <p>Cloud-hosted backend service for payroll and contractor management.</p>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <a href="./product.html">Product</a>
+          <a href="./pricing.html">Pricing</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+
+        <div>
+          <h4>Legal</h4>
+          <a href="./privacy.html">Privacy Policy</a>
+          <a href="./terms.html">Terms of Service</a>
+          <a href="./refund.html">Refund Policy</a>
+        </div>
+      </div>
+
+      <div class="copy">
+        <span>© LedgerHaul. All rights reserved.</span>
+        <span>Built for clarity, control, and scale.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
