@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing | LedgerHaul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#0F766E;
+      --text:#0B1220;
+      --muted:#475569;
+      --border:#E5E7EB;
+      --bg:#FFFFFF;
+      --bg-alt:#F8FAFC;
+      --max:1120px;
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.55;
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    header{border-bottom:1px solid var(--border)}
+    header .wrap{display:flex;align-items:center;height:72px;font-weight:700}
+    main{padding:72px 0}
+    h1{font-size:36px;margin:0 0 14px;letter-spacing:-.02em}
+    p{margin:0;color:var(--muted);max-width:72ch}
+    .card{
+      margin-top:32px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:32px;
+      background:var(--bg-alt);
+    }
+    .cta{
+      margin-top:24px;
+    }
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:600;
+      background:var(--green);
+      color:#fff;
+    }
+    footer{border-top:1px solid var(--border);padding:32px 0;color:var(--muted);font-size:14px}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">LedgerHaul</div>
+  </header>
+
+  <main class="wrap">
+    <h1>Pricing</h1>
+    <p>
+      Pricing is structured to scale with your team. Final pricing details are
+      provided during setup or by contacting sales.
+    </p>
+
+    <div class="card">
+      <p>
+        LedgerHaul offers flexible plans designed to support payroll,
+        settlements, and billing as your business grows.
+      </p>
+
+      <div class="cta">
+        <a class="btn" href="./contact.html">Contact Sales</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © LedgerHaul. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
