@@ -1,11 +1,143 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Product | LedgerHaul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#0F766E;
+      --text:#0B1220;
+      --muted:#475569;
+      --border:#E5E7EB;
+      --bg:#FFFFFF;
+      --bg-alt:#F8FAFC;
+      --max:1120px;
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.55;
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    header{border-bottom:1px solid var(--border)}
+    header .wrap{display:flex;align-items:center;height:72px;font-weight:700}
+    main{padding:72px 0}
+    section{margin-bottom:72px}
+    h1{font-size:36px;margin:0 0 14px;letter-spacing:-.02em}
+    h2{font-size:28px;margin:0 0 12px;letter-spacing:-.01em}
+    h3{font-size:18px;margin:0 0 6px}
+    p{margin:0;color:var(--muted);max-width:72ch}
+    ul{margin:16px 0 0;padding-left:18px;color:var(--muted)}
+    li{margin-bottom:8px}
+    .alt{background:var(--bg-alt);padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    footer{border-top:1px solid var(--border);padding:32px 0;color:var(--muted);font-size:14px}
+  </style>
 </head>
+
 <body>
-  <h1>Product</h1>
-  <p>LedgerHaul product details coming soon.</p>
+  <header>
+    <div class="wrap">LedgerHaul</div>
+  </header>
+
+  <main class="wrap">
+
+    <section>
+      <h1>Product</h1>
+      <p>
+        LedgerHaul provides a backend system for managing payroll logic,
+        contractor settlements, and subscription enforcement. It is designed
+        to integrate with existing operations and scale as complexity increases.
+      </p>
+    </section>
+
+    <section>
+      <h2>Payroll and settlements, handled cleanly</h2>
+      <p>
+        LedgerHaul supports multiple payroll models and settlement structures
+        without forcing rigid workflows. Pay logic runs consistently in the
+        background, producing clear gross-to-net results.
+      </p>
+      <ul>
+        <li>Per-mile, flat-rate, and percentage-based pay</li>
+        <li>Accessorials and adjustments</li>
+        <li>Deductions and offsets</li>
+        <li>Gross-to-net settlement output</li>
+        <li>Audit-safe line item tracking</li>
+      </ul>
+    </section>
+
+    <section class="alt">
+      <h2>Billing and subscriptions without friction</h2>
+      <p>
+        LedgerHaul manages subscription billing and access control in the
+        background, ensuring features remain aligned with plan status.
+        Billing logic is enforced automatically so teams don’t have to
+        monitor it manually.
+      </p>
+      <ul>
+        <li>Subscription billing with per-employee scaling</li>
+        <li>Automated access control by plan</li>
+        <li>Payment status enforcement</li>
+        <li>Webhook-driven subscription state tracking</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Integrations that fit your stack</h2>
+      <p>
+        LedgerHaul is designed to integrate with existing payroll and billing
+        providers, allowing teams to connect core systems without reworking
+        their operations.
+      </p>
+      <ul>
+        <li>Payroll integration via OAuth</li>
+        <li>Stripe-based billing and payments</li>
+        <li>Secure token handling</li>
+        <li>API-first architecture for extensibility</li>
+      </ul>
+    </section>
+
+    <section class="alt">
+      <h2>Clear visibility and control</h2>
+      <p>
+        LedgerHaul provides clear insight into payroll activity, settlements,
+        and subscription status. Information is organized so teams can
+        understand what’s happening without digging through systems or
+        spreadsheets.
+      </p>
+      <ul>
+        <li>Clear gross-to-net summaries</li>
+        <li>Subscription and access visibility</li>
+        <li>Predictable system behavior</li>
+        <li>Reduced manual oversight</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Built to support growth without added complexity</h2>
+      <p>
+        LedgerHaul brings payroll logic, settlements, and billing together in
+        a structured backend system. It’s designed to support growing teams
+        with clear rules, predictable behavior, and integrations that fit
+        into existing operations.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © LedgerHaul. All rights reserved.
+    </div>
+  </footer>
 </body>
 </html>
