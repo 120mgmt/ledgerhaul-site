@@ -1,3 +1,4 @@
+<!-- File: public/app/signup.html -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -26,9 +27,6 @@
       <h1>Create your LedgerHaul account</h1>
       <p>This creates a user in the live backend and triggers your verification email.</p>
 
-      <label for="apiBase">API Base URL</label>
-      <input id="apiBase" type="url" placeholder="https://your-backend-domain" />
-
       <div class="row">
         <div>
           <label for="company">Company name</label>
@@ -47,44 +45,35 @@
       <div id="out" class="msg" style="display:none;"></div>
 
       <div class="muted">
-        If you already have an account, use your login page (if present) or contact support.
-      </div>
-      <div class="muted">
         Legal: <a class="link" href="/legal/terms.html">Terms</a> · <a class="link" href="/legal/privacy.html">Privacy</a> · <a class="link" href="/legal/refund.html">Refund</a>
       </div>
     </div>
 
     <script>
       (function () {
-        const apiBaseEl = document.getElementById("apiBase");
         const companyEl = document.getElementById("company");
         const emailEl = document.getElementById("email");
         const passwordEl = document.getElementById("password");
         const outEl = document.getElementById("out");
         const btn = document.getElementById("submitBtn");
 
-        // Default API base to current origin if you proxy API behind the same domain;
-        // otherwise paste your live backend base URL.
-        apiBaseEl.value = "";
+        // Production default API base (override via ?api=https://your-backend)
+        // Example: https://ledgerhaul.com/app/signup.html?api=https://freightpay.onrender.com
+        const qs = new URLSearchParams(window.location.search);
+        const API_BASE = (qs.get("api") || "https://freightpay.onrender.com").trim().replace(/\/+$/, "");
 
         function show(msg) {
           outEl.style.display = "block";
           outEl.textContent = msg;
         }
 
-        function normBase(u) {
-          return (u || "").trim().replace(/\/+$/, "");
-        }
-
         btn.addEventListener("click", async () => {
-          const apiBase = normBase(apiBaseEl.value);
           const company_name = (companyEl.value || "").trim();
           const email = (emailEl.value || "").trim();
           const password = (passwordEl.value || "");
 
           outEl.style.display = "none";
 
-          if (!apiBase) return show("Missing API Base URL. Paste your live backend base URL.");
           if (!company_name) return show("Missing company name.");
           if (!email) return show("Missing email.");
           if (!password || password.length < 8) return show("Password must be at least 8 characters.");
@@ -92,7 +81,7 @@
           btn.disabled = true;
 
           try {
-            const res = await fetch(apiBase + "/auth/register", {
+            const res = await fetch(API_BASE + "/auth/register", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ company_name, email, password })
@@ -103,7 +92,7 @@
             try { payload = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
 
             if (res.ok) {
-              show("SUCCESS\n\n" + payload + "\n\nIf email verification is enabled, check inbox/spam for the verification email.");
+              show("SUCCESS\n\n" + payload + "\n\nCheck inbox/spam for the verification email.");
             } else {
               show("FAILED (" + res.status + ")\n\n" + payload);
             }
