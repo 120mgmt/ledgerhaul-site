@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sign in | LedgerHaul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sign in to your LedgerHaul account." />
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0e1f17;
+      color: #f4fff9;
+    }
+    a { color: #37d18c; text-decoration: none; }
+
+    .wrap {
+      max-width: 420px;
+      margin: 120px auto;
+      padding: 36px;
+      background: #13261e;
+      border: 1px solid #214536;
+      border-radius: 16px;
+    }
+
+    h1 { margin: 0 0 12px; font-size: 26px; }
+    p { margin: 0 0 22px; color: #cfe6db; font-size: 14px; }
+
+    label { display: block; font-size: 13px; color: #cfe6db; margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      border: 1px solid #214536;
+      background: #0e1f17;
+      color: #ffffff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      background: #37d18c;
+      color: #0b140f;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .7; }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #cfe6db;
+    }
+
+    .error { margin-top: 12px; font-size: 13px; color: #ffb4b4; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Sign in</h1>
+    <p>Access your LedgerHaul account.</p>
+
+    <form id="loginForm">
+      <label>Email</label>
+      <input id="email" type="email" required />
+
+      <label>Password</label>
+      <input id="password" type="password" required />
+
+      <button id="btn">Sign in</button>
+      <div id="error" class="error"></div>
+    </form>
+
+    <div class="row">
+      <a href="/app/forgot-password.html">Forgot password?</a>
+      <a href="/app/signup.html">Create account</a>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "https://YOUR-BACKEND-RENDER-URL";
+    const form = document.getElementById("loginForm");
+    const err = document.getElementById("error");
+    const btn = document.getElementById("btn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      err.textContent = "";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: document.getElementById("email").value.trim(),
+            password: document.getElementById("password").value
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Login failed");
+
+        localStorage.setItem("ledgerhaul_token", data.access_token);
+        window.location.href = "/app/";
+      } catch (e) {
+        err.textContent = e.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
