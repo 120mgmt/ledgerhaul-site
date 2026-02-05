@@ -1,108 +1,159 @@
-<!-- File: public/app/signup.html -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>LedgerHaul — Create Account</title>
-    <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background:#0b0f14; color:#e9eef5; }
-      .wrap { max-width: 560px; margin: 48px auto; padding: 24px; background:#121a24; border:1px solid #223044; border-radius: 12px; }
-      h1 { margin: 0 0 12px; font-size: 22px; }
-      p { margin: 0 0 18px; color:#b8c6d9; font-size: 14px; line-height: 1.4; }
-      label { display:block; margin: 12px 0 6px; font-size: 13px; color:#cfe0f5; }
-      input { width:100%; padding: 11px 12px; border-radius: 10px; border:1px solid #2a3a52; background:#0b0f14; color:#e9eef5; font-size:14px; }
-      button { margin-top: 16px; width:100%; padding: 12px 14px; border-radius: 10px; border:0; background:#2d6cdf; color:white; font-weight:600; font-size: 14px; cursor:pointer; }
-      button:disabled { opacity: .6; cursor:not-allowed; }
-      .row { display:flex; gap: 10px; }
-      .row > div { flex: 1; }
-      .msg { margin-top: 14px; padding: 10px 12px; border-radius: 10px; border:1px solid #2a3a52; background:#0b0f14; font-size: 13px; white-space: pre-wrap; }
-      .muted { margin-top: 14px; font-size: 12px; color:#9bb0c9; }
-      .link { color:#a9c7ff; text-decoration: none; }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <title>Create LedgerHaul Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <body>
-    <div class="wrap">
-      <h1>Create your LedgerHaul account</h1>
-      <p>This creates a user in the live backend and triggers your verification email.</p>
+  <style>
+    * { box-sizing: border-box; }
 
-      <div class="row">
-        <div>
-          <label for="company">Company name</label>
-          <input id="company" type="text" placeholder="CNB Logistics LLC" />
-        </div>
-      </div>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0e1f17;
+      color: #f4fff9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="you@company.com" />
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: #13261e;
+      border: 1px solid #214536;
+      border-radius: 16px;
+      padding: 36px;
+    }
 
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Create a strong password" />
+    h1 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 28px;
+      color: #ffffff;
+    }
 
-      <button id="submitBtn" type="button">Create account</button>
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #cfe6db;
+    }
 
-      <div id="out" class="msg" style="display:none;"></div>
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #2a4b3a;
+      background: #0e1f17;
+      color: #ffffff;
+      font-size: 14px;
+    }
 
-      <div class="muted">
-        Legal: <a class="link" href="/legal/terms.html">Terms</a> · <a class="link" href="/legal/privacy.html">Privacy</a> · <a class="link" href="/legal/refund.html">Refund</a>
-      </div>
+    input:focus {
+      outline: none;
+      border-color: #37d18c;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      background: #37d18c;
+      color: #0b140f;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .error {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #ff9b9b;
+    }
+
+    .legal {
+      margin-top: 28px;
+      font-size: 12px;
+      color: #a8c7bb;
+      text-align: center;
+    }
+
+    .legal a {
+      color: #a8c7bb;
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Create your LedgerHaul account</h1>
+
+    <form id="signup-form">
+      <label>Company name</label>
+      <input id="company" required />
+
+      <label>Email</label>
+      <input id="email" type="email" required />
+
+      <label>Password</label>
+      <input id="password" type="password" required />
+
+      <button type="submit">Create account</button>
+    </form>
+
+    <div id="error" class="error"></div>
+
+    <div class="legal">
+      <a href="/legal/terms.html">Terms</a> ·
+      <a href="/legal/privacy.html">Privacy</a> ·
+      <a href="/legal/refund.html">Refund</a>
     </div>
+  </div>
 
-    <script>
-      (function () {
-        const companyEl = document.getElementById("company");
-        const emailEl = document.getElementById("email");
-        const passwordEl = document.getElementById("password");
-        const outEl = document.getElementById("out");
-        const btn = document.getElementById("submitBtn");
+  <script>
+    const API_BASE = "https://api.ledgerhaul.com";
 
-        // Production default API base (override via ?api=https://your-backend)
-        // Example: https://ledgerhaul.com/app/signup.html?api=https://freightpay.onrender.com
-        const qs = new URLSearchParams(window.location.search);
-        const API_BASE = (qs.get("api") || "https://freightpay.onrender.com").trim().replace(/\/+$/, "");
+    document.getElementById("signup-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        function show(msg) {
-          outEl.style.display = "block";
-          outEl.textContent = msg;
+      const company = document.getElementById("company").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const errorEl = document.getElementById("error");
+      errorEl.textContent = "";
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ company, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || "Signup failed");
         }
 
-        btn.addEventListener("click", async () => {
-          const company_name = (companyEl.value || "").trim();
-          const email = (emailEl.value || "").trim();
-          const password = (passwordEl.value || "");
-
-          outEl.style.display = "none";
-
-          if (!company_name) return show("Missing company name.");
-          if (!email) return show("Missing email.");
-          if (!password || password.length < 8) return show("Password must be at least 8 characters.");
-
-          btn.disabled = true;
-
-          try {
-            const res = await fetch(API_BASE + "/auth/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ company_name, email, password })
-            });
-
-            const text = await res.text();
-            let payload = text;
-            try { payload = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
-
-            if (res.ok) {
-              show("SUCCESS\n\n" + payload + "\n\nCheck inbox/spam for the verification email.");
-            } else {
-              show("FAILED (" + res.status + ")\n\n" + payload);
-            }
-          } catch (err) {
-            show("ERROR\n\n" + String(err));
-          } finally {
-            btn.disabled = false;
-          }
-        });
-      })();
-    </script>
-  </body>
+        window.location.href = "/app/check-email.html";
+      } catch (err) {
+        errorEl.textContent = err.message;
+      }
+    });
+  </script>
+</body>
 </html>
+
+
+       
