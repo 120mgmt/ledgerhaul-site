@@ -1,13 +1,16 @@
+<!-- File: public/app/signup.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Create LedgerHaul Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <!-- Optional override without code edits -->
+  <meta name="ledgerhaul-api-base" content="" />
 
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -17,143 +20,172 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      padding: 22px;
     }
-
     .card {
       width: 100%;
-      max-width: 520px;
+      max-width: 560px;
       background: #13261e;
       border: 1px solid #214536;
-      border-radius: 16px;
-      padding: 36px;
+      border-radius: 18px;
+      padding: 38px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
     }
-
-    h1 {
-      margin-top: 0;
-      margin-bottom: 24px;
-      font-size: 28px;
-      color: #ffffff;
+    .brand { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px; }
+    .logo { font-weight: 800; letter-spacing: .4px; color:#37d18c; font-size:18px; }
+    .pill {
+      font-size: 12px; color:#cfe6db; border:1px solid #214536;
+      padding:6px 10px; border-radius:999px; background:rgba(14,31,23,.35);
     }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-      color: #cfe6db;
-    }
-
+    h1 { margin: 0 0 10px 0; font-size: 30px; color:#fff; line-height:1.15; }
+    .sub { margin: 0 0 26px 0; color:#cfe6db; font-size:14px; line-height:1.6; }
+    label { display:block; margin-bottom:8px; font-size:13px; color:#cfe6db; }
     input {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 18px;
-      border-radius: 10px;
-      border: 1px solid #2a4b3a;
-      background: #0e1f17;
-      color: #ffffff;
-      font-size: 14px;
+      width:100%; padding:14px; margin-bottom:18px; border-radius:12px;
+      border:1px solid #2a4b3a; background:#0e1f17; color:#fff; font-size:15px;
     }
-
-    input:focus {
-      outline: none;
-      border-color: #37d18c;
-    }
-
+    input:focus { outline:none; border-color:#37d18c; box-shadow:0 0 0 3px rgba(55,209,140,.15); }
     button {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: none;
-      background: #37d18c;
-      color: #0b140f;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
+      width:100%; padding:16px; border-radius:14px; border:none;
+      background:#37d18c; color:#0b140f; font-size:15px; font-weight:800; cursor:pointer;
     }
-
-    button:hover {
-      opacity: 0.95;
+    button:disabled { opacity:.65; cursor:not-allowed; }
+    .error { margin-top:16px; font-size:13px; color:#ff9b9b; min-height:18px; }
+    .ok { margin-top:16px; font-size:13px; color:#9ff2c9; min-height:18px; }
+    .links {
+      margin-top:22px; display:flex; justify-content:space-between; gap:12px;
+      flex-wrap:wrap; font-size:13px; color:#a8c7bb;
     }
-
-    .error {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #ff9b9b;
-    }
-
-    .legal {
-      margin-top: 28px;
-      font-size: 12px;
-      color: #a8c7bb;
-      text-align: center;
-    }
-
-    .legal a {
-      color: #a8c7bb;
-      margin: 0 6px;
-    }
+    .links a { color:#a8c7bb; text-decoration:underline; }
+    .links a:hover { color:#fff; }
+    .legal { margin-top:26px; font-size:12px; color:#a8c7bb; text-align:center; }
+    .legal a { color:#a8c7bb; margin:0 6px; text-decoration:underline; }
+    .legal a:hover { color:#fff; }
   </style>
 </head>
 
 <body>
   <div class="card">
+    <div class="brand">
+      <div class="logo">LedgerHaul</div>
+      <div class="pill">Secure account creation</div>
+    </div>
+
     <h1>Create your LedgerHaul account</h1>
+    <p class="sub">This creates your account in the live platform and triggers a verification email.</p>
 
     <form id="signup-form">
-      <label>Company name</label>
-      <input id="company" required />
+      <label for="company">Company name</label>
+      <input id="company" name="company" autocomplete="organization" required />
 
-      <label>Email</label>
-      <input id="email" type="email" required />
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
 
-      <label>Password</label>
-      <input id="password" type="password" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required />
 
-      <button type="submit">Create account</button>
+      <button id="submitBtn" type="submit">Create account</button>
     </form>
 
     <div id="error" class="error"></div>
+    <div id="ok" class="ok"></div>
+
+    <div class="links">
+      <a href="/app/login.html">Already have an account? Log in</a>
+      <a href="/app/forgot-password.html">Forgot password</a>
+    </div>
 
     <div class="legal">
+      <span>Legal:</span>
       <a href="/legal/terms.html">Terms</a> ·
       <a href="/legal/privacy.html">Privacy</a> ·
       <a href="/legal/refund.html">Refund</a>
     </div>
   </div>
 
-  <script>
-    const API_BASE = "https://api.ledgerhaul.com";
+  <script src="/assets/js/config.js"></script>
 
-    document.getElementById("signup-form").addEventListener("submit", async (e) => {
+  <script>
+    const API_BASE = (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL) ? window.LH_CONFIG.API_BASE_URL : "https://api.ledgerhaul.com";
+
+    const form = document.getElementById("signup-form");
+    const errorEl = document.getElementById("error");
+    const okEl = document.getElementById("ok");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch { return null; }
+    }
+
+    async function postJson(url, payload) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const raw = await res.text();
+      const json = safeJsonParse(raw);
+
+      return { ok: res.ok, status: res.status, json, raw };
+    }
+
+    async function trySignup(company, email, password) {
+      const endpoints = [
+        `${API_BASE}/auth/register`,
+        `${API_BASE}/auth/signup`
+      ];
+
+      const payloads = [
+        { company, email, password },
+        { company_name: company, email, password },
+        { organization_name: company, email, password },
+        { company, company_name: company, organization_name: company, email, password }
+      ];
+
+      let lastError = null;
+
+      for (const endpoint of endpoints) {
+        for (const payload of payloads) {
+          const r = await postJson(endpoint, payload);
+
+          if (r.ok) return;
+
+          const msg =
+            (r.json && (r.json.error || r.json.message || r.json.detail)) ||
+            (r.raw && r.raw.trim()) ||
+            `Signup failed (${r.status})`;
+
+          lastError = msg;
+        }
+      }
+
+      throw new Error(lastError || "Signup failed");
+    }
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      errorEl.textContent = "";
+      okEl.textContent = "";
 
       const company = document.getElementById("company").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
-      const errorEl = document.getElementById("error");
-      errorEl.textContent = "";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating…";
 
       try {
-        const res = await fetch(`${API_BASE}/auth/signup`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ company, email, password })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.error || "Signup failed");
-        }
-
+        await trySignup(company, email, password);
+        okEl.textContent = "Account created. Check your email for the verification link.";
         window.location.href = "/app/check-email.html";
       } catch (err) {
-        errorEl.textContent = err.message;
+        errorEl.textContent = (err && err.message) ? err.message : "Load failed";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create account";
       }
     });
   </script>
 </body>
 </html>
-
-
-       
