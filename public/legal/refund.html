@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Refund Policy | LedgerHaul</title>
+    <title>Refund & Billing Policy | LedgerHaul</title>
     <style>
       :root { color-scheme: light; }
       body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.55; color: #111827; background: #ffffff; }
@@ -26,66 +26,82 @@
 
   <body>
     <main class="wrap">
-      <h1>Refund Policy</h1>
+      <h1>Refund &amp; Billing Policy</h1>
       <p class="meta">
-        Effective Date: <strong>{{ effective_date or "2026-01-26" }}</strong><br />
+        Effective Date: <strong>{{ effective_date or "2026-02-08" }}</strong><br />
         Company: <strong>{{ company_name or "LedgerHaul" }}</strong>
       </p>
 
       <div class="callout">
-        <strong>Summary:</strong> LedgerHaul is a subscription software service. Refund eligibility depends on billing type,
-        timing, and account status as described below.
+        <strong>Summary:</strong> LedgerHaul is a subscription software service. Subscription fees are generally non-refundable once a billing period begins.
+        Fees tied to processing, payroll execution, filings facilitation, payment transmission, and third-party services are non-refundable once initiated.
       </div>
 
       <h2>1) Subscription Fees</h2>
       <p>
         Subscription fees are charged in advance for the billing period shown at checkout (monthly or annual, if offered).
-        Unless required by law, subscription fees are generally <strong>non-refundable</strong> once a billing period begins.
+        Unless required by law, subscription fees are <strong>non-refundable</strong> once a billing period begins, including in cases of partial use,
+        early cancellation, or unused time.
       </p>
 
       <h2>2) Trials and First-Time Subscriptions</h2>
       <ul>
-        <li>If a free trial is offered, you may cancel before the trial ends to avoid charges.</li>
-        <li>If you are charged due to forgetting to cancel before trial end, refunds are not guaranteed.</li>
+        <li>If a free or discounted trial is offered, you may cancel before the trial ends to avoid charges.</li>
+        <li>If you are charged because you did not cancel before the trial ends, refunds are not guaranteed.</li>
+        <li>Where required by applicable law, we will honor mandatory cancellation/refund rights.</li>
       </ul>
 
-      <h2>3) Upgrade / Downgrade</h2>
+      <h2>3) Processing, Payroll, and Third-Party Fees</h2>
+      <p>
+        Certain Service features may initiate processing events, including but not limited to payment processing, ACH or banking network instructions,
+        payroll execution, document generation, or filings facilitation via third-party providers.
+      </p>
+      <p>
+        <strong>All such fees are non-refundable once processing has commenced</strong>, including in cases where results are delayed, rejected,
+        reversed, or impacted by third-party outages, bank rules, insufficient funds, incorrect input, authorization issues, or other conditions outside
+        our control.
+      </p>
+
+      <h2>4) Upgrade / Downgrade</h2>
       <ul>
-        <li>Upgrades may take effect immediately. Any proration is handled by the payment processor (Stripe) based on your plan configuration.</li>
+        <li>Upgrades may take effect immediately. Any proration is handled by the payment processor (e.g., Stripe) based on your plan configuration.</li>
         <li>Downgrades generally take effect at the next renewal unless stated otherwise during plan change.</li>
+        <li>Plan changes do not automatically create refund rights for previously paid amounts.</li>
       </ul>
 
-      <h2>4) Cancellation</h2>
+      <h2>5) Cancellation</h2>
       <p>
         You may cancel at any time. Cancellation stops future renewals, but does not automatically refund fees already paid.
-        Your access remains active through the end of the current paid period unless your account is suspended for policy violations.
+        Your access remains active through the end of the current paid period unless your account is suspended for policy violations,
+        non-payment, chargeback risk, fraud prevention, or legal compliance requirements.
       </p>
 
-      <h2>5) Payment Disputes and Chargebacks</h2>
+      <h2>6) Payment Disputes and Chargebacks</h2>
       <p>
         If you initiate a chargeback or payment dispute, we may suspend service access while the dispute is investigated.
-        Repeated disputes or fraud indicators may result in account termination.
+        You remain responsible for amounts due under your subscription and for any fees or costs incurred by us as a result of the dispute.
+        Repeated disputes, suspected fraud, or abuse indicators may result in account termination.
       </p>
 
-      <h2>6) Exceptional Refunds (Case-by-Case)</h2>
+      <h2>7) Exceptional Refunds (Case-by-Case)</h2>
       <p>
-        We may consider a refund in limited cases, for example:
+        We may consider a refund or credit in limited cases, at our discretion, for example:
       </p>
       <ul>
-        <li>Duplicate charges confirmed on the same billing period.</li>
-        <li>Billing errors caused by a system malfunction verified by our logs.</li>
-        <li>Other scenarios required by applicable law.</li>
+        <li>Duplicate subscription charges confirmed for the same billing period.</li>
+        <li>Billing errors caused by a verified system malfunction supported by our logs.</li>
+        <li>Refunds required by applicable law.</li>
       </ul>
       <p>
-        Any approved refund is issued to the original payment method and may take several business days to post depending on your bank.
+        Any approved refund is issued to the original payment method. Posting times depend on your bank or payment method and may take several business days.
       </p>
 
-      <h2>7) Taxes and Third-Party Fees</h2>
+      <h2>8) Taxes and Governmental Fees</h2>
       <p>
         Taxes, governmental fees, and third-party processing fees are generally non-refundable unless required by law.
       </p>
 
-      <h2>8) How to Request a Refund Review</h2>
+      <h2>9) How to Request a Refund Review</h2>
       <p>
         To request a refund review, contact support and include:
       </p>
@@ -96,15 +112,18 @@
         <li>Reason for request</li>
       </ul>
 
+      <h2>10) Policy Relationship</h2>
+      <p>
+        This policy is incorporated by reference into our Terms of Service. In the event of conflict, the Terms of Service controls unless prohibited by law.
+      </p>
+
       <hr />
 
       <footer>
         <p>
-          This Refund Policy is provided for transparency and operational clarity. It does not limit any rights you may have under applicable law.
+          This Refund &amp; Billing Policy is provided for transparency and operational clarity. It does not limit any rights you may have under applicable law.
         </p>
       </footer>
     </main>
   </body>
 </html>
-
-  
