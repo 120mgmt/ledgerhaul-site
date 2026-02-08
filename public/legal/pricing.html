@@ -73,12 +73,37 @@
       color:#fff;
     }
 
+    .disclaimer{
+      margin-top:18px;
+      font-size:14px;
+      color:var(--muted);
+      max-width:72ch;
+    }
+
     footer{
       border-top:1px solid var(--border);
       padding:32px 0;
       color:var(--muted);
       font-size:14px;
     }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .footer-links{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .footer-links a{
+      color:var(--muted);
+      text-decoration:underline;
+      text-underline-offset:3px;
+    }
+    .footer-links a:hover{color:var(--text)}
   </style>
 </head>
 
@@ -108,13 +133,26 @@
       settlements, and billing as your business grows.
     </p>
 
+    <p class="disclaimer">
+      Pricing and features may vary by plan and may change over time. Taxes, third-party processing fees, and optional add-ons may apply.
+      Payroll facilitation and payment processing may involve third-party providers subject to their terms.
+    </p>
+
     <a class="btn" href="./contact.html">Contact Sales</a>
   </div>
 </main>
 
 <footer>
   <div class="wrap">
-    © LedgerHaul. All rights reserved.
+    <div class="footer-row">
+      <div>© LedgerHaul. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="./legal/terms.html">Terms</a>
+        <a href="./legal/privacy.html">Privacy</a>
+        <a href="./legal/refund.html">Refund &amp; Billing</a>
+        <a href="./legal/acceptance.html">Legal Acceptance</a>
+      </div>
+    </div>
   </div>
 </footer>
 
