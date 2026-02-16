@@ -6,7 +6,8 @@
   <title>Create LedgerHaul Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <!-- Optional override without code edits -->
+
+  <!-- Optional override without code edits (config.js can also set API base) -->
   <meta name="ledgerhaul-api-base" content="" />
 
   <style>
@@ -74,7 +75,7 @@
     <h1>Create your LedgerHaul account</h1>
     <p class="sub">This creates your account in the live platform and triggers a verification email.</p>
 
-    <form id="signup-form">
+    <form id="signup-form" novalidate>
       <label for="company">Company name</label>
       <input id="company" name="company" autocomplete="organization" required />
 
@@ -82,7 +83,8 @@
       <input id="email" name="email" type="email" autocomplete="email" required />
 
       <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+      <!-- Backend enforces min 10 in current auth_routes.py -->
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="10" required />
 
       <button id="submitBtn" type="submit">Create account</button>
     </form>
@@ -103,10 +105,20 @@
     </div>
   </div>
 
+  <!-- Central config loader (preferred) -->
   <script src="/assets/js/config.js"></script>
 
   <script>
-    const API_BASE = (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL) ? window.LH_CONFIG.API_BASE_URL : "https://api.ledgerhaul.com";
+    // API base resolution order:
+    // 1) window.LH_CONFIG.API_BASE_URL (from /assets/js/config.js)
+    // 2) <meta name="ledgerhaul-api-base" content="...">
+    // 3) fallback default
+    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
+    const metaApiBase = (metaApi && metaApi.getAttribute("content")) ? String(metaApi.getAttribute("content")).trim() : "";
+    const API_BASE =
+      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
+        : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
 
     const form = document.getElementById("signup-form");
     const errorEl = document.getElementById("error");
@@ -115,6 +127,19 @@
 
     function safeJsonParse(text) {
       try { return JSON.parse(text); } catch { return null; }
+    }
+
+    function normalizeErrorMessage(r) {
+      const msg =
+        (r && r.json && (r.json.error || r.json.message || r.json.detail)) ||
+        (r && r.raw && r.raw.trim()) ||
+        `Signup failed (${(r && r.status) ? r.status : "unknown"})`;
+
+      // Make backend validation clearer for UI users
+      if (String(msg).toLowerCase().includes("company_name required")) return "Company name is required.";
+      if (String(msg).toLowerCase().includes("email and password required")) return "Email and password are required.";
+      if (String(msg).toLowerCase().includes("password too short")) return "Password must be at least 10 characters.";
+      return msg;
     }
 
     async function postJson(url, payload) {
@@ -131,36 +156,32 @@
     }
 
     async function trySignup(company, email, password) {
+      // Canonical backend expects /auth/register and company_name
       const endpoints = [
         `${API_BASE}/auth/register`,
-        `${API_BASE}/auth/signup`
+        `${API_BASE}/auth/signup` // legacy alias in app.py
       ];
 
+      // HARDENED: ALWAYS include company_name so backend never throws "company_name required"
+      // Keep extra keys for compatibility if backend ever changes, but company_name is always present.
       const payloads = [
-        { company, email, password },
-        { company_name: company, email, password },
-        { organization_name: company, email, password },
-        { company, company_name: company, organization_name: company, email, password }
+        { company_name: company, email: email, password: password },
+        { company_name: company, company: company, email: email, password: password },
+        { company_name: company, organization_name: company, email: email, password: password },
+        { company_name: company, company: company, organization_name: company, email: email, password: password }
       ];
 
-      let lastError = null;
+      let last = null;
 
       for (const endpoint of endpoints) {
         for (const payload of payloads) {
           const r = await postJson(endpoint, payload);
-
           if (r.ok) return;
-
-          const msg =
-            (r.json && (r.json.error || r.json.message || r.json.detail)) ||
-            (r.raw && r.raw.trim()) ||
-            `Signup failed (${r.status})`;
-
-          lastError = msg;
+          last = r;
         }
       }
 
-      throw new Error(lastError || "Signup failed");
+      throw new Error(normalizeErrorMessage(last));
     }
 
     form.addEventListener("submit", async (e) => {
@@ -172,6 +193,20 @@
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
+      // Client-side hard gate (matches backend expectations)
+      if (!company) {
+        errorEl.textContent = "Company name is required.";
+        return;
+      }
+      if (!email) {
+        errorEl.textContent = "Email is required.";
+        return;
+      }
+      if (!password || password.length < 10) {
+        errorEl.textContent = "Password must be at least 10 characters.";
+        return;
+      }
+
       submitBtn.disabled = true;
       submitBtn.textContent = "Creating…";
 
@@ -180,7 +215,7 @@
         okEl.textContent = "Account created. Check your email for the verification link.";
         window.location.href = "/app/check-email.html";
       } catch (err) {
-        errorEl.textContent = (err && err.message) ? err.message : "Load failed";
+        errorEl.textContent = (err && err.message) ? err.message : "Signup failed";
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Create account";
