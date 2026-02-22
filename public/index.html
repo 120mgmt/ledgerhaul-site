@@ -1,4 +1,4 @@
-<!-- public/index.html -->
+<!-- File: public/index.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,13 +37,34 @@
       color: #38d39f;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
     nav a {
-      margin-left: 28px;
       font-size: 14px;
       color: #c9d6ea;
+      padding: 10px 12px;
+      border-radius: 10px;
     }
 
     nav a:hover { color: #ffffff; }
+
+    /* NEW: make Login + Create account obvious */
+    .nav-cta {
+      border: 1px solid #2a3a52;
+      background: rgba(18,26,36,.35);
+    }
+    .nav-primary {
+      background: #38d39f;
+      color: #08140f !important;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .nav-primary:hover { filter: brightness(1.02); }
 
     .hero {
       max-width: 820px;
@@ -80,6 +101,13 @@
     .secondary {
       border: 1px solid #2a3a52;
       color: #c9d6ea;
+    }
+
+    /* NEW: Login button in hero row */
+    .ghost {
+      border: 1px solid #2a3a52;
+      color: #c9d6ea;
+      background: rgba(18,26,36,.35);
     }
 
     section {
@@ -132,6 +160,7 @@
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
     footer a {
@@ -140,6 +169,13 @@
     }
 
     footer a:hover { color: #ffffff; }
+
+    @media (max-width: 700px) {
+      header { gap: 14px; align-items: flex-start; }
+      nav { gap: 10px; }
+      h1 { font-size: 40px; }
+      .cta a { margin-bottom: 12px; }
+    }
   </style>
 </head>
 
@@ -150,7 +186,11 @@
       <nav>
         <a href="/product.html">Product</a>
         <a href="/pricing.html">Pricing</a>
-        <a href="/app/signup.html">Get started</a>
+
+        <!-- NEW: clear Login + Create account in top nav -->
+        <a class="nav-cta" href="/app/login.html">Log in</a>
+        <a class="nav-primary" href="/app/signup.html">Create account</a>
+
         <a href="/legal/terms.html">Legal</a>
       </nav>
     </header>
@@ -162,8 +202,11 @@
         billing, compliance, and cost-per-mile intelligence — with specialized capabilities
         designed for logistics, transportation, and complex operational businesses.
       </p>
+
       <div class="cta">
+        <!-- NEW: both primary CTAs -->
         <a class="primary" href="/app/signup.html">Create account</a>
+        <a class="ghost" href="/app/login.html">Log in</a>
         <a class="secondary" href="#features">Explore platform</a>
       </div>
     </section>
@@ -271,7 +314,3 @@
   </div>
 </body>
 </html>
-
-
-
-       
