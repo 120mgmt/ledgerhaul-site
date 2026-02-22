@@ -1,3 +1,4 @@
+<!-- File: public/app/login.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,6 +7,8 @@
   <title>Login | LedgerHaul</title>
 
   <meta name="robots" content="noindex,nofollow" />
+  <!-- Optional override without code edits -->
+  <meta name="ledgerhaul-api-base" content="" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,16 +52,26 @@
       font-weight:600;
       cursor:pointer;
     }
+    button:disabled { opacity:.65; cursor:not-allowed; }
     .error {
       margin-top:14px;
       color:#b91c1c;
       font-size:14px;
     }
+    .links {
+      margin-top: 14px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      font-size:13px;
+    }
+    .links a { color:#0f766e; text-decoration:underline; }
     .muted {
       margin-top:18px;
       font-size:13px;
       color:#64748b;
       text-align:center;
+      line-height: 1.5;
     }
     .muted a { color:#0f766e; text-decoration:underline; }
   </style>
@@ -68,25 +81,25 @@
   <main class="wrap">
     <h1>Sign in</h1>
 
-    <form id="login-form">
-      <label>
-        Company ID
-        <input type="number" id="company_id" required min="1" />
-      </label>
-
-      <label>
+    <form id="login-form" novalidate>
+      <label for="email">
         Email
-        <input type="email" id="email" required />
+        <input type="email" id="email" autocomplete="email" required />
       </label>
 
-      <label>
+      <label for="password">
         Password
-        <input type="password" id="password" required />
+        <input type="password" id="password" autocomplete="current-password" required />
       </label>
 
-      <button type="submit">Sign In</button>
+      <button id="submitBtn" type="submit">Sign In</button>
       <div id="error" class="error" hidden></div>
     </form>
+
+    <div class="links">
+      <a href="/app/signup.html">Create an account</a>
+      <a href="/app/forgot-password.html">Forgot password</a>
+    </div>
 
     <div class="muted">
       By signing in you agree to our
@@ -97,43 +110,76 @@
   </main>
 
   <script>
+    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
+    const metaApiBase = (metaApi && metaApi.getAttribute("content")) ? String(metaApi.getAttribute("content")).trim() : "";
+    const API_BASE =
+      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
+        : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
+
     const form = document.getElementById("login-form");
     const errorBox = document.getElementById("error");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch { return null; }
+    }
+
+    function showError(msg) {
+      errorBox.textContent = msg || "Unable to sign in";
+      errorBox.hidden = false;
+    }
+
+    function clearError() {
+      errorBox.hidden = true;
+      errorBox.textContent = "";
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      errorBox.hidden = true;
+      clearError();
 
-      const payload = {
-        company_id: Number(document.getElementById("company_id").value),
-        email: document.getElementById("email").value.trim(),
-        password: document.getElementById("password").value
-      };
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+
+      if (!email) return showError("Email is required.");
+      if (!password) return showError("Password is required.");
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing in…";
 
       try {
-        const res = await fetch(`${window.LH_CONFIG.API_BASE_URL}/auth/login`, {
+        const res = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ email, password })
         });
 
-        const data = await res.json();
+        const raw = await res.text();
+        const data = safeJsonParse(raw) || {};
 
         if (!res.ok) {
-          throw new Error(data.error || "Login failed");
+          const err = (data && (data.error || data.message || data.detail)) || "Login failed";
+          return showError(err);
         }
 
-        // Store token (phase 1: localStorage; can move to HttpOnly cookie later)
+        if (!data.access_token) {
+          return showError("Login succeeded but no token was returned.");
+        }
+
         localStorage.setItem("lh_access_token", data.access_token);
+
+        if (data.company) localStorage.setItem("lh_company", JSON.stringify(data.company));
+        if (data.user) localStorage.setItem("lh_user", JSON.stringify(data.user));
 
         window.location.href = "/app/dashboard.html";
       } catch (err) {
-        errorBox.textContent = err.message || "Unable to sign in";
-        errorBox.hidden = false;
+        showError((err && err.message) ? err.message : "Unable to sign in");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
       }
     });
   </script>
 </body>
 </html>
-
-
