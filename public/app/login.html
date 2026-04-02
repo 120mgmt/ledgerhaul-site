@@ -1,4 +1,3 @@
-<!-- File: public/app/login.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
   <title>Login | LedgerHaul</title>
 
   <meta name="robots" content="noindex,nofollow" />
-  <!-- Optional override without code edits -->
   <meta name="ledgerhaul-api-base" content="" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,7 +109,10 @@
 
   <script>
     const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
-    const metaApiBase = (metaApi && metaApi.getAttribute("content")) ? String(metaApi.getAttribute("content")).trim() : "";
+    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
+      ? String(metaApi.getAttribute("content")).trim()
+      : "";
+
     const API_BASE =
       (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
         ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
@@ -133,6 +134,24 @@
     function clearError() {
       errorBox.hidden = true;
       errorBox.textContent = "";
+    }
+
+    async function resolvePostLoginDestination() {
+      const dashboardUrl = "/app/dashboard.html";
+
+      try {
+        const res = await fetch(dashboardUrl, {
+          method: "HEAD",
+          cache: "no-store"
+        });
+
+        if (res.ok) {
+          return dashboardUrl;
+        }
+      } catch (_) {
+      }
+
+      return "/index.html";
     }
 
     form.addEventListener("submit", async (e) => {
@@ -169,10 +188,15 @@
 
         localStorage.setItem("lh_access_token", data.access_token);
 
-        if (data.company) localStorage.setItem("lh_company", JSON.stringify(data.company));
-        if (data.user) localStorage.setItem("lh_user", JSON.stringify(data.user));
+        if (data.company) {
+          localStorage.setItem("lh_company", JSON.stringify(data.company));
+        }
+        if (data.user) {
+          localStorage.setItem("lh_user", JSON.stringify(data.user));
+        }
 
-        window.location.href = "/app/dashboard.html";
+        const nextUrl = await resolvePostLoginDestination();
+        window.location.href = nextUrl;
       } catch (err) {
         showError((err && err.message) ? err.message : "Unable to sign in");
       } finally {
