@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | LedgerHaul</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0b0f14;
+      color: #e9eef5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #38d39f;
+      letter-spacing: 0.3px;
+    }
+
+    .subbrand {
+      font-size: 13px;
+      color: #9bb0c9;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #243246;
+      background: #121a24;
+      color: #d7e3f4;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover { filter: brightness(1.03); }
+
+    .btn-primary {
+      background: #38d39f;
+      color: #08140f;
+      border-color: transparent;
+    }
+
+    .btn-danger {
+      background: #1a1416;
+      border-color: #4a2b32;
+      color: #f3c9cf;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      background: #121a24;
+      border: 1px solid #223044;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .panel h1,
+    .panel h2,
+    .panel h3,
+    .panel h4 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .panel h1 {
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .muted {
+      color: #aebfd4;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-card {
+      background: #0e141d;
+      border: 1px solid #1c2738;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      color: #8ea4bf;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .meta-value {
+      font-size: 16px;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      color: #b8c6d9;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid #2a3a52;
+      background: #0c1219;
+      color: #e9eef5;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .tool-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #2a3a52;
+      background: #0f1720;
+      color: #c9d6ea;
+    }
+
+    .status-pill.ok {
+      border-color: #21533f;
+      background: #10281f;
+      color: #9ff2c9;
+    }
+
+    .status-pill.warn {
+      border-color: #5f4a20;
+      background: #251d0d;
+      color: #f6d58c;
+    }
+
+    .status-pill.error {
+      border-color: #5c2430;
+      background: #2a1016;
+      color: #ffb8c4;
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .message.error { color: #ffb8c4; }
+    .message.ok { color: #9ff2c9; }
+
+    .preview {
+      width: 100%;
+      min-height: 420px;
+      border-radius: 16px;
+      border: 1px solid #243246;
+      background: #0b1118;
+      color: #dbe6f4;
+      padding: 16px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .preview.empty {
+      color: #88a0bb;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: #e9eef5;
+      margin: 0 0 10px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid #223044;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .footer a:hover { color: #ffffff; }
+
+    @media (max-width: 960px) {
+      .hero,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 18px 14px 34px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .panel h1 {
+        font-size: 25px;
+      }
+
+      .top-actions,
+      .tool-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div>
+          <div class="logo">LedgerHaul</div>
+          <div class="subbrand">1099 + bookkeeping operations dashboard</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn" href="/pricing.html">Pricing</a>
+        <a class="btn" href="/product.html">Product</a>
+        <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
+      </div>
+    </div>
+
+    <div class="hero">
+      <section class="panel">
+        <h1>Financial operations dashboard</h1>
+        <div class="muted">
+          Use this dashboard to validate live access, review 1099 data, and export bookkeeping ledger files from the production API.
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <div class="meta-label">API Base</div>
+            <div class="meta-value" id="apiBaseValue">—</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Company ID</div>
+            <div class="meta-value" id="companyIdValue">—</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">User</div>
+            <div class="meta-value" id="userValue">—</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Auth Status</div>
+            <div class="meta-value" id="authValue">—</div>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <div id="healthPill" class="status-pill">API health not checked</div>
+          <div id="sessionPill" class="status-pill">Session not checked</div>
+        </div>
+
+        <div id="globalMessage" class="message"></div>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Filters</h2>
+
+        <div class="controls">
+          <div class="field">
+            <label for="yearInput">1099 year</label>
+            <input id="yearInput" type="number" min="2000" max="2100" />
+          </div>
+
+          <div class="field">
+            <label for="companyIdInput">Company ID</label>
+            <input id="companyIdInput" type="number" min="0" step="1" />
+          </div>
+
+          <div class="field">
+            <label for="startDateInput">Ledger start date</label>
+            <input id="startDateInput" type="date" />
+          </div>
+
+          <div class="field">
+            <label for="endDateInput">Ledger end date</label>
+            <input id="endDateInput" type="date" />
+          </div>
+
+          <div class="field">
+            <label for="accountCodeInput">Account code</label>
+            <input id="accountCodeInput" type="text" placeholder="Optional" />
+          </div>
+
+          <div class="field">
+            <label for="limitInput">Ledger limit</label>
+            <input id="limitInput" type="number" min="1" max="50000" step="1" value="1000" />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid-2">
+      <section class="panel">
+        <h3 class="section-title">1099 tools</h3>
+        <div class="muted">
+          Query the live 1099 summary endpoint or download a CSV export using your authenticated session.
+        </div>
+
+        <div class="tool-actions">
+          <button id="load1099Btn" class="btn btn-primary" type="button">Load 1099 summary</button>
+          <button id="download1099Btn" class="btn" type="button">Download 1099 CSV</button>
+        </div>
+
+        <div id="message1099" class="message"></div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">Bookkeeping tools</h3>
+        <div class="muted">
+          Query canonical ledger export data or download the ledger CSV from the live bookkeeping export routes.
+        </div>
+
+        <div class="tool-actions">
+          <button id="loadLedgerBtn" class="btn btn-primary" type="button">Load ledger JSON</button>
+          <button id="downloadLedgerBtn" class="btn" type="button">Download ledger CSV</button>
+        </div>
+
+        <div id="messageLedger" class="message"></div>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-top:18px;">
+      <h3 class="section-title">Response preview</h3>
+      <div id="preview" class="preview empty">No data loaded yet.</div>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
+    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
+      ? String(metaApi.getAttribute("content")).trim()
+      : "";
+
+    const API_BASE =
+      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
+        : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
+
+    const accessToken = localStorage.getItem("lh_access_token") || "";
+
+    const previewEl = document.getElementById("preview");
+    const globalMessageEl = document.getElementById("globalMessage");
+    const message1099El = document.getElementById("message1099");
+    const messageLedgerEl = document.getElementById("messageLedger");
+    const apiBaseValueEl = document.getElementById("apiBaseValue");
+    const companyIdValueEl = document.getElementById("companyIdValue");
+    const userValueEl = document.getElementById("userValue");
+    const authValueEl = document.getElementById("authValue");
+    const healthPillEl = document.getElementById("healthPill");
+    const sessionPillEl = document.getElementById("sessionPill");
+
+    const yearInput = document.getElementById("yearInput");
+    const companyIdInput = document.getElementById("companyIdInput");
+    const startDateInput = document.getElementById("startDateInput");
+    const endDateInput = document.getElementById("endDateInput");
+    const accountCodeInput = document.getElementById("accountCodeInput");
+    const limitInput = document.getElementById("limitInput");
+
+    const load1099Btn = document.getElementById("load1099Btn");
+    const download1099Btn = document.getElementById("download1099Btn");
+    const loadLedgerBtn = document.getElementById("loadLedgerBtn");
+    const downloadLedgerBtn = document.getElementById("downloadLedgerBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch { return null; }
+    }
+
+    function decodeJwtPayload(token) {
+      try {
+        const parts = String(token).split(".");
+        if (parts.length < 2) return null;
+        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+        const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+        const json = atob(padded);
+        return JSON.parse(json);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function readStoredJson(key) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function setPreview(value) {
+      if (typeof value === "string") {
+        previewEl.textContent = value;
+      } else {
+        previewEl.textContent = JSON.stringify(value, null, 2);
+      }
+      previewEl.classList.remove("empty");
+    }
+
+    function setMessage(el, text, type) {
+      el.textContent = text || "";
+      el.className = "message" + (type ? ` ${type}` : "");
+    }
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "status-pill" + (type ? ` ${type}` : "");
+    }
+
+    function buildHeaders(companyId, acceptCsv) {
+      const headers = {
+        "Authorization": `Bearer ${accessToken}`
+      };
+
+      if (companyId !== null && companyId !== undefined && String(companyId).trim() !== "") {
+        headers["X-Company-Id"] = String(companyId).trim();
+      }
+
+      if (acceptCsv) {
+        headers["Accept"] = "text/csv";
+      }
+
+      return headers;
+    }
+
+    function getCompanyId() {
+      const typed = String(companyIdInput.value || "").trim();
+      if (typed) return typed;
+
+      const company = readStoredJson("lh_company");
+      if (company && company.id !== undefined && company.id !== null) {
+        return String(company.id);
+      }
+      if (company && company.company_id !== undefined && company.company_id !== null) {
+        return String(company.company_id);
+      }
+
+      const user = readStoredJson("lh_user");
+      if (user && user.company_id !== undefined && user.company_id !== null) {
+        return String(user.company_id);
+      }
+
+      const jwt = decodeJwtPayload(accessToken);
+      if (jwt && jwt.company_id !== undefined && jwt.company_id !== null) {
+        return String(jwt.company_id);
+      }
+
+      return "";
+    }
+
+    function getCurrentYear() {
+      return new Date().getUTCFullYear();
+    }
+
+    function applySessionInfo() {
+      const user = readStoredJson("lh_user");
+      const company = readStoredJson("lh_company");
+      const jwt = decodeJwtPayload(accessToken);
+      const companyId = getCompanyId();
+
+      apiBaseValueEl.textContent = API_BASE;
+      companyIdValueEl.textContent = companyId || "Unavailable";
+
+      if (user && (user.email || user.first_name || user.last_name)) {
+        const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
+        userValueEl.textContent = name || user.email || "Authenticated user";
+      } else if (jwt && jwt.sub) {
+        userValueEl.textContent = String(jwt.sub);
+      } else {
+        userValueEl.textContent = "Unavailable";
+      }
+
+      authValueEl.textContent = accessToken ? "Authenticated" : "Missing token";
+
+      if (accessToken) {
+        setPill(sessionPillEl, "Session token found", "ok");
+      } else {
+        setPill(sessionPillEl, "Missing session token", "error");
+      }
+
+      if (!companyIdInput.value && companyId) {
+        companyIdInput.value = companyId;
+      }
+
+      if (!yearInput.value) {
+        yearInput.value = String(getCurrentYear());
+      }
+
+      if (company && company.name) {
+        globalMessageEl.textContent = `Signed in for ${company.name}.`;
+        globalMessageEl.className = "message ok";
+      }
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+        if (!res.ok) {
+          setPill(healthPillEl, `API health failed (${res.status})`, "warn");
+          return;
+        }
+        setPill(healthPillEl, "API health ok", "ok");
+      } catch (_) {
+        setPill(healthPillEl, "API health unreachable", "error");
+      }
+    }
+
+    async function requestJson(url, companyId) {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: buildHeaders(companyId, false),
+        cache: "no-store"
+      });
+
+      const raw = await res.text();
+      const json = safeJsonParse(raw);
+
+      if (!res.ok) {
+        const message =
+          (json && (json.error || json.message || json.detail)) ||
+          raw ||
+          `Request failed (${res.status})`;
+        throw new Error(message);
+      }
+
+      return json || raw;
+    }
+
+    async function requestBlob(url, companyId, filename) {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: buildHeaders(companyId, true),
+        cache: "no-store"
+      });
+
+      if (!res.ok) {
+        const raw = await res.text();
+        const json = safeJsonParse(raw);
+        const message =
+          (json && (json.error || json.message || json.detail)) ||
+          raw ||
+          `Download failed (${res.status})`;
+        throw new Error(message);
+      }
+
+      const blob = await res.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    }
+
+    function build1099Url() {
+      const params = new URLSearchParams();
+      params.set("year", String(yearInput.value || getCurrentYear()));
+      return `${API_BASE}/tax/1099/summary?${params.toString()}`;
+    }
+
+    function build1099CsvUrl() {
+      const params = new URLSearchParams();
+      params.set("year", String(yearInput.value || getCurrentYear()));
+      return `${API_BASE}/tax/1099/export.csv?${params.toString()}`;
+    }
+
+    function buildLedgerJsonUrl() {
+      const params = new URLSearchParams();
+
+      const startDate = String(startDateInput.value || "").trim();
+      const endDate = String(endDateInput.value || "").trim();
+      const accountCode = String(accountCodeInput.value || "").trim();
+      const limit = String(limitInput.value || "").trim();
+
+      if (startDate) params.set("start_date", startDate);
+      if (endDate) params.set("end_date", endDate);
+      if (accountCode) params.set("account_code", accountCode);
+      if (limit) params.set("limit", limit);
+
+      return `${API_BASE}/api/bookkeeping/export/ledger.json?${params.toString()}`;
+    }
+
+    function buildLedgerCsvUrl() {
+      const params = new URLSearchParams();
+
+      const startDate = String(startDateInput.value || "").trim();
+      const endDate = String(endDateInput.value || "").trim();
+      const accountCode = String(accountCodeInput.value || "").trim();
+      const limit = String(limitInput.value || "").trim();
+
+      if (startDate) params.set("start_date", startDate);
+      if (endDate) params.set("end_date", endDate);
+      if (accountCode) params.set("account_code", accountCode);
+      if (limit) params.set("limit", limit);
+
+      return `${API_BASE}/api/bookkeeping/export/ledger.csv?${params.toString()}`;
+    }
+
+    if (!accessToken) {
+      window.location.href = "/app/login.html";
+    } else {
+      applySessionInfo();
+      checkHealth();
+    }
+
+    load1099Btn.addEventListener("click", async () => {
+      setMessage(message1099El, "", "");
+      try {
+        const companyId = getCompanyId();
+        if (!companyId) {
+          throw new Error("Company ID is required.");
+        }
+
+        const data = await requestJson(build1099Url(), companyId);
+        setPreview(data);
+        setMessage(message1099El, "1099 summary loaded.", "ok");
+      } catch (err) {
+        setMessage(message1099El, err.message || "Failed to load 1099 summary.", "error");
+      }
+    });
+
+    download1099Btn.addEventListener("click", async () => {
+      setMessage(message1099El, "", "");
+      try {
+        const companyId = getCompanyId();
+        if (!companyId) {
+          throw new Error("Company ID is required.");
+        }
+
+        const filename = `1099_summary_${companyId}_${yearInput.value || getCurrentYear()}.csv`;
+        await requestBlob(build1099CsvUrl(), companyId, filename);
+        setMessage(message1099El, "1099 CSV download started.", "ok");
+      } catch (err) {
+        setMessage(message1099El, err.message || "Failed to download 1099 CSV.", "error");
+      }
+    });
+
+    loadLedgerBtn.addEventListener("click", async () => {
+      setMessage(messageLedgerEl, "", "");
+      try {
+        const companyId = getCompanyId();
+        if (!companyId) {
+          throw new Error("Company ID is required.");
+        }
+
+        const data = await requestJson(buildLedgerJsonUrl(), companyId);
+        setPreview(data);
+        setMessage(messageLedgerEl, "Ledger JSON loaded.", "ok");
+      } catch (err) {
+        setMessage(messageLedgerEl, err.message || "Failed to load ledger JSON.", "error");
+      }
+    });
+
+    downloadLedgerBtn.addEventListener("click", async () => {
+      setMessage(messageLedgerEl, "", "");
+      try {
+        const companyId = getCompanyId();
+        if (!companyId) {
+          throw new Error("Company ID is required.");
+        }
+
+        const filename = `ledger_export_${companyId}.csv`;
+        await requestBlob(buildLedgerCsvUrl(), companyId, filename);
+        setMessage(messageLedgerEl, "Ledger CSV download started.", "ok");
+      } catch (err) {
+        setMessage(messageLedgerEl, err.message || "Failed to download ledger CSV.", "error");
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("lh_access_token");
+      localStorage.removeItem("lh_company");
+      localStorage.removeItem("lh_user");
+      window.location.href = "/app/login.html";
+    });
+  </script>
+</body>
+</html>
