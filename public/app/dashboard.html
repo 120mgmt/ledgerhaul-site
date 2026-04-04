@@ -457,10 +457,10 @@
 
     const API_BASE =
       (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
-        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
         : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
 
-    const accessToken = localStorage.getItem("lh_access_token") || "";
+    const accessToken = sessionStorage.getItem("lh_access_token") || "";
 
     const previewEl = document.getElementById("preview");
     const globalMessageEl = document.getElementById("globalMessage");
@@ -505,7 +505,7 @@
 
     function readStoredJson(key) {
       try {
-        const raw = localStorage.getItem(key);
+        const raw = sessionStorage.getItem(key);
         return raw ? JSON.parse(raw) : null;
       } catch (_) {
         return null;
@@ -797,9 +797,9 @@
     });
 
     logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("lh_access_token");
-      localStorage.removeItem("lh_company");
-      localStorage.removeItem("lh_user");
+      sessionStorage.removeItem("lh_access_token");
+      sessionStorage.removeItem("lh_company");
+      sessionStorage.removeItem("lh_user");
       window.location.href = "/app/login.html";
     });
   </script>
