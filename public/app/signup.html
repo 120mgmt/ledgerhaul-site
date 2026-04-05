@@ -5,7 +5,6 @@
   <title>Create LedgerHaul Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-
   <meta name="ledgerhaul-api-base" content="" />
 
   <style>
@@ -103,6 +102,7 @@
       font-size: 13px;
       color: #cfe6db;
       line-height: 1.6;
+      cursor: pointer;
     }
     .checkbox-label input[type="checkbox"] {
       width: 16px;
@@ -110,6 +110,7 @@
       margin: 2px 0 0 0;
       flex: 0 0 auto;
       accent-color: #37d18c;
+      cursor: pointer;
     }
     .checkbox-label a {
       color: #a8c7bb;
@@ -200,7 +201,7 @@
 
       <div class="checkbox-wrap">
         <label class="checkbox-label" for="legal_acceptance">
-          <input id="legal_acceptance" name="legal_acceptance" type="checkbox" required />
+          <input id="legal_acceptance" name="legal_acceptance" type="checkbox" />
           <span>
             I agree to the
             <a href="/legal/terms.html" target="_blank" rel="noopener noreferrer">Terms</a>,
@@ -247,7 +248,6 @@
     const errorEl = document.getElementById("error");
     const okEl = document.getElementById("ok");
     const submitBtn = document.getElementById("submitBtn");
-    const legalAcceptanceEl = document.getElementById("legal_acceptance");
 
     function safeJsonParse(text) {
       try { return JSON.parse(text); } catch { return null; }
@@ -341,7 +341,7 @@
       const company = document.getElementById("company").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-      const legalAcceptance = Boolean(legalAcceptanceEl.checked);
+      const legalAcceptance = !!document.getElementById("legal_acceptance").checked;
 
       if (!company) {
         errorEl.textContent = "Company name is required.";
