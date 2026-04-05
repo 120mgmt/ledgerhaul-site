@@ -283,7 +283,7 @@
       return { ok: res.ok, status: res.status, json, raw };
     }
 
-    async function trySignup(company, email, password, legalAcceptance) {
+    async function trySignup(company, email, password, accepted) {
       const endpoints = [
         `${API_BASE}/auth/register`,
         `${API_BASE}/auth/signup`
@@ -294,21 +294,30 @@
           company_name: company,
           email,
           password,
-          legal_acceptance: legalAcceptance
+          legal_acceptance: accepted,
+          accepted_tos: accepted,
+          accepted_privacy: accepted,
+          accepted_refund: accepted
         },
         {
           company_name: company,
           company: company,
           email,
           password,
-          legal_acceptance: legalAcceptance
+          legal_acceptance: accepted,
+          accepted_tos: accepted,
+          accepted_privacy: accepted,
+          accepted_refund: accepted
         },
         {
           company_name: company,
           organization_name: company,
           email,
           password,
-          legal_acceptance: legalAcceptance
+          legal_acceptance: accepted,
+          accepted_tos: accepted,
+          accepted_privacy: accepted,
+          accepted_refund: accepted
         },
         {
           company_name: company,
@@ -316,7 +325,10 @@
           organization_name: company,
           email,
           password,
-          legal_acceptance: legalAcceptance
+          legal_acceptance: accepted,
+          accepted_tos: accepted,
+          accepted_privacy: accepted,
+          accepted_refund: accepted
         }
       ];
 
@@ -341,7 +353,7 @@
       const company = document.getElementById("company").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-      const legalAcceptance = !!document.getElementById("legal_acceptance").checked;
+      const accepted = !!document.getElementById("legal_acceptance").checked;
 
       if (!company) {
         errorEl.textContent = "Company name is required.";
@@ -358,7 +370,7 @@
         return;
       }
 
-      if (!legalAcceptance) {
+      if (!accepted) {
         errorEl.textContent = "You must accept the Terms, Privacy Policy, and Refund Policy to create an account.";
         return;
       }
@@ -367,7 +379,7 @@
       submitBtn.textContent = "Creating…";
 
       try {
-        await trySignup(company, email, password, legalAcceptance);
+        await trySignup(company, email, password, accepted);
         okEl.textContent = "Account created. Check your email for the verification link.";
         window.location.href = "/app/check-email.html";
       } catch (err) {
