@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pricing | LedgerHaul</title>
+  <title>Pricing & Billing Notice | LedgerHaul</title>
+  <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,13 +47,15 @@
       display:flex;
       gap:18px;
       font-weight:500;
+      flex-wrap:wrap;
     }
     nav a{color:var(--muted)}
     nav a:hover{color:var(--text)}
 
     main{padding:72px 0}
     h1{font-size:36px;margin:0 0 14px;letter-spacing:-.02em}
-    p{margin:0;color:var(--muted);max-width:72ch}
+    h2{font-size:22px;margin:0 0 14px}
+    p{margin:0 0 16px;color:var(--muted);max-width:76ch}
 
     .card{
       margin-top:32px;
@@ -60,7 +63,11 @@
       border-radius:var(--radius);
       padding:32px;
       background:var(--bg-alt);
-      max-width:720px;
+      max-width:820px;
+    }
+
+    .section{
+      margin-top:28px;
     }
 
     .btn{
@@ -73,11 +80,14 @@
       color:#fff;
     }
 
-    .disclaimer{
-      margin-top:18px;
-      font-size:14px;
+    ul{
+      margin:0;
+      padding-left:20px;
       color:var(--muted);
-      max-width:72ch;
+    }
+
+    li{
+      margin-bottom:10px;
     }
 
     footer{
@@ -111,34 +121,62 @@
 
 <header>
   <div class="wrap">
-    <a href="./index.html">LedgerHaul</a>
+    <a href="/index.html">LedgerHaul</a>
     <nav>
-      <a href="./product.html">Product</a>
-      <a href="./pricing.html">Pricing</a>
-      <a href="./contact.html">Contact</a>
+      <a href="/product.html">Product</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/legal/terms.html">Terms</a>
+      <a href="/legal/privacy.html">Privacy</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <h1>Pricing</h1>
+  <h1>Pricing & Billing Notice</h1>
   <p>
-    Pricing is structured to scale with your team. Final pricing details are
-    provided during setup or by contacting sales.
+    This page provides general pricing and billing notice information for LedgerHaul. Final
+    fees, subscription amounts, processing charges, and optional add-ons are governed by the
+    customer’s selected plan, checkout terms, service configuration, and applicable agreements.
   </p>
 
   <div class="card">
-    <p>
-      LedgerHaul offers flexible plans designed to support payroll,
-      settlements, and billing as your business grows.
-    </p>
+    <section>
+      <h2>General Pricing</h2>
+      <p>
+        LedgerHaul may offer monthly subscription plans, feature-based pricing, usage-based fees,
+        implementation fees, or other commercial terms depending on the services selected.
+        Public pricing, promotional pricing, and quoted pricing may change over time.
+      </p>
+    </section>
 
-    <p class="disclaimer">
-      Pricing and features may vary by plan and may change over time. Taxes, third-party processing fees, and optional add-ons may apply.
-      Payroll facilitation and payment processing may involve third-party providers subject to their terms.
-    </p>
+    <section class="section">
+      <h2>Billing Terms</h2>
+      <ul>
+        <li>Subscriptions may renew automatically unless canceled in accordance with the applicable terms.</li>
+        <li>Charges may be billed in advance on a recurring basis unless otherwise stated in writing.</li>
+        <li>Taxes, payment processor fees, banking fees, and third-party provider costs may apply.</li>
+        <li>Certain payroll, bookkeeping, payments, or embedded service features may depend on third-party providers and their separate terms.</li>
+      </ul>
+    </section>
 
-    <a class="btn" href="./contact.html">Contact Sales</a>
+    <section class="section">
+      <h2>Plan Changes</h2>
+      <p>
+        If a customer upgrades, downgrades, adds modules, or enables additional services, billing
+        may be adjusted prospectively or prorated where applicable. LedgerHaul reserves the right
+        to change pricing, packaging, or included features with appropriate notice where required.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Refunds and Cancellations</h2>
+      <p>
+        Refund eligibility, cancellation handling, and non-refundable charges are governed by the
+        LedgerHaul Refund Policy and any plan-specific or order-specific terms accepted at signup,
+        checkout, or contract execution.
+      </p>
+      <a class="btn" href="/legal/refund.html">View Refund Policy</a>
+    </section>
   </div>
 </main>
 
@@ -147,10 +185,10 @@
     <div class="footer-row">
       <div>© LedgerHaul. All rights reserved.</div>
       <div class="footer-links">
-        <a href="./legal/terms.html">Terms</a>
-        <a href="./legal/privacy.html">Privacy</a>
-        <a href="./legal/refund.html">Refund &amp; Billing</a>
-        <a href="./legal/acceptance.html">Legal Acceptance</a>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund &amp; Billing</a>
+        <a href="/legal/acceptance.html">Legal Acceptance</a>
       </div>
     </div>
   </div>
