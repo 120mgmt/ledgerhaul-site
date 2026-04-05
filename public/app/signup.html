@@ -1,4 +1,3 @@
-<!-- File: public/app/signup.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Optional override without code edits (config.js can also set API base) -->
   <meta name="ledgerhaul-api-base" content="" />
 
   <style>
@@ -32,36 +30,151 @@
       padding: 38px;
       box-shadow: 0 18px 60px rgba(0,0,0,.35);
     }
-    .brand { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px; }
-    .logo { font-weight: 800; letter-spacing: .4px; color:#37d18c; font-size:18px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: .4px;
+      color: #37d18c;
+      font-size: 18px;
+    }
     .pill {
-      font-size: 12px; color:#cfe6db; border:1px solid #214536;
-      padding:6px 10px; border-radius:999px; background:rgba(14,31,23,.35);
+      font-size: 12px;
+      color: #cfe6db;
+      border: 1px solid #214536;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(14,31,23,.35);
     }
-    h1 { margin: 0 0 10px 0; font-size: 30px; color:#fff; line-height:1.15; }
-    .sub { margin: 0 0 26px 0; color:#cfe6db; font-size:14px; line-height:1.6; }
-    label { display:block; margin-bottom:8px; font-size:13px; color:#cfe6db; }
-    input {
-      width:100%; padding:14px; margin-bottom:18px; border-radius:12px;
-      border:1px solid #2a4b3a; background:#0e1f17; color:#fff; font-size:15px;
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 30px;
+      color: #fff;
+      line-height: 1.15;
     }
-    input:focus { outline:none; border-color:#37d18c; box-shadow:0 0 0 3px rgba(55,209,140,.15); }
+    .sub {
+      margin: 0 0 26px 0;
+      color: #cfe6db;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #cfe6db;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: 1px solid #2a4b3a;
+      background: #0e1f17;
+      color: #fff;
+      font-size: 15px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #37d18c;
+      box-shadow: 0 0 0 3px rgba(55,209,140,.15);
+    }
+    .checkbox-wrap {
+      margin: 2px 0 18px 0;
+      padding: 14px;
+      border: 1px solid #2a4b3a;
+      border-radius: 12px;
+      background: rgba(14,31,23,.35);
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0;
+      font-size: 13px;
+      color: #cfe6db;
+      line-height: 1.6;
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 2px 0 0 0;
+      flex: 0 0 auto;
+      accent-color: #37d18c;
+    }
+    .checkbox-label a {
+      color: #a8c7bb;
+      text-decoration: underline;
+    }
+    .checkbox-label a:hover {
+      color: #fff;
+    }
     button {
-      width:100%; padding:16px; border-radius:14px; border:none;
-      background:#37d18c; color:#0b140f; font-size:15px; font-weight:800; cursor:pointer;
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      background: #37d18c;
+      color: #0b140f;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
     }
-    button:disabled { opacity:.65; cursor:not-allowed; }
-    .error { margin-top:16px; font-size:13px; color:#ff9b9b; min-height:18px; }
-    .ok { margin-top:16px; font-size:13px; color:#9ff2c9; min-height:18px; }
+    button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+    .error {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #ff9b9b;
+      min-height: 18px;
+    }
+    .ok {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #9ff2c9;
+      min-height: 18px;
+    }
     .links {
-      margin-top:22px; display:flex; justify-content:space-between; gap:12px;
-      flex-wrap:wrap; font-size:13px; color:#a8c7bb;
+      margin-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #a8c7bb;
     }
-    .links a { color:#a8c7bb; text-decoration:underline; }
-    .links a:hover { color:#fff; }
-    .legal { margin-top:26px; font-size:12px; color:#a8c7bb; text-align:center; }
-    .legal a { color:#a8c7bb; margin:0 6px; text-decoration:underline; }
-    .legal a:hover { color:#fff; }
+    .links a {
+      color: #a8c7bb;
+      text-decoration: underline;
+    }
+    .links a:hover {
+      color: #fff;
+    }
+    .legal {
+      margin-top: 26px;
+      font-size: 12px;
+      color: #a8c7bb;
+      text-align: center;
+    }
+    .legal a {
+      color: #a8c7bb;
+      margin: 0 6px;
+      text-decoration: underline;
+    }
+    .legal a:hover {
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -77,14 +190,26 @@
 
     <form id="signup-form" novalidate>
       <label for="company">Company name</label>
-      <input id="company" name="company" autocomplete="organization" required />
+      <input id="company" name="company" type="text" autocomplete="organization" required />
 
       <label for="email">Email</label>
       <input id="email" name="email" type="email" autocomplete="email" required />
 
       <label for="password">Password</label>
-      <!-- Backend enforces min 10 in current auth_routes.py -->
       <input id="password" name="password" type="password" autocomplete="new-password" minlength="10" required />
+
+      <div class="checkbox-wrap">
+        <label class="checkbox-label" for="legal_acceptance">
+          <input id="legal_acceptance" name="legal_acceptance" type="checkbox" required />
+          <span>
+            I agree to the
+            <a href="/legal/terms.html" target="_blank" rel="noopener noreferrer">Terms</a>,
+            <a href="/legal/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
+            and
+            <a href="/legal/refund.html" target="_blank" rel="noopener noreferrer">Refund Policy</a>.
+          </span>
+        </label>
+      </div>
 
       <button id="submitBtn" type="submit">Create account</button>
     </form>
@@ -105,16 +230,14 @@
     </div>
   </div>
 
-  <!-- Central config loader (preferred) -->
   <script src="/assets/js/config.js"></script>
 
   <script>
-    // API base resolution order:
-    // 1) window.LH_CONFIG.API_BASE_URL (from /assets/js/config.js)
-    // 2) <meta name="ledgerhaul-api-base" content="...">
-    // 3) fallback default
     const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
-    const metaApiBase = (metaApi && metaApi.getAttribute("content")) ? String(metaApi.getAttribute("content")).trim() : "";
+    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
+      ? String(metaApi.getAttribute("content")).trim()
+      : "";
+
     const API_BASE =
       (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
         ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
@@ -124,6 +247,7 @@
     const errorEl = document.getElementById("error");
     const okEl = document.getElementById("ok");
     const submitBtn = document.getElementById("submitBtn");
+    const legalAcceptanceEl = document.getElementById("legal_acceptance");
 
     function safeJsonParse(text) {
       try { return JSON.parse(text); } catch { return null; }
@@ -135,10 +259,14 @@
         (r && r.raw && r.raw.trim()) ||
         `Signup failed (${(r && r.status) ? r.status : "unknown"})`;
 
-      // Make backend validation clearer for UI users
-      if (String(msg).toLowerCase().includes("company_name required")) return "Company name is required.";
-      if (String(msg).toLowerCase().includes("email and password required")) return "Email and password are required.";
-      if (String(msg).toLowerCase().includes("password too short")) return "Password must be at least 10 characters.";
+      const lowered = String(msg).toLowerCase();
+
+      if (lowered.includes("company_name required")) return "Company name is required.";
+      if (lowered.includes("email and password required")) return "Email and password are required.";
+      if (lowered.includes("password too short")) return "Password must be at least 10 characters.";
+      if (lowered.includes("legal_acceptance_required_at_signup")) {
+        return "You must accept the Terms, Privacy Policy, and Refund Policy to create an account.";
+      }
       return msg;
     }
 
@@ -155,20 +283,41 @@
       return { ok: res.ok, status: res.status, json, raw };
     }
 
-    async function trySignup(company, email, password) {
-      // Canonical backend expects /auth/register and company_name
+    async function trySignup(company, email, password, legalAcceptance) {
       const endpoints = [
         `${API_BASE}/auth/register`,
-        `${API_BASE}/auth/signup` // legacy alias in app.py
+        `${API_BASE}/auth/signup`
       ];
 
-      // HARDENED: ALWAYS include company_name so backend never throws "company_name required"
-      // Keep extra keys for compatibility if backend ever changes, but company_name is always present.
       const payloads = [
-        { company_name: company, email: email, password: password },
-        { company_name: company, company: company, email: email, password: password },
-        { company_name: company, organization_name: company, email: email, password: password },
-        { company_name: company, company: company, organization_name: company, email: email, password: password }
+        {
+          company_name: company,
+          email,
+          password,
+          legal_acceptance: legalAcceptance
+        },
+        {
+          company_name: company,
+          company: company,
+          email,
+          password,
+          legal_acceptance: legalAcceptance
+        },
+        {
+          company_name: company,
+          organization_name: company,
+          email,
+          password,
+          legal_acceptance: legalAcceptance
+        },
+        {
+          company_name: company,
+          company: company,
+          organization_name: company,
+          email,
+          password,
+          legal_acceptance: legalAcceptance
+        }
       ];
 
       let last = null;
@@ -192,18 +341,25 @@
       const company = document.getElementById("company").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+      const legalAcceptance = Boolean(legalAcceptanceEl.checked);
 
-      // Client-side hard gate (matches backend expectations)
       if (!company) {
         errorEl.textContent = "Company name is required.";
         return;
       }
+
       if (!email) {
         errorEl.textContent = "Email is required.";
         return;
       }
+
       if (!password || password.length < 10) {
         errorEl.textContent = "Password must be at least 10 characters.";
+        return;
+      }
+
+      if (!legalAcceptance) {
+        errorEl.textContent = "You must accept the Terms, Privacy Policy, and Refund Policy to create an account.";
         return;
       }
 
@@ -211,7 +367,7 @@
       submitBtn.textContent = "Creating…";
 
       try {
-        await trySignup(company, email, password);
+        await trySignup(company, email, password, legalAcceptance);
         okEl.textContent = "Account created. Check your email for the verification link.";
         window.location.href = "/app/check-email.html";
       } catch (err) {
