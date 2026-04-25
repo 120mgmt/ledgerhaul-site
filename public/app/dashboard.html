@@ -460,7 +460,21 @@
         ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
         : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
 
-    const accessToken = sessionStorage.getItem("lh_access_token") || "";
+    function getStoredValue(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+    }
+
+    function setStoredValue(key, value) {
+      localStorage.setItem(key, value);
+      sessionStorage.setItem(key, value);
+    }
+
+    function removeStoredValue(key) {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    }
+
+    const accessToken = getStoredValue("lh_access_token");
 
     const previewEl = document.getElementById("preview");
     const globalMessageEl = document.getElementById("globalMessage");
@@ -504,8 +518,8 @@
     }
 
     function readStoredJson(key) {
+      const raw = getStoredValue(key);
       try {
-        const raw = sessionStorage.getItem(key);
         return raw ? JSON.parse(raw) : null;
       } catch (_) {
         return null;
@@ -612,6 +626,9 @@
 
       if (company && company.name) {
         globalMessageEl.textContent = `Signed in for ${company.name}.`;
+        globalMessageEl.className = "message ok";
+      } else if (accessToken) {
+        globalMessageEl.textContent = "Signed in.";
         globalMessageEl.className = "message ok";
       }
     }
@@ -728,6 +745,16 @@
     if (!accessToken) {
       window.location.href = "/app/login.html";
     } else {
+      const storedCompany = getStoredValue("lh_company");
+      const storedUser = getStoredValue("lh_user");
+
+      if (storedCompany) {
+        setStoredValue("lh_company", storedCompany);
+      }
+      if (storedUser) {
+        setStoredValue("lh_user", storedUser);
+      }
+
       applySessionInfo();
       checkHealth();
     }
@@ -797,9 +824,9 @@
     });
 
     logoutBtn.addEventListener("click", () => {
-      sessionStorage.removeItem("lh_access_token");
-      sessionStorage.removeItem("lh_company");
-      sessionStorage.removeItem("lh_user");
+      removeStoredValue("lh_access_token");
+      removeStoredValue("lh_company");
+      removeStoredValue("lh_user");
       window.location.href = "/app/login.html";
     });
   </script>
