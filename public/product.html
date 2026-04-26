@@ -110,6 +110,28 @@
 
     .brand-block {
       display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(70, 200, 150, 0.12) 0%, rgba(70, 200, 150, 0.18) 100%);
+      border: 1px solid rgba(70, 200, 150, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
       flex-direction: column;
       gap: 4px;
       min-width: 0;
@@ -1033,8 +1055,11 @@
     <div class="container">
       <header class="topbar">
         <div class="brand-block">
-          <div class="logo">LedgerHaul</div>
-          <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
+          </div>
         </div>
 
         <div class="nav-actions">
@@ -1205,7 +1230,7 @@
           <div class="workflow-number">1</div>
           <h3>Create contractor records</h3>
           <p>
-            Establish contractor master data, tax status, and W-9 readiness before any compensation activity is entered.
+            Establish contractor master data, tax status, and W-9 readiness before payments are entered.
           </p>
           <ul class="card-list">
             <li>Legal name and business identity validation</li>
@@ -2303,7 +2328,6 @@
     function summarizeFeatures(raw) {
       const features = [];
       const payload = raw && typeof raw === "object" ? raw : {};
-
       const entries = [];
 
       if (Array.isArray(payload.features)) {
