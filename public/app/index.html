@@ -8,6 +8,7 @@
   <meta name="ledgerhaul-api-base" content="" />
 
   <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/app-access.js"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -220,14 +221,14 @@
       display: block;
     }
 
-    .quick-grid {
+    .workspace-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
       margin-top: 18px;
     }
 
-    .quick-card {
+    .workspace-card {
       display: block;
       background: #0e141d;
       border: 1px solid #1c2738;
@@ -236,26 +237,26 @@
       transition: transform .15s ease, border-color .15s ease, background .15s ease;
     }
 
-    .quick-card:hover {
+    .workspace-card:hover {
       transform: translateY(-2px);
       border-color: #2a3a52;
       background: #111a24;
     }
 
-    .quick-title {
+    .workspace-title {
       font-size: 18px;
       font-weight: 800;
       margin-bottom: 8px;
     }
 
-    .quick-copy {
+    .workspace-copy {
       color: #aebfd4;
       font-size: 14px;
       line-height: 1.65;
       margin-bottom: 14px;
     }
 
-    .quick-link {
+    .workspace-link {
       color: #38d39f;
       font-size: 13px;
       font-weight: 700;
@@ -389,7 +390,7 @@
     @media (max-width: 1080px) {
       .hero,
       .grid-2,
-      .quick-grid,
+      .workspace-grid,
       .package-grid {
         grid-template-columns: 1fr;
       }
@@ -435,7 +436,7 @@
       <div class="brand">
         <div>
           <div class="logo">LedgerHaul</div>
-          <div class="subbrand">1099 + bookkeeping operations dashboard</div>
+          <div class="subbrand">Financial operations dashboard</div>
         </div>
       </div>
 
@@ -451,7 +452,7 @@
       <section class="panel">
         <h1>Financial operations dashboard</h1>
         <div class="muted">
-          Start with contractor setup, payment entry, and bookkeeping transactions. Use reports after data has been entered and reviewed.
+          Manage contractor records, contractor payments, bookkeeping activity, and reporting from a single operational workspace.
         </div>
 
         <div id="packageBanner" class="package-banner"></div>
@@ -484,28 +485,28 @@
       </section>
 
       <section class="panel">
-        <h2 class="section-title">Start here</h2>
+        <h2 class="section-title">Operations workspace</h2>
         <div class="muted">
-          Use these workspaces in order so your 1099 reports and bookkeeping exports are built from real customer data instead of blank report screens.
+          Maintain contractor records, payment activity, and bookkeeping operations before reviewing exports and summary reports.
         </div>
 
-        <div class="quick-grid">
-          <a id="cardContractors" class="quick-card" href="/app/contractors.html">
-            <div class="quick-title">Contractors</div>
-            <div class="quick-copy">Add contractor profiles, contact details, tax classification, and W-9 readiness.</div>
-            <div class="quick-link">Open contractors</div>
+        <div class="workspace-grid">
+          <a id="cardContractors" class="workspace-card" href="/app/contractors.html">
+            <div class="workspace-title">Contractors</div>
+            <div class="workspace-copy">Maintain contractor records, tax classification, contact details, and W-9 status.</div>
+            <div class="workspace-link">Manage contractors</div>
           </a>
 
-          <a id="cardPayments" class="quick-card" href="/app/payments.html">
-            <div class="quick-title">Payments</div>
-            <div class="quick-copy">Record contractor payments, deductions, reimbursements, and payment dates.</div>
-            <div class="quick-link">Open payments</div>
+          <a id="cardPayments" class="workspace-card" href="/app/payments.html">
+            <div class="workspace-title">Payments</div>
+            <div class="workspace-copy">Manage contractor payment activity, adjustments, reimbursements, and settlement dates.</div>
+            <div class="workspace-link">Manage payments</div>
           </a>
 
-          <a id="cardBookkeeping" class="quick-card" href="/app/bookkeeping.html">
-            <div class="quick-title">Bookkeeping</div>
-            <div class="quick-copy">Enter bookkeeping transactions for fuel, maintenance, tolls, insurance, admin, and income.</div>
-            <div class="quick-link">Open bookkeeping</div>
+          <a id="cardBookkeeping" class="workspace-card" href="/app/bookkeeping.html">
+            <div class="workspace-title">Bookkeeping</div>
+            <div class="workspace-copy">Manage bookkeeping transactions, classifications, and general ledger activity.</div>
+            <div class="workspace-link">Manage bookkeeping</div>
           </a>
         </div>
       </section>
@@ -515,7 +516,7 @@
       <section id="section1099" class="panel" data-feature="1099">
         <h3 class="section-title">1099 reports</h3>
         <div class="muted">
-          Review your 1099 summary or download a 1099 report after contractor records and contractor payments have been entered.
+          Review 1099 summary data and download 1099 reporting files after contractor records and contractor payment activity have been recorded.
         </div>
 
         <div class="field-grid">
@@ -541,7 +542,7 @@
       <section id="sectionBookkeeping" class="panel" data-feature="bookkeeping">
         <h3 class="section-title">Bookkeeping reports</h3>
         <div class="muted">
-          Review your general ledger data or download a general ledger report after bookkeeping transactions have been entered.
+          Review general ledger data and download bookkeeping reports after bookkeeping transactions have been recorded and classified.
         </div>
 
         <div class="field-grid">
@@ -580,15 +581,15 @@
       <div class="package-grid">
         <div id="packageCard1099" class="package-card">
           <h4>1099 access</h4>
-          <p>1099 summary and export tools are shown only when enabled for the customer package.</p>
+          <p>1099 summary and export tools are available only when enabled for the assigned customer package.</p>
         </div>
         <div id="packageCardBookkeeping" class="package-card">
           <h4>Bookkeeping access</h4>
-          <p>Bookkeeping transaction and general ledger tools are shown only when enabled for the customer package.</p>
+          <p>Bookkeeping transaction and general ledger tools are available only when enabled for the assigned customer package.</p>
         </div>
         <div id="packageCardPayroll" class="package-card">
           <h4>Payroll access</h4>
-          <p>Payroll tools remain hidden unless payroll is enabled for the customer package.</p>
+          <p>Payroll tools remain restricted unless payroll access is enabled for the assigned customer package.</p>
         </div>
       </div>
     </section>
@@ -609,100 +610,13 @@
   </div>
 
   <script>
-    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
-    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
-      ? String(metaApi.getAttribute("content")).trim()
-      : "";
-
-    const API_BASE =
-      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
-        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
-        : (metaApiBase ? metaApiBase.replace(/\/+$/, "") : "https://api.ledgerhaul.com");
-
-    function getStorageItem(key) {
-      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
-    }
-
-    function setStorageItem(key, value) {
-      localStorage.setItem(key, value);
-      sessionStorage.setItem(key, value);
-    }
-
-    function removeStorageItem(key) {
-      localStorage.removeItem(key);
-      sessionStorage.removeItem(key);
-    }
-
-    function clearAuthStorage() {
-      removeStorageItem("lh_access_token");
-      removeStorageItem("lh_refresh_token");
-      removeStorageItem("lh_company");
-      removeStorageItem("lh_user");
-      removeStorageItem("lh_auth_response");
-    }
-
-    function safeJsonParse(text) {
-      try { return JSON.parse(text); } catch { return null; }
-    }
-
-    function decodeJwtPayload(token) {
-      try {
-        const parts = String(token).split(".");
-        if (parts.length < 2) return null;
-        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-        const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
-        const json = atob(padded);
-        return JSON.parse(json);
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function readStoredJson(key) {
-      const raw = getStorageItem(key);
-      try {
-        return raw ? JSON.parse(raw) : null;
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function pickTokenFromAuthResponse(authResponse) {
-      const candidates = [
-        authResponse && authResponse.access_token,
-        authResponse && authResponse.accessToken,
-        authResponse && authResponse.token,
-        authResponse && authResponse.jwt,
-        authResponse && authResponse.id_token,
-        authResponse && authResponse.idToken
-      ];
-
-      for (const candidate of candidates) {
-        if (typeof candidate === "string" && candidate.trim()) {
-          return candidate.trim();
-        }
-      }
-
-      return "";
-    }
-
-    function getAccessToken() {
-      const direct = String(getStorageItem("lh_access_token") || "").trim();
-      if (direct) {
-        return direct;
-      }
-
-      const authResponse = readStoredJson("lh_auth_response");
-      const fallback = pickTokenFromAuthResponse(authResponse);
-      if (fallback) {
-        setStorageItem("lh_access_token", fallback);
-        return fallback;
-      }
-
-      return "";
-    }
-
-    let accessToken = getAccessToken();
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
 
     const previewEl = document.getElementById("preview");
     const packageBannerEl = document.getElementById("packageBanner");
@@ -740,6 +654,10 @@
     const message1099El = document.getElementById("message1099");
     const messageLedgerEl = document.getElementById("messageLedger");
 
+    function getStorageItem(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+    }
+
     function setPreview(value) {
       if (typeof value === "string") {
         previewEl.textContent = value;
@@ -759,98 +677,78 @@
       el.className = "status-pill" + (type ? ` ${type}` : "");
     }
 
-    function normalizePlanName(value) {
-      const raw = String(value || "").trim();
-      if (!raw) return "Standard";
-      return raw
-        .replace(/[_-]+/g, " ")
-        .replace(/\s+/g, " ")
-        .split(" ")
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-        .join(" ");
+    function readStoredJson(key) {
+      const raw = getStorageItem(key);
+      try {
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
     }
 
-    function extractPackageInfo() {
-      const company = readStoredJson("lh_company");
+    function getCompanyId() {
+      const typed = String(companyIdInput.value || "").trim();
+      if (typed) return typed;
+      return window.LH_APP_ACCESS.getCompanyId();
+    }
+
+    function getCurrentYear() {
+      return new Date().getUTCFullYear();
+    }
+
+    function applySessionInfo() {
       const user = readStoredJson("lh_user");
-      const jwt = decodeJwtPayload(accessToken) || {};
+      const company = readStoredJson("lh_company");
+      const companyId = getCompanyId();
+      const packageInfo = window.LH_APP_ACCESS.getPackageInfo();
 
-      const rawPlan =
-        (company && (company.package_name || company.plan_name || company.subscription_plan || company.package || company.plan || company.tier)) ||
-        (user && (user.package_name || user.plan_name || user.subscription_plan || user.package || user.plan || user.tier)) ||
-        jwt.package_name ||
-        jwt.plan_name ||
-        jwt.subscription_plan ||
-        jwt.package ||
-        jwt.plan ||
-        jwt.tier ||
-        "";
+      companyIdValueEl.textContent = companyId || "Unavailable";
 
-      const rawFeatures =
-        (company && (company.features || company.entitlements || company.package_features || company.plan_features)) ||
-        (user && (user.features || user.entitlements || user.package_features || user.plan_features)) ||
-        jwt.features ||
-        jwt.entitlements ||
-        jwt.package_features ||
-        jwt.plan_features ||
-        null;
-
-      const featureMap = {
-        payroll: false,
-        bookkeeping: true,
-        reports1099: true
-      };
-
-      if (Array.isArray(rawFeatures)) {
-        rawFeatures.forEach((entry) => {
-          const key = String(entry || "").trim().toLowerCase();
-          if (["payroll", "w2", "employee-payroll", "payroll-reports"].includes(key)) {
-            featureMap.payroll = true;
-          }
-          if (["bookkeeping", "general-ledger", "ledger", "gl"].includes(key)) {
-            featureMap.bookkeeping = true;
-          }
-          if (["1099", "1099-reports", "contractor-1099", "contractor-payments"].includes(key)) {
-            featureMap.reports1099 = true;
-          }
-        });
-      } else if (rawFeatures && typeof rawFeatures === "object") {
-        featureMap.payroll = Boolean(
-          rawFeatures.payroll ||
-          rawFeatures.w2 ||
-          rawFeatures.employee_payroll ||
-          rawFeatures.payroll_reports
-        );
-        featureMap.bookkeeping = Boolean(
-          rawFeatures.bookkeeping ||
-          rawFeatures.general_ledger ||
-          rawFeatures.ledger ||
-          rawFeatures.gl ||
-          featureMap.bookkeeping
-        );
-        featureMap.reports1099 = Boolean(
-          rawFeatures["1099"] ||
-          rawFeatures.reports1099 ||
-          rawFeatures.contractor_1099 ||
-          rawFeatures.contractor_payments ||
-          featureMap.reports1099
-        );
+      if (user && (user.email || user.first_name || user.last_name)) {
+        const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
+        userValueEl.textContent = name || user.email || "Authenticated user";
       } else {
-        const plan = String(rawPlan || "").trim().toLowerCase();
-        if (plan.includes("payroll")) featureMap.payroll = true;
-        if (plan.includes("bookkeeping")) featureMap.bookkeeping = true;
-        if (plan.includes("1099")) featureMap.reports1099 = true;
-        if (plan.includes("starter")) {
-          featureMap.payroll = false;
-          featureMap.bookkeeping = true;
-          featureMap.reports1099 = true;
-        }
+        userValueEl.textContent = "Authenticated user";
       }
 
-      return {
-        planName: normalizePlanName(rawPlan),
-        features: featureMap
-      };
+      authValueEl.textContent = "Signed in";
+      packageValueEl.textContent = packageInfo.planName || "Standard";
+
+      setPill(signInPillEl, "Signed in", "ok");
+
+      if (!companyIdInput.value && companyId) {
+        companyIdInput.value = companyId;
+      }
+
+      if (!yearInput.value) {
+        yearInput.value = String(getCurrentYear());
+      }
+
+      setPlanVisibility(packageInfo.features);
+
+      if (company && company.name) {
+        globalMessageEl.textContent = `Signed in for ${company.name}.`;
+        globalMessageEl.className = "message ok";
+      } else {
+        globalMessageEl.textContent = "Signed in.";
+        globalMessageEl.className = "message ok";
+      }
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+        if (!res.ok) {
+          setPill(systemStatusPillEl, "System status: Limited", "warn");
+          return;
+        }
+        setPill(systemStatusPillEl, "System status: Online", "ok");
+      } catch (_) {
+        setPill(systemStatusPillEl, "System status: Unavailable", "error");
+      }
     }
 
     function setPlanVisibility(features) {
@@ -887,117 +785,10 @@
       packageBannerEl.classList.add("show");
     }
 
-    function getCompanyId() {
-      const typed = String(companyIdInput.value || "").trim();
-      if (typed) return typed;
-
-      const company = readStoredJson("lh_company");
-      if (company && company.id !== undefined && company.id !== null) {
-        return String(company.id);
-      }
-      if (company && company.company_id !== undefined && company.company_id !== null) {
-        return String(company.company_id);
-      }
-
-      const user = readStoredJson("lh_user");
-      if (user && user.company_id !== undefined && user.company_id !== null) {
-        return String(user.company_id);
-      }
-
-      const jwt = decodeJwtPayload(accessToken);
-      if (jwt && jwt.company_id !== undefined && jwt.company_id !== null) {
-        return String(jwt.company_id);
-      }
-
-      return "";
-    }
-
-    function getCurrentYear() {
-      return new Date().getUTCFullYear();
-    }
-
-    function applySessionInfo() {
-      const user = readStoredJson("lh_user");
-      const company = readStoredJson("lh_company");
-      const jwt = decodeJwtPayload(accessToken);
-      const companyId = getCompanyId();
-      const packageInfo = extractPackageInfo();
-
-      companyIdValueEl.textContent = companyId || "Unavailable";
-
-      if (user && (user.email || user.first_name || user.last_name)) {
-        const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
-        userValueEl.textContent = name || user.email || "Authenticated user";
-      } else if (jwt && jwt.sub) {
-        userValueEl.textContent = String(jwt.sub);
-      } else {
-        userValueEl.textContent = "Unavailable";
-      }
-
-      authValueEl.textContent = accessToken ? "Signed in" : "Not signed in";
-      packageValueEl.textContent = packageInfo.planName || "Standard";
-
-      if (accessToken) {
-        setPill(signInPillEl, "Signed in", "ok");
-      } else {
-        setPill(signInPillEl, "Not signed in", "error");
-      }
-
-      if (!companyIdInput.value && companyId) {
-        companyIdInput.value = companyId;
-      }
-
-      if (!yearInput.value) {
-        yearInput.value = String(getCurrentYear());
-      }
-
-      setPlanVisibility(packageInfo.features);
-
-      if (company && company.name) {
-        globalMessageEl.textContent = `Signed in for ${company.name}.`;
-        globalMessageEl.className = "message ok";
-      } else {
-        globalMessageEl.textContent = accessToken ? "Signed in." : "Please sign in again.";
-        globalMessageEl.className = accessToken ? "message ok" : "message error";
-      }
-    }
-
-    function handleUnauthorized(detailText) {
-      clearAuthStorage();
-      accessToken = "";
-      authValueEl.textContent = "Not signed in";
-      setPill(signInPillEl, "Session expired", "error");
-      globalMessageEl.textContent = detailText || "Your session expired. Please sign in again.";
-      globalMessageEl.className = "message error";
-      setTimeout(() => {
-        window.location.href = "/app/login.html";
-      }, 1200);
-    }
-
-    async function checkHealth() {
-      try {
-        const res = await fetch(`${API_BASE}/health`, {
-          method: "GET",
-          cache: "no-store"
-        });
-        if (!res.ok) {
-          setPill(systemStatusPillEl, "System status: Limited", "warn");
-          return;
-        }
-        setPill(systemStatusPillEl, "System status: Online", "ok");
-      } catch (_) {
-        setPill(systemStatusPillEl, "System status: Unavailable", "error");
-      }
-    }
-
     function buildHeaders(companyId, acceptCsv) {
-      const headers = {
-        "Accept": acceptCsv ? "text/csv" : "application/json"
-      };
-
-      if (accessToken) {
-        headers.Authorization = `Bearer ${accessToken}`;
-      }
+      const headers = window.LH_APP_ACCESS.buildHeaders({
+        Accept: acceptCsv ? "text/csv" : "application/json"
+      });
 
       if (companyId !== null && companyId !== undefined && String(companyId).trim() !== "") {
         headers["X-Company-Id"] = String(companyId).trim();
@@ -1014,23 +805,31 @@
       });
 
       const raw = await res.text();
-      const json = safeJsonParse(raw);
+      const json = window.LH_APP_ACCESS.safeJsonParse(raw);
 
       if (res.status === 401) {
-        const detail =
+        window.LH_APP_ACCESS.logout();
+        throw new Error(
           (json && (json.error || json.message || json.detail)) ||
           raw ||
-          "Your session expired. Please sign in again.";
-        handleUnauthorized(detail);
-        throw new Error(detail);
+          "Your session expired. Please sign in again."
+        );
+      }
+
+      if (res.status === 403) {
+        throw new Error(
+          (json && (json.error || json.message || json.detail)) ||
+          raw ||
+          "Access is not enabled for this account."
+        );
       }
 
       if (!res.ok) {
-        const message =
+        throw new Error(
           (json && (json.error || json.message || json.detail)) ||
           raw ||
-          `Request failed (${res.status})`;
-        throw new Error(message);
+          `Request failed (${res.status})`
+        );
       }
 
       return json || raw;
@@ -1045,23 +844,28 @@
 
       if (res.status === 401) {
         const raw = await res.text();
-        const json = safeJsonParse(raw);
-        const detail =
+        window.LH_APP_ACCESS.logout();
+        throw new Error(raw || "Your session expired. Please sign in again.");
+      }
+
+      if (res.status === 403) {
+        const raw = await res.text();
+        const json = window.LH_APP_ACCESS.safeJsonParse(raw);
+        throw new Error(
           (json && (json.error || json.message || json.detail)) ||
           raw ||
-          "Your session expired. Please sign in again.";
-        handleUnauthorized(detail);
-        throw new Error(detail);
+          "Access is not enabled for this account."
+        );
       }
 
       if (!res.ok) {
         const raw = await res.text();
-        const json = safeJsonParse(raw);
-        const message =
+        const json = window.LH_APP_ACCESS.safeJsonParse(raw);
+        throw new Error(
           (json && (json.error || json.message || json.detail)) ||
           raw ||
-          `Download failed (${res.status})`;
-        throw new Error(message);
+          `Download failed (${res.status})`
+        );
       }
 
       const blob = await res.blob();
@@ -1117,14 +921,15 @@
       return `${API_BASE}/api/bookkeeping/export/ledger.csv?${params.toString()}`;
     }
 
-    if (!accessToken) {
-      window.location.href = "/app/login.html";
-    } else {
-      if (getStorageItem("lh_company")) {
-        setStorageItem("lh_company", getStorageItem("lh_company"));
-      }
-      if (getStorageItem("lh_user")) {
-        setStorageItem("lh_user", getStorageItem("lh_user"));
+    async function initializePage() {
+      const sessionState = await window.LH_APP_ACCESS.init({
+        requirePaid: true,
+        redirectOnFail: true,
+        allowIfEndpointMissing: false
+      });
+
+      if (!sessionState.ok) {
+        return;
       }
 
       applySessionInfo();
@@ -1134,6 +939,14 @@
     load1099Btn.addEventListener("click", async () => {
       setMessage(message1099El, "", "");
       try {
+        const featureState = await window.LH_APP_ACCESS.requireFeature("reports1099", {
+          redirectOnFail: false,
+          allowIfEndpointMissing: false
+        });
+        if (!featureState.ok) {
+          throw new Error("1099 access is not enabled for this account.");
+        }
+
         const companyId = getCompanyId();
         if (!companyId) {
           throw new Error("Company ID is required.");
@@ -1143,15 +956,21 @@
         setPreview(data);
         setMessage(message1099El, "1099 summary loaded.", "ok");
       } catch (err) {
-        if (!String(err && err.message || "").toLowerCase().includes("session expired")) {
-          setMessage(message1099El, err.message || "Failed to load 1099 summary.", "error");
-        }
+        setMessage(message1099El, err.message || "Failed to load 1099 summary.", "error");
       }
     });
 
     download1099Btn.addEventListener("click", async () => {
       setMessage(message1099El, "", "");
       try {
+        const featureState = await window.LH_APP_ACCESS.requireFeature("reports1099", {
+          redirectOnFail: false,
+          allowIfEndpointMissing: false
+        });
+        if (!featureState.ok) {
+          throw new Error("1099 access is not enabled for this account.");
+        }
+
         const companyId = getCompanyId();
         if (!companyId) {
           throw new Error("Company ID is required.");
@@ -1161,15 +980,21 @@
         await requestBlob(build1099CsvUrl(), companyId, filename);
         setMessage(message1099El, "1099 report download started.", "ok");
       } catch (err) {
-        if (!String(err && err.message || "").toLowerCase().includes("session expired")) {
-          setMessage(message1099El, err.message || "Failed to download 1099 report.", "error");
-        }
+        setMessage(message1099El, err.message || "Failed to download 1099 report.", "error");
       }
     });
 
     loadLedgerBtn.addEventListener("click", async () => {
       setMessage(messageLedgerEl, "", "");
       try {
+        const featureState = await window.LH_APP_ACCESS.requireFeature("bookkeeping", {
+          redirectOnFail: false,
+          allowIfEndpointMissing: false
+        });
+        if (!featureState.ok) {
+          throw new Error("Bookkeeping access is not enabled for this account.");
+        }
+
         const companyId = getCompanyId();
         if (!companyId) {
           throw new Error("Company ID is required.");
@@ -1179,15 +1004,21 @@
         setPreview(data);
         setMessage(messageLedgerEl, "General ledger loaded.", "ok");
       } catch (err) {
-        if (!String(err && err.message || "").toLowerCase().includes("session expired")) {
-          setMessage(messageLedgerEl, err.message || "Failed to load general ledger.", "error");
-        }
+        setMessage(messageLedgerEl, err.message || "Failed to load general ledger.", "error");
       }
     });
 
     downloadLedgerBtn.addEventListener("click", async () => {
       setMessage(messageLedgerEl, "", "");
       try {
+        const featureState = await window.LH_APP_ACCESS.requireFeature("bookkeeping", {
+          redirectOnFail: false,
+          allowIfEndpointMissing: false
+        });
+        if (!featureState.ok) {
+          throw new Error("Bookkeeping access is not enabled for this account.");
+        }
+
         const companyId = getCompanyId();
         if (!companyId) {
           throw new Error("Company ID is required.");
@@ -1197,16 +1028,15 @@
         await requestBlob(buildLedgerCsvUrl(), companyId, filename);
         setMessage(messageLedgerEl, "General ledger report download started.", "ok");
       } catch (err) {
-        if (!String(err && err.message || "").toLowerCase().includes("session expired")) {
-          setMessage(messageLedgerEl, err.message || "Failed to download general ledger report.", "error");
-        }
+        setMessage(messageLedgerEl, err.message || "Failed to download general ledger report.", "error");
       }
     });
 
     logoutBtn.addEventListener("click", () => {
-      clearAuthStorage();
-      window.location.href = "/app/login.html";
+      window.LH_APP_ACCESS.logout();
     });
+
+    initializePage();
   </script>
 </body>
 </html>
