@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookkeeping | LedgerHaul</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0f14;
+      --panel: #121a24;
+      --panel-2: #0e141d;
+      --border: #223044;
+      --border-2: #1c2738;
+      --text: #e9eef5;
+      --muted: #aebfd4;
+      --muted-2: #8ea4bf;
+      --accent: #38d39f;
+      --accent-text: #08140f;
+      --danger: #ffb8c4;
+      --danger-bg: #2a1016;
+      --danger-border: #5c2430;
+      --warn: #f6d58c;
+      --warn-bg: #251d0d;
+      --warn-border: #5f4a20;
+      --ok: #9ff2c9;
+      --ok-bg: #10281f;
+      --ok-border: #21533f;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+    }
+
+    .subbrand {
+      font-size: 13px;
+      color: var(--muted-2);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #243246;
+      background: var(--panel);
+      color: #d7e3f4;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover { filter: brightness(1.03); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-danger {
+      background: #1a1416;
+      border-color: #4a2b32;
+      color: #f3c9cf;
+    }
+
+    .btn-secondary {
+      background: #0f1720;
+    }
+
+    .btn[disabled] {
+      opacity: .55;
+      cursor: not-allowed;
+      filter: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.05fr 1.45fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .panel h1,
+    .panel h2,
+    .panel h3 {
+      margin: 0 0 12px;
+    }
+
+    .panel h1 {
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #2a3a52;
+      background: #0f1720;
+      color: #c9d6ea;
+    }
+
+    .pill.ok {
+      border-color: var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .pill.warn {
+      border-color: var(--warn-border);
+      background: var(--warn-bg);
+      color: var(--warn);
+    }
+
+    .pill.error {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #b8c6d9;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #2a3a52;
+      background: #0c1219;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .field textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .field-help {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted-2);
+      line-height: 1.5;
+    }
+
+    .split-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .message.ok { color: var(--ok); }
+    .message.error { color: var(--danger); }
+    .message.warn { color: var(--warn); }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr .8fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .list-wrap {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .entry-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .entry-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .entry-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .entry-meta {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .meta-box {
+      background: #0b1118;
+      border: 1px solid #243246;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .meta-box .k {
+      color: var(--muted-2);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .meta-box .v {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .row-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .empty-state {
+      background: var(--panel-2);
+      border: 1px dashed #31445d;
+      border-radius: 16px;
+      padding: 22px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .footer a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid,
+      .entry-meta,
+      .split-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 18px 14px 34px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .panel h1 {
+        font-size: 26px;
+      }
+
+      .field-grid,
+      .hero-grid,
+      .toolbar,
+      .entry-meta,
+      .split-row {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions,
+      .form-actions,
+      .row-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand-block">
+        <div class="logo">LedgerHaul</div>
+        <div class="subbrand">Bookkeeping workspace</div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn" href="/app/index.html">Dashboard</a>
+        <a class="btn" href="/app/contractors.html">Contractors</a>
+        <a class="btn" href="/app/payments.html">Payments</a>
+        <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <h1>Record bookkeeping transaction</h1>
+        <div class="muted">
+          Enter bookkeeping transactions with date, account, category, amount, vendor, and notes so general ledger reporting starts with usable financial data.
+        </div>
+
+        <div class="status-row">
+          <div id="systemPill" class="pill">System status unknown</div>
+          <div id="authPill" class="pill">Sign-in status unknown</div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="metric">
+            <div class="metric-label">Company ID</div>
+            <div id="companyMetric" class="metric-value">—</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">User</div>
+            <div id="userMetric" class="metric-value">—</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Transactions</div>
+            <div id="countMetric" class="metric-value">0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Amount total</div>
+            <div id="amountMetric" class="metric-value">$0.00</div>
+          </div>
+        </div>
+
+        <div id="globalMessage" class="message"></div>
+
+        <form id="entryForm" novalidate>
+          <div class="field-grid">
+            <div class="field">
+              <label for="entryDate">Transaction date</label>
+              <input id="entryDate" type="date" required />
+            </div>
+
+            <div class="field">
+              <label for="entryType">Transaction type</label>
+              <select id="entryType" required>
+                <option value="">Select</option>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+                <option value="transfer">Transfer</option>
+                <option value="adjustment">Adjustment</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="accountCode">Account code</label>
+              <input id="accountCode" type="text" maxlength="40" placeholder="Example: 6100" required />
+            </div>
+
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" required>
+                <option value="">Select</option>
+                <option value="fuel">Fuel</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="repairs">Repairs</option>
+                <option value="tolls">Tolls</option>
+                <option value="insurance">Insurance</option>
+                <option value="payroll">Payroll</option>
+                <option value="contractor_payout">Contractor payout</option>
+                <option value="permits">Permits</option>
+                <option value="subscriptions">Subscriptions</option>
+                <option value="office_admin">Office / admin</option>
+                <option value="loan_lease">Loan / lease</option>
+                <option value="income">Income</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="amount">Amount</label>
+              <input id="amount" type="number" min="0" step="0.01" placeholder="0.00" required />
+            </div>
+
+            <div class="field">
+              <label for="vendorName">Vendor / customer</label>
+              <input id="vendorName" type="text" maxlength="200" />
+            </div>
+
+            <div class="field">
+              <label for="paymentMethod">Payment method</label>
+              <select id="paymentMethod">
+                <option value="">Select</option>
+                <option value="bank">Bank</option>
+                <option value="card">Card</option>
+                <option value="cash">Cash</option>
+                <option value="ach">ACH</option>
+                <option value="check">Check</option>
+                <option value="wire">Wire</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="referenceNumber">Reference number</label>
+              <input id="referenceNumber" type="text" maxlength="120" />
+            </div>
+
+            <div class="field full">
+              <label for="description">Description</label>
+              <textarea id="description" maxlength="2000"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="saveBtn" class="btn btn-primary" type="submit">Save transaction</button>
+            <button id="resetBtn" class="btn btn-secondary" type="button">Clear form</button>
+          </div>
+
+          <div id="formMessage" class="message"></div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Transaction records</h2>
+        <div class="muted">
+          Review, sort, and edit bookkeeping transactions used for ledger exports and financial reporting.
+        </div>
+
+        <div class="toolbar">
+          <div class="field">
+            <label for="searchInput">Search</label>
+            <input id="searchInput" type="text" placeholder="Vendor, description, account code" />
+          </div>
+
+          <div class="field">
+            <label for="typeFilter">Type</label>
+            <select id="typeFilter">
+              <option value="all">All</option>
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+              <option value="transfer">Transfer</option>
+              <option value="adjustment">Adjustment</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter">
+              <option value="all">All</option>
+              <option value="fuel">Fuel</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="repairs">Repairs</option>
+              <option value="tolls">Tolls</option>
+              <option value="insurance">Insurance</option>
+              <option value="payroll">Payroll</option>
+              <option value="contractor_payout">Contractor payout</option>
+              <option value="permits">Permits</option>
+              <option value="subscriptions">Subscriptions</option>
+              <option value="office_admin">Office / admin</option>
+              <option value="loan_lease">Loan / lease</option>
+              <option value="income">Income</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="sortInput">Sort</label>
+            <select id="sortInput">
+              <option value="date_desc">Newest first</option>
+              <option value="date_asc">Oldest first</option>
+              <option value="amount_desc">Highest amount first</option>
+              <option value="amount_asc">Lowest amount first</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions" style="margin-top:16px;">
+          <button id="refreshBtn" class="btn" type="button">Refresh list</button>
+        </div>
+
+        <div id="listMessage" class="message"></div>
+        <div id="emptyState" class="empty-state" hidden>
+          No bookkeeping transactions found. Record your first transaction on the left.
+        </div>
+        <div id="entryList" class="list-wrap"></div>
+      </section>
+    </div>
+
+    <div class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
+    const metaApiBase = metaApi && metaApi.getAttribute("content")
+      ? String(metaApi.getAttribute("content")).trim()
+      : "";
+
+    const API_BASE =
+      window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim()
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+        : (metaApiBase ? metaApiBase.replace(/\/+$/, "") : "https://api.ledgerhaul.com");
+
+    function getStorageItem(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+    }
+
+    function setStorageItem(key, value) {
+      localStorage.setItem(key, value);
+      sessionStorage.setItem(key, value);
+    }
+
+    function removeStorageItem(key) {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    }
+
+    function clearAuthStorage() {
+      removeStorageItem("lh_access_token");
+      removeStorageItem("lh_refresh_token");
+      removeStorageItem("lh_company");
+      removeStorageItem("lh_user");
+      removeStorageItem("lh_auth_response");
+    }
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch { return null; }
+    }
+
+    function decodeJwtPayload(token) {
+      try {
+        const parts = String(token).split(".");
+        if (parts.length < 2) return null;
+        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+        const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+        const json = atob(padded);
+        return JSON.parse(json);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function readStoredJson(key) {
+      const raw = getStorageItem(key);
+      try {
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function pickTokenFromAuthResponse(authResponse) {
+      const candidates = [
+        authResponse && authResponse.access_token,
+        authResponse && authResponse.accessToken,
+        authResponse && authResponse.token,
+        authResponse && authResponse.jwt,
+        authResponse && authResponse.id_token,
+        authResponse && authResponse.idToken
+      ];
+
+      for (const candidate of candidates) {
+        if (typeof candidate === "string" && candidate.trim()) {
+          return candidate.trim();
+        }
+      }
+      return "";
+    }
+
+    function getAccessToken() {
+      const direct = String(getStorageItem("lh_access_token") || "").trim();
+      if (direct) return direct;
+
+      const authResponse = readStoredJson("lh_auth_response");
+      const fallback = pickTokenFromAuthResponse(authResponse);
+      if (fallback) {
+        setStorageItem("lh_access_token", fallback);
+        return fallback;
+      }
+      return "";
+    }
+
+    let accessToken = getAccessToken();
+    let entries = [];
+    let editingEntryId = null;
+
+    const ENDPOINTS = {
+      list: [
+        "/api/bookkeeping/transactions",
+        "/api/bookkeeping/entries",
+        "/bookkeeping/transactions"
+      ],
+      create: [
+        "/api/bookkeeping/transactions",
+        "/api/bookkeeping/entries",
+        "/bookkeeping/transactions"
+      ],
+      update: (id) => [
+        `/api/bookkeeping/transactions/${id}`,
+        `/api/bookkeeping/entries/${id}`,
+        `/bookkeeping/transactions/${id}`
+      ]
+    };
+
+    const companyMetric = document.getElementById("companyMetric");
+    const userMetric = document.getElementById("userMetric");
+    const countMetric = document.getElementById("countMetric");
+    const amountMetric = document.getElementById("amountMetric");
+    const systemPill = document.getElementById("systemPill");
+    const authPill = document.getElementById("authPill");
+    const globalMessage = document.getElementById("globalMessage");
+
+    const entryForm = document.getElementById("entryForm");
+    const formMessage = document.getElementById("formMessage");
+    const listMessage = document.getElementById("listMessage");
+    const entryList = document.getElementById("entryList");
+    const emptyState = document.getElementById("emptyState");
+
+    const entryDate = document.getElementById("entryDate");
+    const entryType = document.getElementById("entryType");
+    const accountCode = document.getElementById("accountCode");
+    const category = document.getElementById("category");
+    const amount = document.getElementById("amount");
+    const vendorName = document.getElementById("vendorName");
+    const paymentMethod = document.getElementById("paymentMethod");
+    const referenceNumber = document.getElementById("referenceNumber");
+    const description = document.getElementById("description");
+
+    const saveBtn = document.getElementById("saveBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const searchInput = document.getElementById("searchInput");
+    const typeFilter = document.getElementById("typeFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const sortInput = document.getElementById("sortInput");
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "pill" + (type ? ` ${type}` : "");
+    }
+
+    function setMessage(el, text, type) {
+      el.textContent = text || "";
+      el.className = "message" + (type ? ` ${type}` : "");
+    }
+
+    function getCompanyId() {
+      const company = readStoredJson("lh_company");
+      if (company && company.id !== undefined && company.id !== null) {
+        return String(company.id);
+      }
+      if (company && company.company_id !== undefined && company.company_id !== null) {
+        return String(company.company_id);
+      }
+
+      const user = readStoredJson("lh_user");
+      if (user && user.company_id !== undefined && user.company_id !== null) {
+        return String(user.company_id);
+      }
+
+      const jwt = decodeJwtPayload(accessToken);
+      if (jwt && jwt.company_id !== undefined && jwt.company_id !== null) {
+        return String(jwt.company_id);
+      }
+
+      return "";
+    }
+
+    function buildHeaders() {
+      const headers = {
+        "Accept": "application/json"
+      };
+
+      if (accessToken) {
+        headers.Authorization = `Bearer ${accessToken}`;
+      }
+
+      const companyId = getCompanyId();
+      if (companyId) {
+        headers["X-Company-Id"] = companyId;
+      }
+
+      return headers;
+    }
+
+    function formatMoney(value) {
+      const numeric = Number(value || 0);
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+      }).format(Number.isFinite(numeric) ? numeric : 0);
+    }
+
+    function parseMoney(value) {
+      const numeric = Number(String(value || "").trim());
+      return Number.isFinite(numeric) ? numeric : 0;
+    }
+
+    function handleUnauthorized(detailText) {
+      clearAuthStorage();
+      accessToken = "";
+      setPill(authPill, "Session expired", "error");
+      setMessage(globalMessage, detailText || "Your session expired. Please sign in again.", "error");
+      setTimeout(() => {
+        window.location.href = "/app/login.html";
+      }, 1200);
+    }
+
+    async function requestCandidates(urls, options) {
+      let lastError = null;
+
+      for (const url of urls) {
+        const response = await fetch(`${API_BASE}${url}`, options);
+        const raw = await response.text();
+        const json = safeJsonParse(raw);
+
+        if (response.status === 401) {
+          const detail = (json && (json.error || json.message || json.detail)) || raw || "Unauthorized";
+          handleUnauthorized(detail);
+          throw new Error(detail);
+        }
+
+        if (response.status === 404) {
+          lastError = new Error(`Endpoint not found: ${url}`);
+          continue;
+        }
+
+        if (!response.ok) {
+          const message = (json && (json.error || json.message || json.detail)) || raw || `Request failed (${response.status})`;
+          throw new Error(message);
+        }
+
+        return json || raw;
+      }
+
+      throw lastError || new Error("No supported endpoint responded successfully.");
+    }
+
+    async function loadEntries() {
+      setMessage(listMessage, "", "");
+      try {
+        const data = await requestCandidates(ENDPOINTS.list, {
+          method: "GET",
+          headers: buildHeaders(),
+          cache: "no-store"
+        });
+
+        const rows = Array.isArray(data)
+          ? data
+          : Array.isArray(data.transactions)
+            ? data.transactions
+            : Array.isArray(data.entries)
+              ? data.entries
+              : Array.isArray(data.items)
+                ? data.items
+                : [];
+
+        entries = rows.map((item) => ({
+          id: item.id ?? item.transaction_id ?? item.entry_id ?? item.uuid ?? crypto.randomUUID(),
+          entry_date: item.entry_date || item.transaction_date || item.date || "",
+          entry_type: item.entry_type || item.transaction_type || item.type || "",
+          account_code: item.account_code || item.accountCode || "",
+          category: item.category || "",
+          amount: Number(item.amount ?? 0),
+          vendor_name: item.vendor_name || item.vendorName || item.customer_name || "",
+          payment_method: item.payment_method || item.paymentMethod || "",
+          reference_number: item.reference_number || item.referenceNumber || "",
+          description: item.description || item.memo || "",
+          raw: item
+        }));
+
+        refreshMetrics();
+        renderEntries();
+        setMessage(listMessage, "Bookkeeping transactions loaded.", "ok");
+      } catch (err) {
+        entries = [];
+        refreshMetrics();
+        renderEntries();
+        setMessage(listMessage, err.message || "Failed to load bookkeeping transactions.", "error");
+      }
+    }
+
+    function refreshMetrics() {
+      const companyId = getCompanyId();
+      const user = readStoredJson("lh_user");
+      const jwt = decodeJwtPayload(accessToken);
+
+      companyMetric.textContent = companyId || "Unavailable";
+
+      if (user && (user.email || user.first_name || user.last_name)) {
+        const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
+        userMetric.textContent = name || user.email || "Authenticated user";
+      } else if (jwt && jwt.sub) {
+        userMetric.textContent = String(jwt.sub);
+      } else {
+        userMetric.textContent = "Unavailable";
+      }
+
+      countMetric.textContent = String(entries.length);
+
+      const total = entries.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+      amountMetric.textContent = formatMoney(total);
+    }
+
+    function filteredEntries() {
+      const search = String(searchInput.value || "").trim().toLowerCase();
+      const typeValue = String(typeFilter.value || "all");
+      const categoryValue = String(categoryFilter.value || "all");
+      const sortValue = String(sortInput.value || "date_desc");
+
+      let rows = entries.filter((item) => {
+        const matchesSearch = !search || [
+          item.vendor_name,
+          item.description,
+          item.account_code,
+          item.reference_number
+        ].join(" ").toLowerCase().includes(search);
+
+        const matchesType = typeValue === "all" || String(item.entry_type || "").toLowerCase() === typeValue;
+        const matchesCategory = categoryValue === "all" || String(item.category || "").toLowerCase() === categoryValue;
+
+        return matchesSearch && matchesType && matchesCategory;
+      });
+
+      rows.sort((a, b) => {
+        if (sortValue === "date_asc") {
+          return String(a.entry_date).localeCompare(String(b.entry_date));
+        }
+        if (sortValue === "amount_desc") {
+          return Number(b.amount || 0) - Number(a.amount || 0);
+        }
+        if (sortValue === "amount_asc") {
+          return Number(a.amount || 0) - Number(b.amount || 0);
+        }
+        return String(b.entry_date).localeCompare(String(a.entry_date));
+      });
+
+      return rows;
+    }
+
+    function renderEntries() {
+      const rows = filteredEntries();
+      entryList.innerHTML = "";
+      emptyState.hidden = rows.length !== 0;
+
+      rows.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "entry-card";
+
+        card.innerHTML = `
+          <div class="entry-top">
+            <div>
+              <div class="entry-title">${escapeHtml(item.vendor_name || item.description || "Transaction")}</div>
+              <div class="entry-sub">
+                ${escapeHtml(item.entry_date || "No date")}
+                ${item.description ? `<br>${escapeHtml(item.description)}` : ""}
+              </div>
+            </div>
+            <div class="row-actions">
+              <button class="btn" type="button" data-action="edit" data-id="${escapeAttr(item.id)}">Edit</button>
+            </div>
+          </div>
+
+          <div class="entry-meta">
+            <div class="meta-box">
+              <div class="k">Type</div>
+              <div class="v">${escapeHtml(item.entry_type || "Not set")}</div>
+            </div>
+            <div class="meta-box">
+              <div class="k">Category</div>
+              <div class="v">${escapeHtml(item.category || "Not set")}</div>
+            </div>
+            <div class="meta-box">
+              <div class="k">Account code</div>
+              <div class="v">${escapeHtml(item.account_code || "Not set")}</div>
+            </div>
+            <div class="meta-box">
+              <div class="k">Amount</div>
+              <div class="v">${escapeHtml(formatMoney(item.amount))}</div>
+            </div>
+            <div class="meta-box">
+              <div class="k">Payment method</div>
+              <div class="v">${escapeHtml(item.payment_method || "Not set")}</div>
+            </div>
+          </div>
+        `;
+
+        entryList.appendChild(card);
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value);
+    }
+
+    function resetForm() {
+      editingEntryId = null;
+      entryForm.reset();
+      entryDate.value = new Date().toISOString().slice(0, 10);
+      saveBtn.textContent = "Save transaction";
+      setMessage(formMessage, "", "");
+    }
+
+    function fillForm(entry) {
+      editingEntryId = entry.id;
+      entryDate.value = entry.entry_date || "";
+      entryType.value = entry.entry_type || "";
+      accountCode.value = entry.account_code || "";
+      category.value = entry.category || "";
+      amount.value = String(entry.amount ?? "");
+      vendorName.value = entry.vendor_name || "";
+      paymentMethod.value = entry.payment_method || "";
+      referenceNumber.value = entry.reference_number || "";
+      description.value = entry.description || "";
+      saveBtn.textContent = "Update transaction";
+      setMessage(formMessage, "Editing transaction record.", "warn");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function buildPayload() {
+      return {
+        entry_date: String(entryDate.value || "").trim(),
+        entry_type: String(entryType.value || "").trim(),
+        account_code: String(accountCode.value || "").trim(),
+        category: String(category.value || "").trim(),
+        amount: parseMoney(amount.value),
+        vendor_name: String(vendorName.value || "").trim(),
+        payment_method: String(paymentMethod.value || "").trim(),
+        reference_number: String(referenceNumber.value || "").trim(),
+        description: String(description.value || "").trim()
+      };
+    }
+
+    function validatePayload(payload) {
+      if (!payload.entry_date) {
+        return "Transaction date is required.";
+      }
+      if (!payload.entry_type) {
+        return "Transaction type is required.";
+      }
+      if (!payload.account_code) {
+        return "Account code is required.";
+      }
+      if (!payload.category) {
+        return "Category is required.";
+      }
+      if (payload.amount <= 0) {
+        return "Amount must be greater than zero.";
+      }
+      return "";
+    }
+
+    async function saveEntry(payload) {
+      const method = editingEntryId ? "PUT" : "POST";
+      const urls = editingEntryId ? ENDPOINTS.update(editingEntryId) : ENDPOINTS.create;
+
+      return requestCandidates(urls, {
+        method,
+        headers: {
+          ...buildHeaders(),
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+        cache: "no-store"
+      });
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+        if (!res.ok) {
+          setPill(systemPill, "System status: Limited", "warn");
+          return;
+        }
+        setPill(systemPill, "System status: Online", "ok");
+      } catch (_) {
+        setPill(systemPill, "System status: Unavailable", "error");
+      }
+    }
+
+    entryForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setMessage(formMessage, "", "");
+
+      const payload = buildPayload();
+      const validationError = validatePayload(payload);
+      if (validationError) {
+        setMessage(formMessage, validationError, "error");
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = editingEntryId ? "Updating…" : "Saving…";
+
+      try {
+        await saveEntry(payload);
+        setMessage(formMessage, editingEntryId ? "Transaction updated." : "Transaction saved.", "ok");
+        resetForm();
+        await loadEntries();
+      } catch (err) {
+        setMessage(formMessage, err.message || "Failed to save transaction.", "error");
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = editingEntryId ? "Update transaction" : "Save transaction";
+      }
+    });
+
+    entryList.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-action='edit']");
+      if (!target) return;
+
+      const entryId = String(target.getAttribute("data-id") || "");
+      const entry = entries.find((item) => String(item.id) === entryId);
+      if (entry) {
+        fillForm(entry);
+      }
+    });
+
+    resetBtn.addEventListener("click", resetForm);
+    refreshBtn.addEventListener("click", loadEntries);
+    logoutBtn.addEventListener("click", () => {
+      clearAuthStorage();
+      window.location.href = "/app/login.html";
+    });
+
+    [searchInput, typeFilter, categoryFilter, sortInput].forEach((el) => {
+      el.addEventListener("input", renderEntries);
+      el.addEventListener("change", renderEntries);
+    });
+
+    if (!accessToken) {
+      window.location.href = "/app/login.html";
+    } else {
+      setPill(authPill, "Signed in", "ok");
+      const company = readStoredJson("lh_company");
+      if (company && company.name) {
+        setMessage(globalMessage, `Signed in for ${company.name}.`, "ok");
+      } else {
+        setMessage(globalMessage, "Signed in.", "ok");
+      }
+      entryDate.value = new Date().toISOString().slice(0, 10);
+      refreshMetrics();
+      checkHealth();
+      loadEntries();
+    }
+  </script>
+</body>
+</html>
