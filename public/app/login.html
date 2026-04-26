@@ -15,32 +15,32 @@
 
     :root {
       --bg:
-        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
-        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
-      --panel: rgba(255, 255, 255, 0.98);
-      --panel-2: rgba(246, 250, 253, 0.98);
-      --border: #d7e2ec;
-      --border-2: #dfe8f1;
-      --text: #132033;
-      --text-strong: #0b1628;
-      --muted: #526377;
-      --muted-2: #708298;
-      --accent: #2fb67f;
-      --accent-2: #269b6c;
-      --accent-text: #ffffff;
-      --danger: #b94a63;
-      --danger-bg: #fff4f6;
-      --danger-border: #efc4cd;
-      --ok: #237a56;
-      --ok-bg: #edf9f3;
-      --ok-border: #bfe3d0;
-      --info: #285b94;
-      --info-bg: #eef5ff;
-      --info-border: #c5d8f4;
-      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 26%),
+        linear-gradient(180deg, #121821 0%, #171f29 100%);
+      --panel: rgba(28, 36, 48, 0.96);
+      --panel-2: rgba(34, 43, 57, 0.96);
+      --border: #34465d;
+      --border-2: #41556f;
+      --text: #f4f7fb;
+      --text-strong: #ffffff;
+      --muted: #c4cfdb;
+      --muted-2: #9eb0c5;
+      --accent: #46c896;
+      --accent-2: #39bb89;
+      --accent-text: #07140f;
+      --danger: #ffd0d8;
+      --danger-bg: #352028;
+      --danger-border: #74414c;
+      --ok: #b9f3d8;
+      --ok-bg: #18352a;
+      --ok-border: #316451;
+      --info: #cfe4ff;
+      --info-bg: #1f3145;
+      --info-border: #436284;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.18);
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
       --radius: 22px;
-      --max: 1120px;
+      --max: 1200px;
       --header-height: 84px;
     }
 
@@ -52,6 +52,8 @@
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -69,9 +71,9 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(14px);
-      background: rgba(244, 247, 251, 0.84);
-      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+      backdrop-filter: blur(12px);
+      background: rgba(18, 24, 33, 0.84);
+      border-bottom: 1px solid rgba(52, 70, 93, 0.90);
     }
 
     .wrap {
@@ -91,43 +93,24 @@
 
     .brand-block {
       display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
-      border: 1px solid rgba(47, 182, 127, 0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1f7c58;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      flex: 0 0 auto;
-    }
-
-    .brand-copy {
-      display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 22px;
       font-weight: 800;
-      color: #1f7c58;
-      letter-spacing: -0.03em;
+      color: var(--accent);
+      letter-spacing: -0.02em;
       line-height: 1;
     }
 
     .subbrand {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted-2);
-      line-height: 1.3;
+      line-height: 1.2;
+      font-weight: 600;
     }
 
     .nav-actions {
@@ -141,30 +124,34 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
+      min-height: 44px;
       padding: 10px 14px;
       border-radius: 12px;
       color: var(--muted);
       font-size: 14px;
       font-weight: 700;
-      transition: color .15s ease, background .15s ease;
+      line-height: 1;
+      border: 1px solid transparent;
+      transition: color .15s ease, background .15s ease, border-color .15s ease, transform .15s ease;
     }
 
     .nav-link:hover {
       color: var(--text-strong);
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-2);
+      transform: translateY(-1px);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: 10px 16px;
-      border-radius: 14px;
-      border: 1px solid #d4dee8;
-      background: #ffffff;
-      color: #1f3046;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #3e526b;
+      background: rgba(36, 48, 64, 0.80);
+      color: #eef4fa;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -176,12 +163,12 @@
         background .15s ease;
       box-shadow: var(--shadow-sm);
       white-space: nowrap;
+      line-height: 1;
     }
 
     .btn:hover {
-      filter: brightness(1.01);
+      filter: brightness(1.03);
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
     }
 
     .btn-primary {
@@ -191,7 +178,9 @@
     }
 
     .btn-secondary {
-      background: #ffffff;
+      background: rgba(39, 51, 67, 0.88);
+      border-color: #3e526b;
+      color: #eef4fa;
     }
 
     .main {
@@ -219,8 +208,8 @@
       min-height: 30px;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #cce6da;
-      background: #edf9f3;
+      border: 1px solid #3c6a57;
+      background: #18352a;
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
@@ -263,9 +252,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #d5e0ea;
-      background: #f7fbfd;
-      color: #6b7b8f;
+      border: 1px solid #4b5e77;
+      background: #263343;
+      color: #d7e2ee;
     }
 
     .pill.ok {
@@ -309,7 +298,7 @@
     .field label {
       font-size: 13px;
       font-weight: 700;
-      color: #213247;
+      color: var(--text);
     }
 
     .field input,
@@ -318,18 +307,18 @@
       min-height: 48px;
       padding: 12px 14px;
       border-radius: 14px;
-      border: 1px solid #d4dee8;
-      background: #ffffff;
+      border: 1px solid var(--border-2);
+      background: rgba(20, 27, 38, 0.92);
       color: var(--text);
       font-size: 14px;
-      transition: border-color .15s ease, box-shadow .15s ease;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
     }
 
     .field input:focus,
     .field select:focus {
       outline: none;
-      border-color: #8fcfb1;
-      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
+      border-color: #53d0a0;
+      box-shadow: 0 0 0 4px rgba(70, 200, 150, 0.12);
     }
 
     .field-help {
@@ -375,11 +364,11 @@
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #7b8b9d;
+      color: #95a9c2;
     }
 
     .footer a {
-      color: #7b8b9d;
+      color: #95a9c2;
       margin-left: 14px;
     }
 
@@ -421,11 +410,8 @@
     <div class="wrap">
       <header class="topbar">
         <div class="brand-block">
-          <div class="brand-mark">LH</div>
-          <div class="brand-copy">
-            <div class="logo">LedgerHaul</div>
-            <div class="subbrand">Secure account access</div>
-          </div>
+          <div class="logo">LedgerHaul</div>
+          <div class="subbrand">Secure account access</div>
         </div>
 
         <div class="nav-actions">
