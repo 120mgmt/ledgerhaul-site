@@ -14,33 +14,33 @@
     * { box-sizing: border-box; }
 
     :root {
-      --bg: #0b0f14;
-      --panel: #121a24;
-      --panel-2: #0e141d;
-      --border: #223044;
-      --border-2: #1c2738;
-      --text: #e9eef5;
-      --muted: #aebfd4;
-      --muted-2: #8ea4bf;
-      --accent: #38d39f;
-      --accent-2: #28c88f;
-      --accent-text: #08140f;
-      --danger: #ffb8c4;
-      --danger-bg: #2a1016;
-      --danger-border: #5c2430;
-      --ok: #9ff2c9;
-      --ok-bg: #10281f;
-      --ok-border: #21533f;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 26%),
+        linear-gradient(180deg, #121821 0%, #171f29 100%);
+      --panel: rgba(28, 36, 48, 0.96);
+      --panel-2: rgba(34, 43, 57, 0.96);
+      --border: #34465d;
+      --border-2: #41556f;
+      --text: #f4f7fb;
+      --muted: #c4cfdb;
+      --muted-2: #9eb0c5;
+      --accent: #46c896;
+      --accent-2: #39bb89;
+      --accent-text: #07140f;
+      --danger: #ffd0d8;
+      --danger-bg: #352028;
+      --danger-border: #74414c;
+      --ok: #b9f3d8;
+      --ok-bg: #18352a;
+      --ok-border: #316451;
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(56, 211, 159, 0.10), transparent 28%),
-        linear-gradient(180deg, #0b0f14 0%, #0d131b 100%);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
@@ -64,7 +64,7 @@
       flex-wrap: wrap;
     }
 
-    .brand-wrap {
+    .brand-block {
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -95,9 +95,9 @@
       min-height: 44px;
       padding: 10px 16px;
       border-radius: 12px;
-      border: 1px solid #243246;
-      background: #121a24;
-      color: #d7e3f4;
+      border: 1px solid #3e526b;
+      background: #243040;
+      color: #eef4fa;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -105,7 +105,7 @@
     }
 
     .btn:hover {
-      filter: brightness(1.04);
+      filter: brightness(1.03);
       transform: translateY(-1px);
     }
 
@@ -116,7 +116,7 @@
     }
 
     .btn-secondary {
-      background: #0f1720;
+      background: #273343;
     }
 
     .btn[disabled] {
@@ -134,11 +134,12 @@
     }
 
     .panel {
-      background: rgba(18, 26, 36, 0.96);
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 22px;
       padding: 28px;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(4px);
     }
 
     .eyebrow {
@@ -147,8 +148,8 @@
       min-height: 28px;
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid #224738;
-      background: #10281f;
+      border: 1px solid #3c6a57;
+      background: #18352a;
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
@@ -240,9 +241,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #2a3a52;
-      background: #0f1720;
-      color: #c9d6ea;
+      border: 1px solid #4b5e77;
+      background: #263343;
+      color: #d7e2ee;
     }
 
     .pill.ok {
@@ -301,7 +302,7 @@
 
     .plan-card {
       position: relative;
-      background: rgba(18, 26, 36, 0.98);
+      background: rgba(30, 39, 52, 0.98);
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: 24px;
@@ -312,8 +313,9 @@
     }
 
     .plan-card.featured {
-      border-color: #2e7d60;
-      box-shadow: 0 0 0 1px rgba(56, 211, 159, 0.20), var(--shadow);
+      border-color: #4ea782;
+      box-shadow: 0 0 0 1px rgba(70, 200, 150, 0.18), var(--shadow);
+      background: rgba(32, 42, 56, 0.99);
     }
 
     .featured-badge {
@@ -323,8 +325,8 @@
       min-height: 28px;
       padding: 4px 10px;
       border-radius: 999px;
-      background: #10281f;
-      border: 1px solid #21533f;
+      background: #18352a;
+      border: 1px solid #316451;
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
@@ -371,7 +373,7 @@
     }
 
     .plan-extra {
-      color: var(--accent);
+      color: #7ee0b7;
       font-size: 14px;
       font-weight: 700;
       line-height: 1.5;
@@ -436,7 +438,7 @@
 
     .comparison-card,
     .controls-card {
-      background: rgba(18, 26, 36, 0.98);
+      background: rgba(30, 39, 52, 0.98);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 20px;
