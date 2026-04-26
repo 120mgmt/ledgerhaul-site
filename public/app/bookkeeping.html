@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bookkeeping | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="LedgerHaul bookkeeping workspace for vendors, bills, expenses, and operational transaction records." />
+  <meta name="description" content="LedgerHaul bookkeeping workspace for vendor and transaction records." />
   <meta name="ledgerhaul-api-base" content="" />
 
   <script src="/assets/js/config.js"></script>
@@ -15,35 +15,33 @@
     * { box-sizing: border-box; }
 
     :root {
-      --bg:
-        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
-        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
-      --panel: rgba(255, 255, 255, 0.98);
-      --panel-2: rgba(246, 250, 253, 0.98);
-      --panel-3: rgba(240, 246, 251, 0.98);
-      --border: #d7e2ec;
-      --border-2: #dfe8f1;
-      --text: #132033;
-      --text-strong: #0b1628;
-      --muted: #526377;
-      --muted-2: #708298;
-      --accent: #2fb67f;
-      --accent-2: #269b6c;
-      --accent-text: #ffffff;
-      --danger: #b94a63;
-      --danger-bg: #fff4f6;
-      --danger-border: #efc4cd;
-      --ok: #237a56;
-      --ok-bg: #edf9f3;
-      --ok-border: #bfe3d0;
-      --info: #285b94;
-      --info-bg: #eef5ff;
-      --info-border: #c5d8f4;
-      --warning: #9a6a07;
-      --warning-bg: #fff8e7;
-      --warning-border: #ecd9a6;
-      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --bg: #08111c;
+      --panel: #0d1826;
+      --panel-2: #111f31;
+      --panel-3: #14263b;
+      --border: #24384f;
+      --border-2: #2b4460;
+      --text: #eaf2fb;
+      --text-strong: #ffffff;
+      --muted: #a8bfd8;
+      --muted-2: #89a1bc;
+      --accent: #35d39a;
+      --accent-2: #23b881;
+      --accent-text: #03140d;
+      --danger: #ff8aa1;
+      --danger-bg: rgba(185, 74, 99, 0.12);
+      --danger-border: rgba(255, 138, 161, 0.22);
+      --ok: #7bf0c3;
+      --ok-bg: rgba(53, 211, 154, 0.14);
+      --ok-border: rgba(123, 240, 195, 0.22);
+      --info: #9bc8ff;
+      --info-bg: rgba(40, 91, 148, 0.16);
+      --info-border: rgba(155, 200, 255, 0.20);
+      --warning: #ffd27a;
+      --warning-bg: rgba(154, 106, 7, 0.18);
+      --warning-border: rgba(255, 210, 122, 0.20);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.24);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.30);
       --radius: 22px;
       --max: 1420px;
       --header-height: 88px;
@@ -53,7 +51,9 @@
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(53, 211, 154, 0.08), transparent 24%),
+        linear-gradient(180deg, #08111c 0%, #09131f 100%);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
@@ -75,9 +75,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(244, 247, 251, 0.84);
-      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+      backdrop-filter: blur(12px);
+      background: rgba(8, 17, 28, 0.84);
+      border-bottom: 1px solid rgba(36, 56, 79, 0.92);
     }
 
     .container {
@@ -101,21 +101,6 @@
       gap: 14px;
     }
 
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
-      border: 1px solid rgba(47, 182, 127, 0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1f7c58;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      flex: 0 0 auto;
-    }
-
     .brand-copy {
       display: flex;
       flex-direction: column;
@@ -124,9 +109,9 @@
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 800;
-      color: #1f7c58;
+      color: var(--accent);
       letter-spacing: -0.03em;
       line-height: 1;
     }
@@ -135,6 +120,7 @@
       font-size: 13px;
       color: var(--muted-2);
       line-height: 1.3;
+      font-weight: 600;
     }
 
     .nav-actions {
@@ -144,52 +130,36 @@
       flex-wrap: wrap;
     }
 
-    .nav-link {
+    .nav-link,
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 44px;
       padding: 10px 14px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-      transition: color .15s ease, background .15s ease;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--text-strong);
-      background: rgba(255, 255, 255, 0.72);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 10px 16px;
       border-radius: 14px;
-      border: 1px solid #d4dee8;
-      background: #ffffff;
-      color: #1f3046;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition:
         transform .15s ease,
-        filter .15s ease,
+        background .15s ease,
         border-color .15s ease,
         box-shadow .15s ease,
-        background .15s ease;
+        color .15s ease;
       box-shadow: var(--shadow-sm);
       white-space: nowrap;
     }
 
+    .nav-link:hover,
+    .nav-link.active,
     .btn:hover {
-      filter: brightness(1.01);
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-2);
     }
 
     .btn-primary {
@@ -198,18 +168,23 @@
       border-color: transparent;
     }
 
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #43dfaa 0%, #25c58b 100%);
+    }
+
     .btn-secondary {
-      background: #ffffff;
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
     }
 
     .btn-danger {
-      background: #ffffff;
-      color: #8a2940;
-      border-color: #ebc4cf;
+      color: #ffc0cd;
+      border-color: #5a3340;
+      background: rgba(185, 74, 99, 0.10);
     }
 
     .btn-soft {
-      background: var(--panel-2);
+      background: rgba(255,255,255,0.03);
     }
 
     .main {
@@ -225,8 +200,11 @@
       align-items: stretch;
     }
 
-    .panel {
-      background: var(--panel);
+    .panel,
+    .summary-card,
+    .form-shell,
+    .list-shell {
+      background: linear-gradient(180deg, rgba(13,24,38,0.98) 0%, rgba(10,20,32,0.98) 100%);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px;
@@ -239,8 +217,8 @@
       min-height: 30px;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #cce6da;
-      background: #edf9f3;
+      border: 1px solid var(--ok-border);
+      background: var(--ok-bg);
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
@@ -255,7 +233,7 @@
 
     h1 {
       margin-bottom: 14px;
-      font-size: 42px;
+      font-size: 40px;
       line-height: 1.04;
       letter-spacing: -0.04em;
       color: var(--text-strong);
@@ -292,9 +270,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #d5e0ea;
-      background: #f7fbfd;
-      color: #6b7b8f;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
     }
 
     .pill.ok {
@@ -338,7 +316,7 @@
 
     .status-card {
       background: var(--panel-2);
-      border: 1px solid var(--border-2);
+      border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
     }
@@ -377,7 +355,7 @@
 
     .section-head h2 {
       margin: 0 0 8px;
-      font-size: 32px;
+      font-size: 30px;
       letter-spacing: -0.03em;
       color: var(--text-strong);
     }
@@ -394,14 +372,6 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
-    }
-
-    .summary-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: var(--shadow);
     }
 
     .metric-value {
@@ -425,41 +395,6 @@
       align-items: start;
     }
 
-    .form-shell,
-    .list-shell {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .tab-btn {
-      min-height: 42px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .tab-btn.active {
-      color: var(--text-strong);
-      border-color: #b8dfcd;
-      background: #edf9f3;
-    }
-
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -478,7 +413,7 @@
     .field label {
       font-size: 13px;
       font-weight: 700;
-      color: #213247;
+      color: var(--text);
     }
 
     .field input,
@@ -488,8 +423,8 @@
       min-height: 48px;
       padding: 12px 14px;
       border-radius: 14px;
-      border: 1px solid #d4dee8;
-      background: #ffffff;
+      border: 1px solid var(--border-2);
+      background: #0b1521;
       color: var(--text);
       font-size: 14px;
       transition: border-color .15s ease, box-shadow .15s ease;
@@ -500,12 +435,17 @@
       resize: vertical;
     }
 
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--muted-2);
+    }
+
     .field input:focus,
     .field select:focus,
     .field textarea:focus {
       outline: none;
-      border-color: #8fcfb1;
-      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
+      border-color: #4fd8a7;
+      box-shadow: 0 0 0 4px rgba(53, 211, 154, 0.12);
     }
 
     .field-help {
@@ -523,17 +463,14 @@
 
     .toolbar {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr auto;
       gap: 12px;
       margin-bottom: 16px;
-    }
-
-    .toolbar .field {
-      margin: 0;
+      align-items: end;
     }
 
     .empty-state {
-      background: var(--panel-2);
+      background: rgba(255,255,255,0.02);
       border: 1px dashed var(--border-2);
       border-radius: 18px;
       padding: 22px;
@@ -550,7 +487,7 @@
 
     .record-card {
       background: var(--panel-2);
-      border: 1px solid var(--border-2);
+      border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
     }
@@ -585,7 +522,7 @@
     }
 
     .meta-box {
-      background: #ffffff;
+      background: #0b1521;
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 14px;
@@ -623,11 +560,11 @@
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #7b8b9d;
+      color: var(--muted-2);
     }
 
     .footer a {
-      color: #7b8b9d;
+      color: var(--muted-2);
       margin-left: 14px;
     }
 
@@ -683,13 +620,11 @@
       .nav-actions,
       .hero-actions,
       .actions,
-      .record-actions,
-      .tabs {
+      .record-actions {
         width: 100%;
       }
 
-      .btn,
-      .tab-btn {
+      .btn {
         width: 100%;
       }
     }
@@ -701,10 +636,9 @@
     <div class="container">
       <header class="topbar">
         <div class="brand-block">
-          <div class="brand-mark">LH</div>
           <div class="brand-copy">
             <div class="logo">LedgerHaul</div>
-            <div class="subbrand">Vendor records, bills, expense payments, and bookkeeping transactions</div>
+            <div class="subbrand">Bookkeeping workspace</div>
           </div>
         </div>
 
@@ -722,24 +656,24 @@
   <main class="container main">
     <section class="hero-grid">
       <section class="panel">
-        <div class="eyebrow">Vendor and bookkeeping operations</div>
-        <h1>Register vendors, save bills and expense payments, and keep bookkeeping records tied to real operational activity.</h1>
+        <div class="eyebrow">Vendor and transaction records</div>
+        <h1>Vendor register</h1>
         <p class="lead">
-          You cannot run payable workflows without vendor records. This workspace fixes that gap by making vendors a first-class setup item and linking bookkeeping entries to the vendor selected when the bill or expense is saved.
+          Save vendor records and transaction records used for bills, expenses, and bookkeeping activity.
         </p>
 
         <div class="pill-row">
-          <div id="apiPill" class="pill">API status unknown</div>
-          <div id="authPill" class="pill info">Authentication pending</div>
-          <div id="billingPill" class="pill info">Billing status pending</div>
-          <div id="savePill" class="pill warning">Save state pending</div>
+          <div id="apiPill" class="pill">System status unknown</div>
+          <div id="authPill" class="pill info">Sign-in status unknown</div>
+          <div id="billingPill" class="pill info">Package status pending</div>
+          <div id="savePill" class="pill warning">Save status pending</div>
         </div>
 
         <div id="pageMessage" class="message"></div>
 
         <div class="hero-actions">
-          <button id="goVendorTabBtn" class="btn btn-primary" type="button">Register vendor</button>
-          <button id="goBillTabBtn" class="btn btn-secondary" type="button">Enter vendor bill</button>
+          <button id="goVendorTabBtn" class="btn btn-primary" type="button">Vendor record</button>
+          <button id="goBillTabBtn" class="btn btn-secondary" type="button">Transaction</button>
         </div>
       </section>
 
@@ -748,19 +682,19 @@
           <div class="status-card">
             <h3>Company</h3>
             <div id="companyValue" class="status-value">Loading…</div>
-            <div class="status-help">Vendor, bill, and bookkeeping records should remain scoped to the authenticated company context.</div>
+            <div class="status-help">Records remain scoped to the signed-in company.</div>
           </div>
 
           <div class="status-card">
             <h3>Assigned package</h3>
             <div id="packageValue" class="status-value">Checking…</div>
-            <div class="status-help">Bookkeeping and payable workflows should only remain available when the assigned package allows them.</div>
+            <div class="status-help">Access follows package and billing status.</div>
           </div>
 
           <div class="status-card">
-            <h3>Current workspace state</h3>
-            <div id="nextStateValue" class="status-value">Determining bookkeeping readiness…</div>
-            <div class="status-help">If there are no vendors yet, the first required action is vendor registration—not payment entry.</div>
+            <h3>Current status</h3>
+            <div id="nextStateValue" class="status-value">Checking records…</div>
+            <div class="status-help">Save a vendor first before entering a transaction.</div>
           </div>
         </div>
       </section>
@@ -769,30 +703,30 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Bookkeeping summary</h2>
-          <p>These totals help show whether vendors exist, whether vendor bills have started, and whether bookkeeping activity is actually being stored.</p>
+          <h2>Summary</h2>
+          <p>Review saved vendor and transaction activity.</p>
         </div>
       </div>
 
       <div class="summary-grid">
         <article class="summary-card">
           <div id="vendorCount" class="metric-value">0</div>
-          <div class="metric-label">Vendors currently registered.</div>
+          <div class="metric-label">Saved vendors</div>
         </article>
 
         <article class="summary-card">
           <div id="billCount" class="metric-value">0</div>
-          <div class="metric-label">Vendor bills and expense transactions currently stored.</div>
+          <div class="metric-label">Saved transactions</div>
         </article>
 
         <article class="summary-card">
           <div id="unpaidCount" class="metric-value">0</div>
-          <div class="metric-label">Open vendor items not marked as paid.</div>
+          <div class="metric-label">Open unpaid items</div>
         </article>
 
         <article class="summary-card">
           <div id="expenseTotal" class="metric-value">$0.00</div>
-          <div class="metric-label">Total bookkeeping amount recorded from current results.</div>
+          <div class="metric-label">Recorded total</div>
         </article>
       </div>
     </section>
@@ -801,14 +735,14 @@
       <section class="form-shell">
         <div class="section-head">
           <div>
-            <h2>Save records</h2>
-            <p>Create vendors first. Then record vendor bills, expenses, and payments with a saved vendor link.</p>
+            <h2>Entry form</h2>
+            <p>Save vendors and transactions.</p>
           </div>
         </div>
 
-        <div class="tabs">
-          <button id="vendorTabBtn" class="tab-btn active" type="button">Vendor record</button>
-          <button id="billTabBtn" class="tab-btn" type="button">Vendor bill / expense</button>
+        <div class="hero-actions">
+          <button id="vendorTabBtn" class="btn btn-primary" type="button">Vendor record</button>
+          <button id="billTabBtn" class="btn btn-secondary" type="button">Transaction</button>
         </div>
 
         <div id="vendorFormWrap">
@@ -866,13 +800,13 @@
               <div class="field full">
                 <label for="vendorNotes">Notes</label>
                 <textarea id="vendorNotes" maxlength="2000"></textarea>
-                <div class="field-help">Use this record to save the vendor before creating payable activity.</div>
+                <div class="field-help">Save the vendor before entering a transaction.</div>
               </div>
             </div>
 
             <div class="actions">
               <button id="saveVendorBtn" class="btn btn-primary" type="submit">Save vendor</button>
-              <button id="resetVendorBtn" class="btn btn-secondary" type="button">Clear vendor form</button>
+              <button id="resetVendorBtn" class="btn btn-secondary" type="button">Clear form</button>
             </div>
 
             <div id="vendorMessage" class="message"></div>
@@ -915,7 +849,7 @@
 
               <div class="field">
                 <label for="billAccountCode">Account code</label>
-                <input id="billAccountCode" type="text" maxlength="40" placeholder="Example: 6100" required />
+                <input id="billAccountCode" type="text" maxlength="40" required />
               </div>
 
               <div class="field">
@@ -939,7 +873,7 @@
               </div>
 
               <div class="field">
-                <label for="billReferenceNumber">Invoice / reference #</label>
+                <label for="billReferenceNumber">Reference number</label>
                 <input id="billReferenceNumber" type="text" maxlength="120" />
               </div>
 
@@ -960,13 +894,13 @@
               <div class="field full">
                 <label for="billDescription">Description</label>
                 <textarea id="billDescription" maxlength="2000"></textarea>
-                <div class="field-help">This saves a bookkeeping transaction tied to the selected vendor so payable activity can actually be tracked.</div>
+                <div class="field-help">Save the transaction to the selected vendor record.</div>
               </div>
             </div>
 
             <div class="actions">
-              <button id="saveBillBtn" class="btn btn-primary" type="submit">Save vendor bill</button>
-              <button id="resetBillBtn" class="btn btn-secondary" type="button">Clear bill form</button>
+              <button id="saveBillBtn" class="btn btn-primary" type="submit">Save transaction</button>
+              <button id="resetBillBtn" class="btn btn-secondary" type="button">Clear form</button>
             </div>
 
             <div id="billMessage" class="message"></div>
@@ -977,20 +911,20 @@
       <section class="list-shell">
         <div class="section-head">
           <div>
-            <h2>Saved records</h2>
-            <p>Review and edit vendors first, then review bills and expense transactions linked to those vendors.</p>
+            <h2>Register</h2>
+            <p>Search, filter, refresh, and edit saved records.</p>
           </div>
         </div>
 
-        <div class="tabs">
-          <button id="vendorListTabBtn" class="tab-btn active" type="button">Vendors</button>
-          <button id="billListTabBtn" class="tab-btn" type="button">Bills / expenses</button>
+        <div class="hero-actions">
+          <button id="vendorListTabBtn" class="btn btn-primary" type="button">Vendors</button>
+          <button id="billListTabBtn" class="btn btn-secondary" type="button">Transactions</button>
         </div>
 
         <div class="toolbar">
           <div class="field">
             <label for="searchInput">Search</label>
-            <input id="searchInput" type="text" placeholder="Search name, category, reference, description" />
+            <input id="searchInput" type="text" placeholder="Vendor, category, reference, description" />
           </div>
 
           <div class="field">
@@ -999,9 +933,9 @@
               <option value="all">All</option>
               <option value="active">Active vendors</option>
               <option value="inactive">Inactive vendors</option>
-              <option value="unpaid">Unpaid bills</option>
-              <option value="paid">Paid bills</option>
-              <option value="partial">Partial bills</option>
+              <option value="unpaid">Unpaid transactions</option>
+              <option value="paid">Paid transactions</option>
+              <option value="partial">Partial transactions</option>
             </select>
           </div>
 
@@ -1009,13 +943,15 @@
             <label for="typeFilter">View</label>
             <select id="typeFilter">
               <option value="vendors">Vendors</option>
-              <option value="bills">Bills / expenses</option>
+              <option value="bills">Transactions</option>
             </select>
           </div>
+
+          <button id="refreshBtn" class="btn btn-secondary" type="button">Refresh list</button>
         </div>
 
         <div id="listMessage" class="message"></div>
-        <div id="emptyState" class="empty-state">No saved records found yet.</div>
+        <div id="emptyState" class="empty-state">No records found.</div>
         <div id="recordList" class="card-list"></div>
       </section>
     </section>
@@ -1079,13 +1015,19 @@
       ]
     };
 
+    const LOCAL_KEYS = {
+      vendors: "lh_bookkeeping_vendors_local",
+      bills: "lh_bookkeeping_bills_local"
+    };
+
     const state = {
       vendors: [],
       bills: [],
       editingVendorId: null,
       editingBillId: null,
       activeFormTab: "vendor",
-      activeListTab: "vendors"
+      activeListTab: "vendors",
+      saveMode: "pending"
     };
 
     const ui = {
@@ -1119,6 +1061,7 @@
       searchInput: document.getElementById("searchInput"),
       statusFilter: document.getElementById("statusFilter"),
       typeFilter: document.getElementById("typeFilter"),
+      refreshBtn: document.getElementById("refreshBtn"),
       logoutBtn: document.getElementById("logoutBtn"),
       vendorName: document.getElementById("vendorName"),
       vendorType: document.getElementById("vendorType"),
@@ -1144,6 +1087,17 @@
       resetBillBtn: document.getElementById("resetBillBtn")
     };
 
+    function appAccessAvailable() {
+      return !!(window.LH_APP_ACCESS && typeof window.LH_APP_ACCESS.buildHeaders === "function");
+    }
+
+    function buildHeaders(extraHeaders) {
+      const base = appAccessAvailable()
+        ? window.LH_APP_ACCESS.buildHeaders(extraHeaders || {})
+        : Object.assign({ Accept: "application/json" }, extraHeaders || {});
+      return base;
+    }
+
     function setPill(el, text, type) {
       el.textContent = text;
       el.className = "pill" + (type ? ` ${type}` : "");
@@ -1160,6 +1114,11 @@
       } catch (_) {
         return null;
       }
+    }
+
+    function getStoredJson(key) {
+      const raw = localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+      return safeJsonParse(raw) || null;
     }
 
     function firstDefinedValue(...values) {
@@ -1195,11 +1154,6 @@
       return Number.isFinite(n) ? n : 0;
     }
 
-    function getStoredJson(key) {
-      const raw = localStorage.getItem(key) || sessionStorage.getItem(key) || "";
-      return safeJsonParse(raw) || null;
-    }
-
     function escapeHtml(value) {
       return String(value ?? "")
         .replaceAll("&", "&amp;")
@@ -1207,6 +1161,57 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
+    }
+
+    function companyScopedKey(baseKey) {
+      const company = getStoredJson("lh_company");
+      const companyId = firstDefinedValue(company && company.id, company && company.company_id, "default");
+      return `${baseKey}:${companyId}`;
+    }
+
+    function readLocalRows(baseKey) {
+      const raw = localStorage.getItem(companyScopedKey(baseKey)) || "[]";
+      const parsed = safeJsonParse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    }
+
+    function writeLocalRows(baseKey, rows) {
+      localStorage.setItem(companyScopedKey(baseKey), JSON.stringify(rows));
+    }
+
+    function normalizeVendor(item) {
+      return {
+        id: firstDefinedValue(item.id, item.vendor_id, item.uuid, item.external_id),
+        name: firstDefinedValue(item.name, item.vendor_name, item.legal_name),
+        type: firstDefinedValue(item.type, item.vendor_type, item.category),
+        email: firstDefinedValue(item.email),
+        phone: firstDefinedValue(item.phone),
+        address: firstDefinedValue(item.address, item.address_line1),
+        tax_id_last4: firstDefinedValue(item.tax_id_last4, item.taxIdLast4, item.tin_last4),
+        status: firstDefinedValue(item.status, "active"),
+        notes: firstDefinedValue(item.notes),
+        created_at: firstDefinedValue(item.created_at, item.createdAt, new Date().toISOString()),
+        raw: item
+      };
+    }
+
+    function normalizeBill(item) {
+      return {
+        id: firstDefinedValue(item.id, item.transaction_id, item.entry_id, item.bill_id, item.uuid, item.external_id),
+        vendor_id: firstDefinedValue(item.vendor_id, item.vendorId),
+        vendor_name: firstDefinedValue(item.vendor_name, item.vendorName, item.vendor),
+        date: firstDefinedValue(item.entry_date, item.transaction_date, item.date, item.bill_date),
+        due_date: firstDefinedValue(item.due_date, item.dueDate),
+        status: firstDefinedValue(item.status, "unpaid"),
+        amount: Number(firstDefinedValue(item.amount, item.total, 0) || 0),
+        account_code: firstDefinedValue(item.account_code, item.accountCode),
+        category: firstDefinedValue(item.category),
+        reference_number: firstDefinedValue(item.reference_number, item.referenceNumber, item.invoice_number),
+        payment_method: firstDefinedValue(item.payment_method, item.paymentMethod),
+        description: firstDefinedValue(item.description, item.memo, item.notes),
+        created_at: firstDefinedValue(item.created_at, item.createdAt, new Date().toISOString()),
+        raw: item
+      };
     }
 
     async function requestCandidates(paths, options) {
@@ -1219,7 +1224,9 @@
           const data = safeJsonParse(raw) || {};
 
           if (res.status === 401) {
-            window.LH_APP_ACCESS.logout();
+            if (appAccessAvailable() && typeof window.LH_APP_ACCESS.logout === "function") {
+              window.LH_APP_ACCESS.logout();
+            }
             throw new Error(String(data.error || data.message || data.detail || "Authentication required."));
           }
 
@@ -1249,13 +1256,13 @@
         });
 
         if (!res.ok) {
-          setPill(ui.apiPill, "API limited", "error");
+          setPill(ui.apiPill, "System limited", "error");
           return;
         }
 
-        setPill(ui.apiPill, "API online", "ok");
+        setPill(ui.apiPill, "System online", "ok");
       } catch (_) {
-        setPill(ui.apiPill, "API unavailable", "error");
+        setPill(ui.apiPill, "System unavailable", "error");
       }
     }
 
@@ -1263,7 +1270,7 @@
       try {
         const payload = await requestCandidates(ENDPOINTS.billing, {
           method: "GET",
-          headers: window.LH_APP_ACCESS.buildHeaders(),
+          headers: buildHeaders(),
           cache: "no-store"
         });
 
@@ -1277,163 +1284,36 @@
         ui.packageValue.textContent = normalizePlanName(firstDefinedValue(payload.plan, payload.plan_name, payload.package));
 
         if (active) {
-          setPill(ui.billingPill, "Billing active", "ok");
+          setPill(ui.billingPill, "Package active", "ok");
         } else {
-          setPill(ui.billingPill, "Billing restricted", "error");
-          setMessage(ui.pageMessage, "Bookkeeping access is currently restricted by package or billing state.", "error");
+          setPill(ui.billingPill, "Package restricted", "error");
+          setMessage(ui.pageMessage, "Bookkeeping access is restricted by package or billing status.", "error");
         }
 
         return { active, payload };
       } catch (_) {
         ui.packageValue.textContent = "Not assigned";
-        setPill(ui.billingPill, "Billing status unavailable", "warning");
+        setPill(ui.billingPill, "Package status unavailable", "warning");
         return { active: true, unavailable: true };
-      }
-    }
-
-    function normalizeVendor(item) {
-      return {
-        id: firstDefinedValue(item.id, item.vendor_id, item.uuid, item.external_id),
-        name: firstDefinedValue(item.name, item.vendor_name, item.legal_name),
-        type: firstDefinedValue(item.type, item.vendor_type, item.category),
-        email: firstDefinedValue(item.email),
-        phone: firstDefinedValue(item.phone),
-        address: firstDefinedValue(item.address, item.address_line1),
-        tax_id_last4: firstDefinedValue(item.tax_id_last4, item.taxIdLast4, item.tin_last4),
-        status: firstDefinedValue(item.status, "active"),
-        notes: firstDefinedValue(item.notes),
-        raw: item
-      };
-    }
-
-    function normalizeBill(item) {
-      return {
-        id: firstDefinedValue(item.id, item.transaction_id, item.entry_id, item.bill_id, item.uuid, item.external_id),
-        vendor_id: firstDefinedValue(item.vendor_id, item.vendorId),
-        vendor_name: firstDefinedValue(item.vendor_name, item.vendorName, item.vendor),
-        date: firstDefinedValue(item.entry_date, item.transaction_date, item.date, item.bill_date),
-        due_date: firstDefinedValue(item.due_date, item.dueDate),
-        status: firstDefinedValue(item.status, "unpaid"),
-        amount: Number(firstDefinedValue(item.amount, item.total, 0) || 0),
-        account_code: firstDefinedValue(item.account_code, item.accountCode),
-        category: firstDefinedValue(item.category),
-        reference_number: firstDefinedValue(item.reference_number, item.referenceNumber, item.invoice_number),
-        payment_method: firstDefinedValue(item.payment_method, item.paymentMethod),
-        description: firstDefinedValue(item.description, item.memo, item.notes),
-        raw: item
-      };
-    }
-
-    async function loadVendors() {
-      try {
-        const payload = await requestCandidates(ENDPOINTS.vendorsList, {
-          method: "GET",
-          headers: window.LH_APP_ACCESS.buildHeaders(),
-          cache: "no-store"
-        });
-
-        const rows = Array.isArray(payload)
-          ? payload
-          : Array.isArray(payload.vendors)
-            ? payload.vendors
-            : Array.isArray(payload.items)
-              ? payload.items
-              : [];
-
-        state.vendors = rows.map(normalizeVendor).filter((item) => item.id || item.name);
-        populateVendorSelect();
-        return true;
-      } catch (err) {
-        state.vendors = [];
-        populateVendorSelect();
-        setMessage(ui.listMessage, err.message || "Unable to load vendors.", "error");
-        return false;
-      }
-    }
-
-    async function loadBills() {
-      try {
-        const payload = await requestCandidates(ENDPOINTS.billsList, {
-          method: "GET",
-          headers: window.LH_APP_ACCESS.buildHeaders(),
-          cache: "no-store"
-        });
-
-        const rows = Array.isArray(payload)
-          ? payload
-          : Array.isArray(payload.transactions)
-            ? payload.transactions
-            : Array.isArray(payload.entries)
-              ? payload.entries
-              : Array.isArray(payload.items)
-                ? payload.items
-                : [];
-
-        state.bills = rows.map(normalizeBill).filter((item) => item.id || item.vendor_name || item.description);
-        return true;
-      } catch (err) {
-        state.bills = [];
-        setMessage(ui.listMessage, err.message || "Unable to load bookkeeping transactions.", "error");
-        return false;
-      }
-    }
-
-    function populateVendorSelect() {
-      const currentValue = ui.billVendorId.value;
-      ui.billVendorId.innerHTML = '<option value="">Select vendor</option>';
-
-      state.vendors.forEach((vendor) => {
-        const option = document.createElement("option");
-        option.value = String(vendor.id || "");
-        option.textContent = vendor.name || `Vendor ${vendor.id || ""}`;
-        ui.billVendorId.appendChild(option);
-      });
-
-      if (currentValue) {
-        ui.billVendorId.value = currentValue;
-      }
-    }
-
-    function refreshSummary() {
-      ui.vendorCount.textContent = String(state.vendors.length);
-      ui.billCount.textContent = String(state.bills.length);
-      ui.unpaidCount.textContent = String(state.bills.filter((item) => String(item.status).toLowerCase() !== "paid").length);
-      ui.expenseTotal.textContent = formatMoney(state.bills.reduce((sum, item) => sum + Number(item.amount || 0), 0));
-
-      if (state.vendors.length === 0) {
-        ui.nextStateValue.textContent = "Register the first vendor before entering payable activity.";
-        setPill(ui.savePill, "Vendor setup required", "warning");
-        setMessage(ui.pageMessage, "No vendors are saved yet. Register a vendor first so expense and payable activity can be linked and stored.", "warning");
-      } else if (state.bills.length === 0) {
-        ui.nextStateValue.textContent = "Vendors exist. Enter the first vendor bill or expense next.";
-        setPill(ui.savePill, "Bills pending", "warning");
-        setMessage(ui.pageMessage, "Vendor records are saved. Enter the first vendor bill or expense next.", "ok");
-      } else {
-        ui.nextStateValue.textContent = "Vendor and bill data are being stored in bookkeeping.";
-        setPill(ui.savePill, "Save flow active", "ok");
-        setMessage(ui.pageMessage, "Vendor registration and bookkeeping save flow are active.", "ok");
       }
     }
 
     function setFormTab(tab) {
       state.activeFormTab = tab;
       const vendorActive = tab === "vendor";
-
       ui.vendorFormWrap.hidden = !vendorActive;
       ui.billFormWrap.hidden = vendorActive;
-      ui.vendorTabBtn.classList.toggle("active", vendorActive);
-      ui.billTabBtn.classList.toggle("active", !vendorActive);
-      ui.goVendorTabBtn.classList.toggle("btn-primary", vendorActive);
-      ui.goVendorTabBtn.classList.toggle("btn-secondary", !vendorActive);
-      ui.goBillTabBtn.classList.toggle("btn-primary", !vendorActive);
-      ui.goBillTabBtn.classList.toggle("btn-secondary", vendorActive);
+      ui.vendorTabBtn.className = vendorActive ? "btn btn-primary" : "btn btn-secondary";
+      ui.billTabBtn.className = vendorActive ? "btn btn-secondary" : "btn btn-primary";
+      ui.goVendorTabBtn.className = vendorActive ? "btn btn-primary" : "btn btn-secondary";
+      ui.goBillTabBtn.className = vendorActive ? "btn btn-secondary" : "btn btn-primary";
     }
 
     function setListTab(tab) {
       state.activeListTab = tab;
-      ui.vendorListTabBtn.classList.toggle("active", tab === "vendors");
-      ui.billListTabBtn.classList.toggle("active", tab === "bills");
       ui.typeFilter.value = tab;
+      ui.vendorListTabBtn.className = tab === "vendors" ? "btn btn-primary" : "btn btn-secondary";
+      ui.billListTabBtn.className = tab === "bills" ? "btn btn-primary" : "btn btn-secondary";
       renderList();
     }
 
@@ -1450,42 +1330,8 @@
       ui.billForm.reset();
       ui.billDate.value = new Date().toISOString().slice(0, 10);
       ui.billStatus.value = "unpaid";
-      ui.saveBillBtn.textContent = "Save vendor bill";
+      ui.saveBillBtn.textContent = "Save transaction";
       setMessage(ui.billMessage, "", "");
-    }
-
-    function fillVendorForm(vendor) {
-      state.editingVendorId = vendor.id;
-      ui.vendorName.value = vendor.name || "";
-      ui.vendorType.value = vendor.type || "";
-      ui.vendorEmail.value = vendor.email || "";
-      ui.vendorPhone.value = vendor.phone || "";
-      ui.vendorAddress.value = vendor.address || "";
-      ui.vendorTaxIdLast4.value = vendor.tax_id_last4 || "";
-      ui.vendorStatus.value = vendor.status || "active";
-      ui.vendorNotes.value = vendor.notes || "";
-      ui.saveVendorBtn.textContent = "Update vendor";
-      setMessage(ui.vendorMessage, "Editing saved vendor record.", "warning");
-      setFormTab("vendor");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function fillBillForm(bill) {
-      state.editingBillId = bill.id;
-      ui.billVendorId.value = bill.vendor_id || "";
-      ui.billDate.value = bill.date || "";
-      ui.billDueDate.value = bill.due_date || "";
-      ui.billStatus.value = bill.status || "unpaid";
-      ui.billAmount.value = String(bill.amount || "");
-      ui.billAccountCode.value = bill.account_code || "";
-      ui.billCategory.value = bill.category || "";
-      ui.billReferenceNumber.value = bill.reference_number || "";
-      ui.billPaymentMethod.value = bill.payment_method || "";
-      ui.billDescription.value = bill.description || "";
-      ui.saveBillBtn.textContent = "Update vendor bill";
-      setMessage(ui.billMessage, "Editing saved vendor bill or expense.", "warning");
-      setFormTab("bill");
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function buildVendorPayload() {
@@ -1520,44 +1366,161 @@
     }
 
     function validateVendorPayload(payload) {
-      if (!payload.name) {
-        return "Vendor name is required.";
-      }
-      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
-        return "Vendor email format is invalid.";
-      }
-      if (payload.tax_id_last4 && !/^\d{4}$/.test(payload.tax_id_last4)) {
-        return "Tax ID last 4 must be exactly 4 digits.";
-      }
+      if (!payload.name) return "Vendor name is required.";
+      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return "Vendor email format is invalid.";
+      if (payload.tax_id_last4 && !/^\d{4}$/.test(payload.tax_id_last4)) return "Tax ID last 4 must be exactly 4 digits.";
       return "";
     }
 
     function validateBillPayload(payload) {
-      if (!payload.vendor_id) {
-        return "Select a saved vendor first.";
-      }
-      if (!payload.entry_date) {
-        return "Transaction date is required.";
-      }
-      if (payload.amount <= 0) {
-        return "Amount must be greater than zero.";
-      }
-      if (!payload.account_code) {
-        return "Account code is required.";
-      }
-      if (!payload.category) {
-        return "Category is required.";
-      }
+      if (!payload.vendor_id) return "Select a saved vendor first.";
+      if (!payload.entry_date) return "Transaction date is required.";
+      if (payload.amount <= 0) return "Amount must be greater than zero.";
+      if (!payload.account_code) return "Account code is required.";
+      if (!payload.category) return "Category is required.";
       return "";
     }
 
-    async function saveVendor(payload) {
+    function populateVendorSelect() {
+      const currentValue = ui.billVendorId.value;
+      ui.billVendorId.innerHTML = '<option value="">Select vendor</option>';
+      state.vendors.forEach((vendor) => {
+        const option = document.createElement("option");
+        option.value = String(vendor.id || "");
+        option.textContent = vendor.name || `Vendor ${vendor.id || ""}`;
+        ui.billVendorId.appendChild(option);
+      });
+      if (currentValue) {
+        ui.billVendorId.value = currentValue;
+      }
+    }
+
+    function loadLocalVendors() {
+      state.vendors = readLocalRows(LOCAL_KEYS.vendors).map(normalizeVendor);
+    }
+
+    function saveLocalVendor(payload) {
+      const rows = readLocalRows(LOCAL_KEYS.vendors).map(normalizeVendor);
+      const nowIso = new Date().toISOString();
+
+      if (state.editingVendorId) {
+        const updated = rows.map((item) => {
+          if (String(item.id) !== String(state.editingVendorId)) return item;
+          return normalizeVendor({
+            ...item,
+            ...payload,
+            id: item.id,
+            updated_at: nowIso
+          });
+        });
+        writeLocalRows(LOCAL_KEYS.vendors, updated);
+      } else {
+        const row = normalizeVendor({
+          ...payload,
+          id: `vendor_${Date.now()}`,
+          created_at: nowIso
+        });
+        rows.unshift(row);
+        writeLocalRows(LOCAL_KEYS.vendors, rows);
+      }
+    }
+
+    function loadLocalBills() {
+      state.bills = readLocalRows(LOCAL_KEYS.bills).map(normalizeBill);
+    }
+
+    function saveLocalBill(payload) {
+      const rows = readLocalRows(LOCAL_KEYS.bills).map(normalizeBill);
+      const nowIso = new Date().toISOString();
+
+      if (state.editingBillId) {
+        const updated = rows.map((item) => {
+          if (String(item.id) !== String(state.editingBillId)) return item;
+          return normalizeBill({
+            ...item,
+            ...payload,
+            id: item.id,
+            updated_at: nowIso
+          });
+        });
+        writeLocalRows(LOCAL_KEYS.bills, updated);
+      } else {
+        const row = normalizeBill({
+          ...payload,
+          id: `bill_${Date.now()}`,
+          created_at: nowIso
+        });
+        rows.unshift(row);
+        writeLocalRows(LOCAL_KEYS.bills, rows);
+      }
+    }
+
+    async function tryLoadVendorsFromBackend() {
+      const payload = await requestCandidates(ENDPOINTS.vendorsList, {
+        method: "GET",
+        headers: buildHeaders(),
+        cache: "no-store"
+      });
+
+      const rows = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload.vendors)
+          ? payload.vendors
+          : Array.isArray(payload.items)
+            ? payload.items
+            : [];
+
+      state.vendors = rows.map(normalizeVendor).filter((item) => item.id || item.name);
+      state.saveMode = "backend";
+    }
+
+    async function tryLoadBillsFromBackend() {
+      const payload = await requestCandidates(ENDPOINTS.billsList, {
+        method: "GET",
+        headers: buildHeaders(),
+        cache: "no-store"
+      });
+
+      const rows = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload.transactions)
+          ? payload.transactions
+          : Array.isArray(payload.entries)
+            ? payload.entries
+            : Array.isArray(payload.items)
+              ? payload.items
+              : [];
+
+      state.bills = rows.map(normalizeBill).filter((item) => item.id || item.vendor_name || item.description);
+      state.saveMode = "backend";
+    }
+
+    async function loadVendors() {
+      try {
+        await tryLoadVendorsFromBackend();
+      } catch (_) {
+        loadLocalVendors();
+        if (state.saveMode !== "backend") state.saveMode = "local";
+      }
+      populateVendorSelect();
+    }
+
+    async function loadBills() {
+      try {
+        await tryLoadBillsFromBackend();
+      } catch (_) {
+        loadLocalBills();
+        if (state.saveMode !== "backend") state.saveMode = "local";
+      }
+    }
+
+    async function saveVendorToBackend(payload) {
       const paths = state.editingVendorId ? ENDPOINTS.vendorUpdate(state.editingVendorId) : ENDPOINTS.vendorCreate;
       const method = state.editingVendorId ? "PUT" : "POST";
 
       return requestCandidates(paths, {
         method,
-        headers: window.LH_APP_ACCESS.buildHeaders({
+        headers: buildHeaders({
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(payload),
@@ -1565,18 +1528,105 @@
       });
     }
 
-    async function saveBill(payload) {
+    async function saveBillToBackend(payload) {
       const paths = state.editingBillId ? ENDPOINTS.billUpdate(state.editingBillId) : ENDPOINTS.billCreate;
       const method = state.editingBillId ? "PUT" : "POST";
 
       return requestCandidates(paths, {
         method,
-        headers: window.LH_APP_ACCESS.buildHeaders({
+        headers: buildHeaders({
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(payload),
         cache: "no-store"
       });
+    }
+
+    async function saveVendor(payload) {
+      try {
+        await saveVendorToBackend(payload);
+        state.saveMode = "backend";
+        return { mode: "backend" };
+      } catch (_) {
+        saveLocalVendor(payload);
+        state.saveMode = "local";
+        return { mode: "local" };
+      }
+    }
+
+    async function saveBill(payload) {
+      try {
+        await saveBillToBackend(payload);
+        state.saveMode = "backend";
+        return { mode: "backend" };
+      } catch (_) {
+        saveLocalBill(payload);
+        state.saveMode = "local";
+        return { mode: "local" };
+      }
+    }
+
+    function refreshSummary() {
+      ui.vendorCount.textContent = String(state.vendors.length);
+      ui.billCount.textContent = String(state.bills.length);
+      ui.unpaidCount.textContent = String(state.bills.filter((item) => String(item.status).toLowerCase() !== "paid").length);
+      ui.expenseTotal.textContent = formatMoney(state.bills.reduce((sum, item) => sum + Number(item.amount || 0), 0));
+
+      if (state.vendors.length === 0) {
+        ui.nextStateValue.textContent = "Vendor record required.";
+        setPill(ui.savePill, state.saveMode === "backend" ? "Ready to save" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
+        setMessage(ui.pageMessage, state.saveMode === "backend"
+          ? "No vendor records found."
+          : "Live bookkeeping endpoint unavailable. Local save mode is active.", state.saveMode === "backend" ? "ok" : "warning");
+      } else if (state.bills.length === 0) {
+        ui.nextStateValue.textContent = "Transaction entry required.";
+        setPill(ui.savePill, state.saveMode === "backend" ? "Vendor save active" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
+        setMessage(ui.pageMessage, state.saveMode === "backend"
+          ? "Vendor saved. Enter the first transaction next."
+          : "Vendor saved in local mode. Enter the first transaction next.", state.saveMode === "backend" ? "ok" : "warning");
+      } else {
+        ui.nextStateValue.textContent = state.saveMode === "backend"
+          ? "Vendor and transaction save active."
+          : "Vendor and transaction local save active.";
+        setPill(ui.savePill, state.saveMode === "backend" ? "Live save active" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
+        setMessage(ui.pageMessage, state.saveMode === "backend"
+          ? "Vendor and transaction records are saving."
+          : "Vendor and transaction records are saving in local fallback mode.", state.saveMode === "backend" ? "ok" : "warning");
+      }
+    }
+
+    function fillVendorForm(vendor) {
+      state.editingVendorId = vendor.id;
+      ui.vendorName.value = vendor.name || "";
+      ui.vendorType.value = vendor.type || "";
+      ui.vendorEmail.value = vendor.email || "";
+      ui.vendorPhone.value = vendor.phone || "";
+      ui.vendorAddress.value = vendor.address || "";
+      ui.vendorTaxIdLast4.value = vendor.tax_id_last4 || "";
+      ui.vendorStatus.value = vendor.status || "active";
+      ui.vendorNotes.value = vendor.notes || "";
+      ui.saveVendorBtn.textContent = "Update vendor";
+      setMessage(ui.vendorMessage, "Editing vendor record.", "warning");
+      setFormTab("vendor");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function fillBillForm(bill) {
+      state.editingBillId = bill.id;
+      ui.billVendorId.value = bill.vendor_id || "";
+      ui.billDate.value = bill.date || "";
+      ui.billDueDate.value = bill.due_date || "";
+      ui.billStatus.value = bill.status || "unpaid";
+      ui.billAmount.value = String(bill.amount || "");
+      ui.billAccountCode.value = bill.account_code || "";
+      ui.billCategory.value = bill.category || "";
+      ui.billReferenceNumber.value = bill.reference_number || "";
+      ui.billPaymentMethod.value = bill.payment_method || "";
+      ui.billDescription.value = bill.description || "";
+      ui.saveBillBtn.textContent = "Update transaction";
+      setMessage(ui.billMessage, "Editing transaction record.", "warning");
+      setFormTab("bill");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function renderList() {
@@ -1607,7 +1657,7 @@
           return matchesSearch && matchesStatus;
         });
 
-        ui.emptyState.textContent = "No vendors are saved yet. Register a vendor first so vendor bills and expenses can be linked and stored.";
+        ui.emptyState.textContent = "No vendor records found.";
 
         rows.forEach((vendor) => {
           const card = document.createElement("div");
@@ -1664,7 +1714,7 @@
           return matchesSearch && matchesStatus;
         });
 
-        ui.emptyState.textContent = "No vendor bills or expenses are saved yet. Register a vendor, then save the first vendor bill or bookkeeping expense.";
+        ui.emptyState.textContent = "No transaction records found.";
 
         rows.forEach((bill) => {
           const card = document.createElement("div");
@@ -1673,8 +1723,8 @@
           card.innerHTML = `
             <div class="record-top">
               <div>
-                <div class="record-title">${escapeHtml(bill.vendor_name || "Vendor expense")}</div>
-                <div class="record-sub">${escapeHtml(bill.description || "No description provided")}</div>
+                <div class="record-title">${escapeHtml(bill.vendor_name || "Transaction")}</div>
+                <div class="record-sub">${escapeHtml(bill.description || "No description saved")}</div>
               </div>
               <div class="record-actions">
                 <button class="btn btn-soft" type="button" data-action="edit-bill" data-id="${escapeHtml(bill.id || "")}">Edit</button>
@@ -1709,36 +1759,44 @@
       ui.recordList.hidden = rows.length === 0;
     }
 
+    async function loadAll() {
+      await loadVendors();
+      await loadBills();
+      refreshSummary();
+      renderList();
+    }
+
     async function initializePage() {
-      const accessState = await window.LH_APP_ACCESS.init({
-        requirePaid: false,
-        feature: "bookkeeping",
-        redirectOnFail: true
-      });
+      if (appAccessAvailable() && typeof window.LH_APP_ACCESS.init === "function") {
+        const accessState = await window.LH_APP_ACCESS.init({
+          requirePaid: false,
+          feature: "bookkeeping",
+          redirectOnFail: true
+        });
 
-      if (!accessState.ok) {
-        return;
+        if (!accessState.ok) {
+          return;
+        }
+
+        setPill(ui.authPill, "Signed in", "ok");
+      } else {
+        setPill(ui.authPill, "Local mode", "warning");
       }
-
-      setPill(ui.authPill, "Authenticated", "ok");
 
       const company = getStoredJson("lh_company");
       ui.companyValue.textContent = firstDefinedValue(
         company && company.name,
         company && company.company_name,
-        "Authenticated company"
+        "Local workspace"
       );
+
+      ui.vendorStatus.value = "active";
+      ui.billDate.value = new Date().toISOString().slice(0, 10);
+      ui.billStatus.value = "unpaid";
 
       await checkHealth();
       await loadBillingAccess();
-      await loadVendors();
-      await loadBills();
-      refreshSummary();
-      renderList();
-
-      ui.billDate.value = new Date().toISOString().slice(0, 10);
-      ui.billStatus.value = "unpaid";
-      ui.vendorStatus.value = "active";
+      await loadAll();
     }
 
     ui.vendorForm.addEventListener("submit", async (event) => {
@@ -1756,12 +1814,16 @@
       setMessage(ui.vendorMessage, "", "");
 
       try {
-        await saveVendor(payload);
-        setMessage(ui.vendorMessage, state.editingVendorId ? "Vendor updated successfully." : "Vendor saved successfully.", "ok");
+        const result = await saveVendor(payload);
         resetVendorForm();
-        await loadVendors();
-        refreshSummary();
-        setListTab("vendors");
+        await loadAll();
+        setMessage(
+          ui.vendorMessage,
+          result.mode === "backend"
+            ? "Vendor saved."
+            : "Vendor saved in local fallback mode.",
+          result.mode === "backend" ? "ok" : "warning"
+        );
       } catch (err) {
         setMessage(ui.vendorMessage, err.message || "Unable to save vendor.", "error");
       } finally {
@@ -1785,17 +1847,22 @@
       setMessage(ui.billMessage, "", "");
 
       try {
-        await saveBill(payload);
-        setMessage(ui.billMessage, state.editingBillId ? "Vendor bill updated successfully." : "Vendor bill saved successfully.", "ok");
+        const result = await saveBill(payload);
         resetBillForm();
-        await loadBills();
-        refreshSummary();
+        await loadAll();
+        setMessage(
+          ui.billMessage,
+          result.mode === "backend"
+            ? "Transaction saved."
+            : "Transaction saved in local fallback mode.",
+          result.mode === "backend" ? "ok" : "warning"
+        );
         setListTab("bills");
       } catch (err) {
-        setMessage(ui.billMessage, err.message || "Unable to save vendor bill.", "error");
+        setMessage(ui.billMessage, err.message || "Unable to save transaction.", "error");
       } finally {
         ui.saveBillBtn.disabled = false;
-        ui.saveBillBtn.textContent = state.editingBillId ? "Update vendor bill" : "Save vendor bill";
+        ui.saveBillBtn.textContent = state.editingBillId ? "Update transaction" : "Save transaction";
       }
     });
 
@@ -1814,27 +1881,33 @@
     ui.statusFilter.addEventListener("change", renderList);
     ui.searchInput.addEventListener("input", renderList);
 
+    ui.refreshBtn.addEventListener("click", async () => {
+      setMessage(ui.listMessage, "Refreshing list…", "warning");
+      await loadAll();
+      setMessage(ui.listMessage, "", "");
+    });
+
     ui.recordList.addEventListener("click", (event) => {
       const vendorBtn = event.target.closest('[data-action="edit-vendor"]');
       if (vendorBtn) {
         const vendor = state.vendors.find((item) => String(item.id) === String(vendorBtn.getAttribute("data-id") || ""));
-        if (vendor) {
-          fillVendorForm(vendor);
-        }
+        if (vendor) fillVendorForm(vendor);
         return;
       }
 
       const billBtn = event.target.closest('[data-action="edit-bill"]');
       if (billBtn) {
         const bill = state.bills.find((item) => String(item.id) === String(billBtn.getAttribute("data-id") || ""));
-        if (bill) {
-          fillBillForm(bill);
-        }
+        if (bill) fillBillForm(bill);
       }
     });
 
     ui.logoutBtn.addEventListener("click", () => {
-      window.LH_APP_ACCESS.logout();
+      if (appAccessAvailable() && typeof window.LH_APP_ACCESS.logout === "function") {
+        window.LH_APP_ACCESS.logout();
+        return;
+      }
+      window.location.href = "/app/login.html";
     });
 
     initializePage();
