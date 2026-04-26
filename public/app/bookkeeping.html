@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bookkeeping | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="LedgerHaul bookkeeping workspace for vendors, bills, expenses, and operational transaction records." />
   <meta name="ledgerhaul-api-base" content="" />
 
   <script src="/assets/js/config.js"></script>
@@ -14,32 +15,48 @@
     * { box-sizing: border-box; }
 
     :root {
-      --bg: #0b0f14;
-      --panel: #121a24;
-      --panel-2: #0e141d;
-      --border: #223044;
-      --border-2: #1c2738;
-      --text: #e9eef5;
-      --muted: #aebfd4;
-      --muted-2: #8ea4bf;
-      --accent: #38d39f;
-      --accent-text: #08140f;
-      --danger: #ffb8c4;
-      --danger-bg: #2a1016;
-      --danger-border: #5c2430;
-      --warn: #f6d58c;
-      --warn-bg: #251d0d;
-      --warn-border: #5f4a20;
-      --ok: #9ff2c9;
-      --ok-bg: #10281f;
-      --ok-border: #21533f;
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-2: rgba(246, 250, 253, 0.98);
+      --panel-3: rgba(240, 246, 251, 0.98);
+      --border: #d7e2ec;
+      --border-2: #dfe8f1;
+      --text: #132033;
+      --text-strong: #0b1628;
+      --muted: #526377;
+      --muted-2: #708298;
+      --accent: #2fb67f;
+      --accent-2: #269b6c;
+      --accent-text: #ffffff;
+      --danger: #b94a63;
+      --danger-bg: #fff4f6;
+      --danger-border: #efc4cd;
+      --ok: #237a56;
+      --ok-bg: #edf9f3;
+      --ok-border: #bfe3d0;
+      --info: #285b94;
+      --info-bg: #eef5ff;
+      --info-border: #c5d8f4;
+      --warning: #9a6a07;
+      --warning-bg: #fff8e7;
+      --warning-border: #ecd9a6;
+      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1420px;
+      --header-height: 88px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
     }
 
     a {
@@ -47,119 +64,224 @@
       text-decoration: none;
     }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 247, 251, 0.84);
+      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+    }
+
     .container {
-      max-width: 1440px;
+      width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 20px 48px;
     }
 
     .topbar {
+      min-height: var(--header-height);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
+      padding: 16px 0;
       flex-wrap: wrap;
-      margin-bottom: 28px;
     }
 
     .brand-block {
       display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
+      border: 1px solid rgba(47, 182, 127, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f7c58;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
     }
 
     .logo {
-      font-size: 22px;
+      font-size: 25px;
       font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.3px;
+      color: #1f7c58;
+      letter-spacing: -0.03em;
+      line-height: 1;
     }
 
     .subbrand {
       font-size: 13px;
       color: var(--muted-2);
+      line-height: 1.3;
     }
 
-    .top-actions {
+    .nav-actions {
       display: flex;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.72);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid #243246;
-      background: var(--panel);
-      color: #d7e3f4;
+      min-height: 46px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: #1f3046;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
     }
 
-    .btn:hover { filter: brightness(1.03); }
+    .btn:hover {
+      filter: brightness(1.01);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+    }
 
     .btn-primary {
-      background: var(--accent);
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
       color: var(--accent-text);
       border-color: transparent;
     }
 
-    .btn-danger {
-      background: #1a1416;
-      border-color: #4a2b32;
-      color: #f3c9cf;
-    }
-
     .btn-secondary {
-      background: #0f1720;
+      background: #ffffff;
     }
 
-    .btn[disabled] {
-      opacity: .55;
-      cursor: not-allowed;
-      filter: none;
+    .btn-danger {
+      background: #ffffff;
+      color: #8a2940;
+      border-color: #ebc4cf;
     }
 
-    .layout {
+    .btn-soft {
+      background: var(--panel-2);
+    }
+
+    .main {
+      padding: 28px 0 40px;
       display: grid;
-      grid-template-columns: 1.05fr 1.45fr;
-      gap: 18px;
+      gap: 20px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 20px;
+      align-items: stretch;
     }
 
     .panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
     }
 
-    .panel h1,
-    .panel h2,
-    .panel h3 {
-      margin: 0 0 12px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #cce6da;
+      background: #edf9f3;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
 
-    .panel h1 {
-      font-size: 30px;
-      line-height: 1.1;
+    h1, h2, h3, h4, h5, p {
+      margin-top: 0;
     }
 
-    .muted {
+    h1 {
+      margin-bottom: 14px;
+      font-size: 42px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      max-width: 820px;
+    }
+
+    .lead {
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: 16px;
+      line-height: 1.82;
+      margin-bottom: 0;
+      max-width: 860px;
     }
 
-    .status-row {
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
     .pill {
@@ -170,9 +292,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #2a3a52;
-      background: #0f1720;
-      color: #c9d6ea;
+      border: 1px solid #d5e0ea;
+      background: #f7fbfd;
+      color: #6b7b8f;
     }
 
     .pill.ok {
@@ -181,95 +303,22 @@
       color: var(--ok);
     }
 
-    .pill.warn {
-      border-color: var(--warn-border);
-      background: var(--warn-bg);
-      color: var(--warn);
-    }
-
     .pill.error {
       border-color: var(--danger-border);
       background: var(--danger-bg);
       color: var(--danger);
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
+    .pill.info {
+      border-color: var(--info-border);
+      background: var(--info-bg);
+      color: var(--info);
     }
 
-    .metric {
-      background: var(--panel-2);
-      border: 1px solid var(--border-2);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .metric-label {
-      font-size: 12px;
-      color: var(--muted-2);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 6px;
-    }
-
-    .metric-value {
-      font-size: 20px;
-      font-weight: 800;
-      word-break: break-word;
-    }
-
-    .field-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #b8c6d9;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      min-height: 44px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid #2a3a52;
-      background: #0c1219;
-      color: var(--text);
-      font-size: 14px;
-    }
-
-    .field textarea {
-      min-height: 92px;
-      resize: vertical;
-    }
-
-    .field-help {
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--muted-2);
-      line-height: 1.5;
-    }
-
-    .form-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+    .pill.warning {
+      border-color: var(--warning-border);
+      background: var(--warning-bg);
+      color: var(--warning);
     }
 
     .message {
@@ -280,157 +329,367 @@
 
     .message.ok { color: var(--ok); }
     .message.error { color: var(--danger); }
-    .message.warn { color: var(--warn); }
+    .message.warning { color: var(--warning); }
 
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr .8fr .8fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .list-wrap {
-      margin-top: 16px;
+    .status-stack {
       display: grid;
       gap: 12px;
     }
 
-    .entry-card {
+    .status-card {
       background: var(--panel-2);
       border: 1px solid var(--border-2);
-      border-radius: 16px;
-      padding: 16px;
-      display: grid;
-      gap: 12px;
+      border-radius: 18px;
+      padding: 18px;
     }
 
-    .entry-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      flex-wrap: wrap;
+    .status-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
     }
 
-    .entry-title {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .entry-sub {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .entry-meta {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .meta-box {
-      background: #0b1118;
-      border: 1px solid #243246;
-      border-radius: 12px;
-      padding: 12px;
-    }
-
-    .meta-box .k {
-      color: var(--muted-2);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 6px;
-    }
-
-    .meta-box .v {
+    .status-value {
+      margin: 0;
       color: var(--text);
-      font-size: 14px;
+      font-size: 15px;
+      line-height: 1.7;
       font-weight: 700;
       word-break: break-word;
     }
 
-    .row-actions {
+    .status-help {
+      margin-top: 8px;
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 940px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-value {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.68;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .form-shell,
+    .list-shell {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn.active {
+      color: var(--text-strong);
+      border-color: #b8dfcd;
+      background: #edf9f3;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #213247;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 14px;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field textarea {
+      min-height: 104px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #8fcfb1;
+      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
+    }
+
+    .field-help {
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .toolbar .field {
+      margin: 0;
+    }
+
+    .empty-state {
+      background: var(--panel-2);
+      border: 1px dashed var(--border-2);
+      border-radius: 18px;
+      padding: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+      text-align: left;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .record-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .record-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .record-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-strong);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .record-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .record-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .meta-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .meta-k {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 6px;
+    }
+
+    .meta-v {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-strong);
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .record-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .empty-state {
-      background: var(--panel-2);
-      border: 1px dashed #31445d;
-      border-radius: 16px;
-      padding: 22px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 16px;
-    }
-
     .footer {
-      margin-top: 28px;
-      padding-top: 22px;
+      margin-top: 10px;
+      padding: 24px 0 40px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #95a9c2;
+      color: #7b8b9d;
     }
 
     .footer a {
-      color: #95a9c2;
+      color: #7b8b9d;
       margin-left: 14px;
     }
 
     .footer a:hover {
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
-    @media (max-width: 1180px) {
-      .layout {
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 1220px) {
+      .hero-grid,
+      .workspace-grid,
+      .summary-grid,
+      .record-meta,
+      .form-grid,
+      .toolbar {
         grid-template-columns: 1fr;
       }
 
-      .hero-grid,
-      .entry-meta {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr 1fr;
+      h1 {
+        font-size: 34px;
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 680px) {
       .container {
-        padding: 18px 14px 34px;
+        width: min(100% - 24px, var(--max));
       }
 
-      .panel {
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .summary-card,
+      .form-shell,
+      .list-shell,
+      .status-card,
+      .record-card {
         padding: 18px;
       }
 
-      .panel h1 {
-        font-size: 26px;
+      .section-head h2 {
+        font-size: 28px;
       }
 
-      .field-grid,
-      .hero-grid,
-      .toolbar,
-      .entry-meta {
-        grid-template-columns: 1fr;
+      h1 {
+        font-size: 28px;
       }
 
-      .top-actions,
-      .form-actions,
-      .row-actions {
+      .nav-actions,
+      .hero-actions,
+      .actions,
+      .record-actions,
+      .tabs {
         width: 100%;
       }
 
-      .btn {
+      .btn,
+      .tab-btn {
         width: 100%;
       }
     }
@@ -438,216 +697,338 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="topbar">
-      <div class="brand-block">
-        <div class="logo">LedgerHaul</div>
-        <div class="subbrand">Bookkeeping workspace</div>
-      </div>
+  <div class="topbar-shell">
+    <div class="container">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Vendor records, bills, expense payments, and bookkeeping transactions</div>
+          </div>
+        </div>
 
-      <div class="top-actions">
-        <a class="btn" href="/app/index.html">Dashboard</a>
-        <a class="btn" href="/app/contractors.html">Contractors</a>
-        <a class="btn" href="/app/payments.html">Payments</a>
-        <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
-      </div>
+        <div class="nav-actions">
+          <a class="nav-link" href="/app/index.html">Dashboard</a>
+          <a class="nav-link" href="/app/contractors.html">Contractors</a>
+          <a class="nav-link" href="/app/payments.html">Payments</a>
+          <a class="nav-link active" href="/app/bookkeeping.html">Bookkeeping</a>
+          <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
+        </div>
+      </header>
     </div>
+  </div>
 
-    <div class="layout">
+  <main class="container main">
+    <section class="hero-grid">
       <section class="panel">
-        <h1>Bookkeeping transactions</h1>
-        <div class="muted">
-          Manage bookkeeping transactions, classifications, account codes, and general ledger activity used for financial reporting and export workflows.
+        <div class="eyebrow">Vendor and bookkeeping operations</div>
+        <h1>Register vendors, save bills and expense payments, and keep bookkeeping records tied to real operational activity.</h1>
+        <p class="lead">
+          You cannot run payable workflows without vendor records. This workspace fixes that gap by making vendors a first-class setup item and linking bookkeeping entries to the vendor selected when the bill or expense is saved.
+        </p>
+
+        <div class="pill-row">
+          <div id="apiPill" class="pill">API status unknown</div>
+          <div id="authPill" class="pill info">Authentication pending</div>
+          <div id="billingPill" class="pill info">Billing status pending</div>
+          <div id="savePill" class="pill warning">Save state pending</div>
         </div>
 
-        <div class="status-row">
-          <div id="systemPill" class="pill">System status unknown</div>
-          <div id="authPill" class="pill">Sign-in status unknown</div>
+        <div id="pageMessage" class="message"></div>
+
+        <div class="hero-actions">
+          <button id="goVendorTabBtn" class="btn btn-primary" type="button">Register vendor</button>
+          <button id="goBillTabBtn" class="btn btn-secondary" type="button">Enter vendor bill</button>
         </div>
-
-        <div class="hero-grid">
-          <div class="metric">
-            <div class="metric-label">Company ID</div>
-            <div id="companyMetric" class="metric-value">—</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">User</div>
-            <div id="userMetric" class="metric-value">—</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Transactions</div>
-            <div id="countMetric" class="metric-value">0</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Amount Total</div>
-            <div id="amountMetric" class="metric-value">$0.00</div>
-          </div>
-        </div>
-
-        <div id="globalMessage" class="message"></div>
-
-        <form id="entryForm" novalidate>
-          <div class="field-grid">
-            <div class="field">
-              <label for="entryDate">Transaction date</label>
-              <input id="entryDate" type="date" required />
-            </div>
-
-            <div class="field">
-              <label for="entryType">Transaction type</label>
-              <select id="entryType" required>
-                <option value="">Select</option>
-                <option value="expense">Expense</option>
-                <option value="income">Income</option>
-                <option value="transfer">Transfer</option>
-                <option value="adjustment">Adjustment</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="accountCode">Account code</label>
-              <input id="accountCode" type="text" maxlength="40" placeholder="Example: 6100" required />
-            </div>
-
-            <div class="field">
-              <label for="category">Category</label>
-              <select id="category" required>
-                <option value="">Select</option>
-                <option value="fuel">Fuel</option>
-                <option value="maintenance">Maintenance</option>
-                <option value="repairs">Repairs</option>
-                <option value="tolls">Tolls</option>
-                <option value="insurance">Insurance</option>
-                <option value="payroll">Payroll</option>
-                <option value="contractor_payout">Contractor payout</option>
-                <option value="permits">Permits</option>
-                <option value="subscriptions">Subscriptions</option>
-                <option value="office_admin">Office / admin</option>
-                <option value="loan_lease">Loan / lease</option>
-                <option value="income">Income</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="amount">Amount</label>
-              <input id="amount" type="number" min="0" step="0.01" placeholder="0.00" required />
-            </div>
-
-            <div class="field">
-              <label for="vendorName">Vendor / customer</label>
-              <input id="vendorName" type="text" maxlength="200" />
-            </div>
-
-            <div class="field">
-              <label for="paymentMethod">Payment method</label>
-              <select id="paymentMethod">
-                <option value="">Select</option>
-                <option value="bank">Bank</option>
-                <option value="card">Card</option>
-                <option value="cash">Cash</option>
-                <option value="ach">ACH</option>
-                <option value="check">Check</option>
-                <option value="wire">Wire</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="referenceNumber">Reference number</label>
-              <input id="referenceNumber" type="text" maxlength="120" />
-            </div>
-
-            <div class="field full">
-              <label for="description">Description</label>
-              <textarea id="description" maxlength="2000"></textarea>
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button id="saveBtn" class="btn btn-primary" type="submit">Save transaction</button>
-            <button id="resetBtn" class="btn btn-secondary" type="button">Clear form</button>
-          </div>
-
-          <div id="formMessage" class="message"></div>
-        </form>
       </section>
 
       <section class="panel">
-        <h2>Transaction register</h2>
-        <div class="muted">
-          Review, search, and update bookkeeping transactions used for operational accounting, reporting, and general ledger export activity.
+        <div class="status-stack">
+          <div class="status-card">
+            <h3>Company</h3>
+            <div id="companyValue" class="status-value">Loading…</div>
+            <div class="status-help">Vendor, bill, and bookkeeping records should remain scoped to the authenticated company context.</div>
+          </div>
+
+          <div class="status-card">
+            <h3>Assigned package</h3>
+            <div id="packageValue" class="status-value">Checking…</div>
+            <div class="status-help">Bookkeeping and payable workflows should only remain available when the assigned package allows them.</div>
+          </div>
+
+          <div class="status-card">
+            <h3>Current workspace state</h3>
+            <div id="nextStateValue" class="status-value">Determining bookkeeping readiness…</div>
+            <div class="status-help">If there are no vendors yet, the first required action is vendor registration—not payment entry.</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Bookkeeping summary</h2>
+          <p>These totals help show whether vendors exist, whether vendor bills have started, and whether bookkeeping activity is actually being stored.</p>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card">
+          <div id="vendorCount" class="metric-value">0</div>
+          <div class="metric-label">Vendors currently registered.</div>
+        </article>
+
+        <article class="summary-card">
+          <div id="billCount" class="metric-value">0</div>
+          <div class="metric-label">Vendor bills and expense transactions currently stored.</div>
+        </article>
+
+        <article class="summary-card">
+          <div id="unpaidCount" class="metric-value">0</div>
+          <div class="metric-label">Open vendor items not marked as paid.</div>
+        </article>
+
+        <article class="summary-card">
+          <div id="expenseTotal" class="metric-value">$0.00</div>
+          <div class="metric-label">Total bookkeeping amount recorded from current results.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace-grid">
+      <section class="form-shell">
+        <div class="section-head">
+          <div>
+            <h2>Save records</h2>
+            <p>Create vendors first. Then record vendor bills, expenses, and payments with a saved vendor link.</p>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button id="vendorTabBtn" class="tab-btn active" type="button">Vendor record</button>
+          <button id="billTabBtn" class="tab-btn" type="button">Vendor bill / expense</button>
+        </div>
+
+        <div id="vendorFormWrap">
+          <form id="vendorForm" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="vendorName">Vendor name</label>
+                <input id="vendorName" type="text" maxlength="160" required />
+              </div>
+
+              <div class="field">
+                <label for="vendorType">Vendor type</label>
+                <select id="vendorType">
+                  <option value="">Select</option>
+                  <option value="fuel">Fuel</option>
+                  <option value="maintenance">Maintenance</option>
+                  <option value="repairs">Repairs</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="tolls">Tolls</option>
+                  <option value="office_admin">Office / admin</option>
+                  <option value="subscription">Subscription</option>
+                  <option value="utilities">Utilities</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="vendorEmail">Email</label>
+                <input id="vendorEmail" type="email" maxlength="254" />
+              </div>
+
+              <div class="field">
+                <label for="vendorPhone">Phone</label>
+                <input id="vendorPhone" type="text" maxlength="40" />
+              </div>
+
+              <div class="field full">
+                <label for="vendorAddress">Address</label>
+                <input id="vendorAddress" type="text" maxlength="240" />
+              </div>
+
+              <div class="field">
+                <label for="vendorTaxIdLast4">Tax ID last 4</label>
+                <input id="vendorTaxIdLast4" type="text" maxlength="4" inputmode="numeric" />
+              </div>
+
+              <div class="field">
+                <label for="vendorStatus">Status</label>
+                <select id="vendorStatus">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="vendorNotes">Notes</label>
+                <textarea id="vendorNotes" maxlength="2000"></textarea>
+                <div class="field-help">Use this record to save the vendor before creating payable activity.</div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button id="saveVendorBtn" class="btn btn-primary" type="submit">Save vendor</button>
+              <button id="resetVendorBtn" class="btn btn-secondary" type="button">Clear vendor form</button>
+            </div>
+
+            <div id="vendorMessage" class="message"></div>
+          </form>
+        </div>
+
+        <div id="billFormWrap" hidden>
+          <form id="billForm" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="billVendorId">Vendor</label>
+                <select id="billVendorId" required>
+                  <option value="">Select vendor</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="billDate">Transaction date</label>
+                <input id="billDate" type="date" required />
+              </div>
+
+              <div class="field">
+                <label for="billDueDate">Due date</label>
+                <input id="billDueDate" type="date" />
+              </div>
+
+              <div class="field">
+                <label for="billStatus">Status</label>
+                <select id="billStatus">
+                  <option value="unpaid">Unpaid</option>
+                  <option value="paid">Paid</option>
+                  <option value="partial">Partial</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="billAmount">Amount</label>
+                <input id="billAmount" type="number" min="0" step="0.01" required />
+              </div>
+
+              <div class="field">
+                <label for="billAccountCode">Account code</label>
+                <input id="billAccountCode" type="text" maxlength="40" placeholder="Example: 6100" required />
+              </div>
+
+              <div class="field">
+                <label for="billCategory">Category</label>
+                <select id="billCategory" required>
+                  <option value="">Select</option>
+                  <option value="fuel">Fuel</option>
+                  <option value="maintenance">Maintenance</option>
+                  <option value="repairs">Repairs</option>
+                  <option value="tolls">Tolls</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="payroll">Payroll</option>
+                  <option value="contractor_payout">Contractor payout</option>
+                  <option value="permits">Permits</option>
+                  <option value="subscriptions">Subscriptions</option>
+                  <option value="office_admin">Office / admin</option>
+                  <option value="loan_lease">Loan / lease</option>
+                  <option value="utilities">Utilities</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="billReferenceNumber">Invoice / reference #</label>
+                <input id="billReferenceNumber" type="text" maxlength="120" />
+              </div>
+
+              <div class="field">
+                <label for="billPaymentMethod">Payment method</label>
+                <select id="billPaymentMethod">
+                  <option value="">Select</option>
+                  <option value="bank">Bank</option>
+                  <option value="card">Card</option>
+                  <option value="cash">Cash</option>
+                  <option value="ach">ACH</option>
+                  <option value="check">Check</option>
+                  <option value="wire">Wire</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="billDescription">Description</label>
+                <textarea id="billDescription" maxlength="2000"></textarea>
+                <div class="field-help">This saves a bookkeeping transaction tied to the selected vendor so payable activity can actually be tracked.</div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button id="saveBillBtn" class="btn btn-primary" type="submit">Save vendor bill</button>
+              <button id="resetBillBtn" class="btn btn-secondary" type="button">Clear bill form</button>
+            </div>
+
+            <div id="billMessage" class="message"></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="list-shell">
+        <div class="section-head">
+          <div>
+            <h2>Saved records</h2>
+            <p>Review and edit vendors first, then review bills and expense transactions linked to those vendors.</p>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button id="vendorListTabBtn" class="tab-btn active" type="button">Vendors</button>
+          <button id="billListTabBtn" class="tab-btn" type="button">Bills / expenses</button>
         </div>
 
         <div class="toolbar">
           <div class="field">
             <label for="searchInput">Search</label>
-            <input id="searchInput" type="text" placeholder="Vendor, description, account code" />
+            <input id="searchInput" type="text" placeholder="Search name, category, reference, description" />
           </div>
 
           <div class="field">
-            <label for="typeFilter">Type</label>
+            <label for="statusFilter">Status</label>
+            <select id="statusFilter">
+              <option value="all">All</option>
+              <option value="active">Active vendors</option>
+              <option value="inactive">Inactive vendors</option>
+              <option value="unpaid">Unpaid bills</option>
+              <option value="paid">Paid bills</option>
+              <option value="partial">Partial bills</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="typeFilter">View</label>
             <select id="typeFilter">
-              <option value="all">All</option>
-              <option value="expense">Expense</option>
-              <option value="income">Income</option>
-              <option value="transfer">Transfer</option>
-              <option value="adjustment">Adjustment</option>
+              <option value="vendors">Vendors</option>
+              <option value="bills">Bills / expenses</option>
             </select>
           </div>
-
-          <div class="field">
-            <label for="categoryFilter">Category</label>
-            <select id="categoryFilter">
-              <option value="all">All</option>
-              <option value="fuel">Fuel</option>
-              <option value="maintenance">Maintenance</option>
-              <option value="repairs">Repairs</option>
-              <option value="tolls">Tolls</option>
-              <option value="insurance">Insurance</option>
-              <option value="payroll">Payroll</option>
-              <option value="contractor_payout">Contractor payout</option>
-              <option value="permits">Permits</option>
-              <option value="subscriptions">Subscriptions</option>
-              <option value="office_admin">Office / admin</option>
-              <option value="loan_lease">Loan / lease</option>
-              <option value="income">Income</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="sortInput">Sort</label>
-            <select id="sortInput">
-              <option value="date_desc">Newest first</option>
-              <option value="date_asc">Oldest first</option>
-              <option value="amount_desc">Highest amount first</option>
-              <option value="amount_asc">Lowest amount first</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-actions" style="margin-top:16px;">
-          <button id="refreshBtn" class="btn" type="button">Refresh list</button>
         </div>
 
         <div id="listMessage" class="message"></div>
-        <div id="emptyState" class="empty-state" hidden>
-          No bookkeeping transactions found.
-        </div>
-        <div id="entryList" class="list-wrap"></div>
+        <div id="emptyState" class="empty-state">No saved records found yet.</div>
+        <div id="recordList" class="card-list"></div>
       </section>
-    </div>
+    </section>
 
-    <div class="footer">
+    <footer class="footer">
       <div>© 2026 LedgerHaul. All rights reserved.</div>
       <div>
         <a href="/legal/terms.html">Terms</a>
         <a href="/legal/privacy.html">Privacy</a>
         <a href="/legal/refund.html">Refund</a>
       </div>
-    </div>
-  </div>
+    </footer>
+  </main>
 
   <script>
     const API_BASE = (
@@ -658,60 +1039,110 @@
       ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
       : "https://api.ledgerhaul.com";
 
-    let entries = [];
-    let editingEntryId = null;
-
     const ENDPOINTS = {
-      list: [
+      vendorsList: [
+        "/api/vendors",
+        "/api/bookkeeping/vendors",
+        "/vendors"
+      ],
+      vendorCreate: [
+        "/api/vendors",
+        "/api/bookkeeping/vendors",
+        "/vendors"
+      ],
+      vendorUpdate: (id) => [
+        `/api/vendors/${id}`,
+        `/api/bookkeeping/vendors/${id}`,
+        `/vendors/${id}`
+      ],
+      billsList: [
         "/api/bookkeeping/transactions",
         "/api/bookkeeping/entries",
         "/bookkeeping/transactions"
       ],
-      create: [
+      billCreate: [
         "/api/bookkeeping/transactions",
         "/api/bookkeeping/entries",
         "/bookkeeping/transactions"
       ],
-      update: (id) => [
+      billUpdate: (id) => [
         `/api/bookkeeping/transactions/${id}`,
         `/api/bookkeeping/entries/${id}`,
         `/bookkeeping/transactions/${id}`
+      ],
+      billing: [
+        "/billing/access",
+        "/billing/subscription/access",
+        "/billing/entitlements",
+        "/billing/subscription/status",
+        "/api/billing/access"
       ]
     };
 
-    const companyMetric = document.getElementById("companyMetric");
-    const userMetric = document.getElementById("userMetric");
-    const countMetric = document.getElementById("countMetric");
-    const amountMetric = document.getElementById("amountMetric");
-    const systemPill = document.getElementById("systemPill");
-    const authPill = document.getElementById("authPill");
-    const globalMessage = document.getElementById("globalMessage");
+    const state = {
+      vendors: [],
+      bills: [],
+      editingVendorId: null,
+      editingBillId: null,
+      activeFormTab: "vendor",
+      activeListTab: "vendors"
+    };
 
-    const entryForm = document.getElementById("entryForm");
-    const formMessage = document.getElementById("formMessage");
-    const listMessage = document.getElementById("listMessage");
-    const entryList = document.getElementById("entryList");
-    const emptyState = document.getElementById("emptyState");
-
-    const entryDate = document.getElementById("entryDate");
-    const entryType = document.getElementById("entryType");
-    const accountCode = document.getElementById("accountCode");
-    const category = document.getElementById("category");
-    const amount = document.getElementById("amount");
-    const vendorName = document.getElementById("vendorName");
-    const paymentMethod = document.getElementById("paymentMethod");
-    const referenceNumber = document.getElementById("referenceNumber");
-    const description = document.getElementById("description");
-
-    const saveBtn = document.getElementById("saveBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const refreshBtn = document.getElementById("refreshBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    const searchInput = document.getElementById("searchInput");
-    const typeFilter = document.getElementById("typeFilter");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const sortInput = document.getElementById("sortInput");
+    const ui = {
+      apiPill: document.getElementById("apiPill"),
+      authPill: document.getElementById("authPill"),
+      billingPill: document.getElementById("billingPill"),
+      savePill: document.getElementById("savePill"),
+      pageMessage: document.getElementById("pageMessage"),
+      companyValue: document.getElementById("companyValue"),
+      packageValue: document.getElementById("packageValue"),
+      nextStateValue: document.getElementById("nextStateValue"),
+      vendorCount: document.getElementById("vendorCount"),
+      billCount: document.getElementById("billCount"),
+      unpaidCount: document.getElementById("unpaidCount"),
+      expenseTotal: document.getElementById("expenseTotal"),
+      goVendorTabBtn: document.getElementById("goVendorTabBtn"),
+      goBillTabBtn: document.getElementById("goBillTabBtn"),
+      vendorTabBtn: document.getElementById("vendorTabBtn"),
+      billTabBtn: document.getElementById("billTabBtn"),
+      vendorListTabBtn: document.getElementById("vendorListTabBtn"),
+      billListTabBtn: document.getElementById("billListTabBtn"),
+      vendorFormWrap: document.getElementById("vendorFormWrap"),
+      billFormWrap: document.getElementById("billFormWrap"),
+      vendorForm: document.getElementById("vendorForm"),
+      billForm: document.getElementById("billForm"),
+      vendorMessage: document.getElementById("vendorMessage"),
+      billMessage: document.getElementById("billMessage"),
+      listMessage: document.getElementById("listMessage"),
+      emptyState: document.getElementById("emptyState"),
+      recordList: document.getElementById("recordList"),
+      searchInput: document.getElementById("searchInput"),
+      statusFilter: document.getElementById("statusFilter"),
+      typeFilter: document.getElementById("typeFilter"),
+      logoutBtn: document.getElementById("logoutBtn"),
+      vendorName: document.getElementById("vendorName"),
+      vendorType: document.getElementById("vendorType"),
+      vendorEmail: document.getElementById("vendorEmail"),
+      vendorPhone: document.getElementById("vendorPhone"),
+      vendorAddress: document.getElementById("vendorAddress"),
+      vendorTaxIdLast4: document.getElementById("vendorTaxIdLast4"),
+      vendorStatus: document.getElementById("vendorStatus"),
+      vendorNotes: document.getElementById("vendorNotes"),
+      saveVendorBtn: document.getElementById("saveVendorBtn"),
+      resetVendorBtn: document.getElementById("resetVendorBtn"),
+      billVendorId: document.getElementById("billVendorId"),
+      billDate: document.getElementById("billDate"),
+      billDueDate: document.getElementById("billDueDate"),
+      billStatus: document.getElementById("billStatus"),
+      billAmount: document.getElementById("billAmount"),
+      billAccountCode: document.getElementById("billAccountCode"),
+      billCategory: document.getElementById("billCategory"),
+      billReferenceNumber: document.getElementById("billReferenceNumber"),
+      billPaymentMethod: document.getElementById("billPaymentMethod"),
+      billDescription: document.getElementById("billDescription"),
+      saveBillBtn: document.getElementById("saveBillBtn"),
+      resetBillBtn: document.getElementById("resetBillBtn")
+    };
 
     function setPill(el, text, type) {
       el.textContent = text;
@@ -723,215 +1154,50 @@
       el.className = "message" + (type ? ` ${type}` : "");
     }
 
-    function getStorageItem(key) {
-      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
-    }
-
-    function readStoredJson(key) {
-      const raw = getStorageItem(key);
+    function safeJsonParse(text) {
       try {
-        return raw ? JSON.parse(raw) : null;
+        return JSON.parse(text);
       } catch (_) {
         return null;
       }
     }
 
-    function getCompanyId() {
-      return window.LH_APP_ACCESS.getCompanyId();
+    function firstDefinedValue(...values) {
+      for (const value of values) {
+        if (value !== undefined && value !== null && value !== "") {
+          return value;
+        }
+      }
+      return "";
+    }
+
+    function normalizePlanName(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "Not assigned";
+      return raw
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ")
+        .split(" ")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ");
     }
 
     function formatMoney(value) {
-      const numeric = Number(value || 0);
+      const n = Number(value || 0);
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD"
-      }).format(Number.isFinite(numeric) ? numeric : 0);
+      }).format(Number.isFinite(n) ? n : 0);
     }
 
     function parseMoney(value) {
-      const numeric = Number(String(value || "").trim());
-      return Number.isFinite(numeric) ? numeric : 0;
+      const n = Number(String(value || "").trim());
+      return Number.isFinite(n) ? n : 0;
     }
 
-    async function requestCandidates(urls, options) {
-      let lastError = null;
-
-      for (const url of urls) {
-        const response = await fetch(`${API_BASE}${url}`, options);
-        const raw = await response.text();
-        const json = window.LH_APP_ACCESS.safeJsonParse(raw);
-
-        if (response.status === 401) {
-          window.LH_APP_ACCESS.logout();
-          throw new Error((json && (json.error || json.message || json.detail)) || raw || "Unauthorized");
-        }
-
-        if (response.status === 403) {
-          throw new Error((json && (json.error || json.message || json.detail)) || raw || "Access is not enabled for this account.");
-        }
-
-        if (response.status === 404) {
-          lastError = new Error(`Endpoint not found: ${url}`);
-          continue;
-        }
-
-        if (!response.ok) {
-          const message = (json && (json.error || json.message || json.detail)) || raw || `Request failed (${response.status})`;
-          throw new Error(message);
-        }
-
-        return json || raw;
-      }
-
-      throw lastError || new Error("No supported endpoint responded successfully.");
-    }
-
-    async function loadEntries() {
-      setMessage(listMessage, "", "");
-      try {
-        const data = await requestCandidates(ENDPOINTS.list, {
-          method: "GET",
-          headers: window.LH_APP_ACCESS.buildHeaders(),
-          cache: "no-store"
-        });
-
-        const rows = Array.isArray(data)
-          ? data
-          : Array.isArray(data.transactions)
-            ? data.transactions
-            : Array.isArray(data.entries)
-              ? data.entries
-              : Array.isArray(data.items)
-                ? data.items
-                : [];
-
-        entries = rows.map((item) => ({
-          id: item.id ?? item.transaction_id ?? item.entry_id ?? item.uuid ?? crypto.randomUUID(),
-          entry_date: item.entry_date || item.transaction_date || item.date || "",
-          entry_type: item.entry_type || item.transaction_type || item.type || "",
-          account_code: item.account_code || item.accountCode || "",
-          category: item.category || "",
-          amount: Number(item.amount ?? 0),
-          vendor_name: item.vendor_name || item.vendorName || item.customer_name || "",
-          payment_method: item.payment_method || item.paymentMethod || "",
-          reference_number: item.reference_number || item.referenceNumber || "",
-          description: item.description || item.memo || "",
-          raw: item
-        }));
-
-        refreshMetrics();
-        renderEntries();
-        setMessage(listMessage, "Bookkeeping transactions loaded.", "ok");
-      } catch (err) {
-        entries = [];
-        refreshMetrics();
-        renderEntries();
-        setMessage(listMessage, err.message || "Failed to load bookkeeping transactions.", "error");
-      }
-    }
-
-    function refreshMetrics() {
-      const companyId = getCompanyId();
-      const user = readStoredJson("lh_user");
-
-      companyMetric.textContent = companyId || "Unavailable";
-
-      if (user && (user.email || user.first_name || user.last_name)) {
-        const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
-        userMetric.textContent = name || user.email || "Authenticated user";
-      } else {
-        userMetric.textContent = "Authenticated user";
-      }
-
-      countMetric.textContent = String(entries.length);
-      amountMetric.textContent = formatMoney(entries.reduce((sum, item) => sum + Number(item.amount || 0), 0));
-    }
-
-    function filteredEntries() {
-      const search = String(searchInput.value || "").trim().toLowerCase();
-      const typeValue = String(typeFilter.value || "all");
-      const categoryValue = String(categoryFilter.value || "all");
-      const sortValue = String(sortInput.value || "date_desc");
-
-      let rows = entries.filter((item) => {
-        const matchesSearch = !search || [
-          item.vendor_name,
-          item.description,
-          item.account_code,
-          item.reference_number
-        ].join(" ").toLowerCase().includes(search);
-
-        const matchesType = typeValue === "all" || String(item.entry_type || "").toLowerCase() === typeValue;
-        const matchesCategory = categoryValue === "all" || String(item.category || "").toLowerCase() === categoryValue;
-
-        return matchesSearch && matchesType && matchesCategory;
-      });
-
-      rows.sort((a, b) => {
-        if (sortValue === "date_asc") {
-          return String(a.entry_date).localeCompare(String(b.entry_date));
-        }
-        if (sortValue === "amount_desc") {
-          return Number(b.amount || 0) - Number(a.amount || 0);
-        }
-        if (sortValue === "amount_asc") {
-          return Number(a.amount || 0) - Number(b.amount || 0);
-        }
-        return String(b.entry_date).localeCompare(String(a.entry_date));
-      });
-
-      return rows;
-    }
-
-    function renderEntries() {
-      const rows = filteredEntries();
-      entryList.innerHTML = "";
-      emptyState.hidden = rows.length !== 0;
-
-      rows.forEach((item) => {
-        const card = document.createElement("div");
-        card.className = "entry-card";
-
-        card.innerHTML = `
-          <div class="entry-top">
-            <div>
-              <div class="entry-title">${escapeHtml(item.vendor_name || item.description || "Transaction")}</div>
-              <div class="entry-sub">
-                ${escapeHtml(item.entry_date || "No date")}
-                ${item.description ? `<br>${escapeHtml(item.description)}` : ""}
-              </div>
-            </div>
-            <div class="row-actions">
-              <button class="btn" type="button" data-action="edit" data-id="${escapeAttr(item.id)}">Edit</button>
-            </div>
-          </div>
-
-          <div class="entry-meta">
-            <div class="meta-box">
-              <div class="k">Type</div>
-              <div class="v">${escapeHtml(item.entry_type || "Not set")}</div>
-            </div>
-            <div class="meta-box">
-              <div class="k">Category</div>
-              <div class="v">${escapeHtml(item.category || "Not set")}</div>
-            </div>
-            <div class="meta-box">
-              <div class="k">Account code</div>
-              <div class="v">${escapeHtml(item.account_code || "Not set")}</div>
-            </div>
-            <div class="meta-box">
-              <div class="k">Amount</div>
-              <div class="v">${escapeHtml(formatMoney(item.amount))}</div>
-            </div>
-            <div class="meta-box">
-              <div class="k">Payment method</div>
-              <div class="v">${escapeHtml(item.payment_method || "Not set")}</div>
-            </div>
-          </div>
-        `;
-
-        entryList.appendChild(card);
-      });
+    function getStoredJson(key) {
+      const raw = localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+      return safeJsonParse(raw) || null;
     }
 
     function escapeHtml(value) {
@@ -943,54 +1209,338 @@
         .replaceAll("'", "&#39;");
     }
 
-    function escapeAttr(value) {
-      return escapeHtml(value);
+    async function requestCandidates(paths, options) {
+      let lastError = null;
+
+      for (const path of paths) {
+        try {
+          const res = await fetch(`${API_BASE}${path}`, options);
+          const raw = await res.text();
+          const data = safeJsonParse(raw) || {};
+
+          if (res.status === 401) {
+            window.LH_APP_ACCESS.logout();
+            throw new Error(String(data.error || data.message || data.detail || "Authentication required."));
+          }
+
+          if (res.status === 404) {
+            lastError = new Error(`Endpoint not found: ${path}`);
+            continue;
+          }
+
+          if (!res.ok) {
+            throw new Error(String(data.error || data.message || data.detail || raw || "Request failed."));
+          }
+
+          return data;
+        } catch (err) {
+          lastError = err;
+        }
+      }
+
+      throw lastError || new Error("No supported endpoint responded successfully.");
     }
 
-    function resetForm() {
-      editingEntryId = null;
-      entryForm.reset();
-      entryDate.value = new Date().toISOString().slice(0, 10);
-      saveBtn.textContent = "Save transaction";
-      setMessage(formMessage, "", "");
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+
+        if (!res.ok) {
+          setPill(ui.apiPill, "API limited", "error");
+          return;
+        }
+
+        setPill(ui.apiPill, "API online", "ok");
+      } catch (_) {
+        setPill(ui.apiPill, "API unavailable", "error");
+      }
     }
 
-    function fillForm(entry) {
-      editingEntryId = entry.id;
-      entryDate.value = entry.entry_date || "";
-      entryType.value = entry.entry_type || "";
-      accountCode.value = entry.account_code || "";
-      category.value = entry.category || "";
-      amount.value = String(entry.amount ?? "");
-      vendorName.value = entry.vendor_name || "";
-      paymentMethod.value = entry.payment_method || "";
-      referenceNumber.value = entry.reference_number || "";
-      description.value = entry.description || "";
-      saveBtn.textContent = "Update transaction";
-      setMessage(formMessage, "Editing transaction record.", "warn");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    async function loadBillingAccess() {
+      try {
+        const payload = await requestCandidates(ENDPOINTS.billing, {
+          method: "GET",
+          headers: window.LH_APP_ACCESS.buildHeaders(),
+          cache: "no-store"
+        });
+
+        const active = Boolean(
+          payload.active === true ||
+          payload.subscription_active === true ||
+          String(payload.status || "").toLowerCase() === "active" ||
+          String(payload.status || "").toLowerCase() === "trialing"
+        );
+
+        ui.packageValue.textContent = normalizePlanName(firstDefinedValue(payload.plan, payload.plan_name, payload.package));
+
+        if (active) {
+          setPill(ui.billingPill, "Billing active", "ok");
+        } else {
+          setPill(ui.billingPill, "Billing restricted", "error");
+          setMessage(ui.pageMessage, "Bookkeeping access is currently restricted by package or billing state.", "error");
+        }
+
+        return { active, payload };
+      } catch (_) {
+        ui.packageValue.textContent = "Not assigned";
+        setPill(ui.billingPill, "Billing status unavailable", "warning");
+        return { active: true, unavailable: true };
+      }
     }
 
-    function buildPayload() {
+    function normalizeVendor(item) {
       return {
-        entry_date: String(entryDate.value || "").trim(),
-        entry_type: String(entryType.value || "").trim(),
-        account_code: String(accountCode.value || "").trim(),
-        category: String(category.value || "").trim(),
-        amount: parseMoney(amount.value),
-        vendor_name: String(vendorName.value || "").trim(),
-        payment_method: String(paymentMethod.value || "").trim(),
-        reference_number: String(referenceNumber.value || "").trim(),
-        description: String(description.value || "").trim()
+        id: firstDefinedValue(item.id, item.vendor_id, item.uuid, item.external_id),
+        name: firstDefinedValue(item.name, item.vendor_name, item.legal_name),
+        type: firstDefinedValue(item.type, item.vendor_type, item.category),
+        email: firstDefinedValue(item.email),
+        phone: firstDefinedValue(item.phone),
+        address: firstDefinedValue(item.address, item.address_line1),
+        tax_id_last4: firstDefinedValue(item.tax_id_last4, item.taxIdLast4, item.tin_last4),
+        status: firstDefinedValue(item.status, "active"),
+        notes: firstDefinedValue(item.notes),
+        raw: item
       };
     }
 
-    function validatePayload(payload) {
+    function normalizeBill(item) {
+      return {
+        id: firstDefinedValue(item.id, item.transaction_id, item.entry_id, item.bill_id, item.uuid, item.external_id),
+        vendor_id: firstDefinedValue(item.vendor_id, item.vendorId),
+        vendor_name: firstDefinedValue(item.vendor_name, item.vendorName, item.vendor),
+        date: firstDefinedValue(item.entry_date, item.transaction_date, item.date, item.bill_date),
+        due_date: firstDefinedValue(item.due_date, item.dueDate),
+        status: firstDefinedValue(item.status, "unpaid"),
+        amount: Number(firstDefinedValue(item.amount, item.total, 0) || 0),
+        account_code: firstDefinedValue(item.account_code, item.accountCode),
+        category: firstDefinedValue(item.category),
+        reference_number: firstDefinedValue(item.reference_number, item.referenceNumber, item.invoice_number),
+        payment_method: firstDefinedValue(item.payment_method, item.paymentMethod),
+        description: firstDefinedValue(item.description, item.memo, item.notes),
+        raw: item
+      };
+    }
+
+    async function loadVendors() {
+      try {
+        const payload = await requestCandidates(ENDPOINTS.vendorsList, {
+          method: "GET",
+          headers: window.LH_APP_ACCESS.buildHeaders(),
+          cache: "no-store"
+        });
+
+        const rows = Array.isArray(payload)
+          ? payload
+          : Array.isArray(payload.vendors)
+            ? payload.vendors
+            : Array.isArray(payload.items)
+              ? payload.items
+              : [];
+
+        state.vendors = rows.map(normalizeVendor).filter((item) => item.id || item.name);
+        populateVendorSelect();
+        return true;
+      } catch (err) {
+        state.vendors = [];
+        populateVendorSelect();
+        setMessage(ui.listMessage, err.message || "Unable to load vendors.", "error");
+        return false;
+      }
+    }
+
+    async function loadBills() {
+      try {
+        const payload = await requestCandidates(ENDPOINTS.billsList, {
+          method: "GET",
+          headers: window.LH_APP_ACCESS.buildHeaders(),
+          cache: "no-store"
+        });
+
+        const rows = Array.isArray(payload)
+          ? payload
+          : Array.isArray(payload.transactions)
+            ? payload.transactions
+            : Array.isArray(payload.entries)
+              ? payload.entries
+              : Array.isArray(payload.items)
+                ? payload.items
+                : [];
+
+        state.bills = rows.map(normalizeBill).filter((item) => item.id || item.vendor_name || item.description);
+        return true;
+      } catch (err) {
+        state.bills = [];
+        setMessage(ui.listMessage, err.message || "Unable to load bookkeeping transactions.", "error");
+        return false;
+      }
+    }
+
+    function populateVendorSelect() {
+      const currentValue = ui.billVendorId.value;
+      ui.billVendorId.innerHTML = '<option value="">Select vendor</option>';
+
+      state.vendors.forEach((vendor) => {
+        const option = document.createElement("option");
+        option.value = String(vendor.id || "");
+        option.textContent = vendor.name || `Vendor ${vendor.id || ""}`;
+        ui.billVendorId.appendChild(option);
+      });
+
+      if (currentValue) {
+        ui.billVendorId.value = currentValue;
+      }
+    }
+
+    function refreshSummary() {
+      ui.vendorCount.textContent = String(state.vendors.length);
+      ui.billCount.textContent = String(state.bills.length);
+      ui.unpaidCount.textContent = String(state.bills.filter((item) => String(item.status).toLowerCase() !== "paid").length);
+      ui.expenseTotal.textContent = formatMoney(state.bills.reduce((sum, item) => sum + Number(item.amount || 0), 0));
+
+      if (state.vendors.length === 0) {
+        ui.nextStateValue.textContent = "Register the first vendor before entering payable activity.";
+        setPill(ui.savePill, "Vendor setup required", "warning");
+        setMessage(ui.pageMessage, "No vendors are saved yet. Register a vendor first so expense and payable activity can be linked and stored.", "warning");
+      } else if (state.bills.length === 0) {
+        ui.nextStateValue.textContent = "Vendors exist. Enter the first vendor bill or expense next.";
+        setPill(ui.savePill, "Bills pending", "warning");
+        setMessage(ui.pageMessage, "Vendor records are saved. Enter the first vendor bill or expense next.", "ok");
+      } else {
+        ui.nextStateValue.textContent = "Vendor and bill data are being stored in bookkeeping.";
+        setPill(ui.savePill, "Save flow active", "ok");
+        setMessage(ui.pageMessage, "Vendor registration and bookkeeping save flow are active.", "ok");
+      }
+    }
+
+    function setFormTab(tab) {
+      state.activeFormTab = tab;
+      const vendorActive = tab === "vendor";
+
+      ui.vendorFormWrap.hidden = !vendorActive;
+      ui.billFormWrap.hidden = vendorActive;
+      ui.vendorTabBtn.classList.toggle("active", vendorActive);
+      ui.billTabBtn.classList.toggle("active", !vendorActive);
+      ui.goVendorTabBtn.classList.toggle("btn-primary", vendorActive);
+      ui.goVendorTabBtn.classList.toggle("btn-secondary", !vendorActive);
+      ui.goBillTabBtn.classList.toggle("btn-primary", !vendorActive);
+      ui.goBillTabBtn.classList.toggle("btn-secondary", vendorActive);
+    }
+
+    function setListTab(tab) {
+      state.activeListTab = tab;
+      ui.vendorListTabBtn.classList.toggle("active", tab === "vendors");
+      ui.billListTabBtn.classList.toggle("active", tab === "bills");
+      ui.typeFilter.value = tab;
+      renderList();
+    }
+
+    function resetVendorForm() {
+      state.editingVendorId = null;
+      ui.vendorForm.reset();
+      ui.vendorStatus.value = "active";
+      ui.saveVendorBtn.textContent = "Save vendor";
+      setMessage(ui.vendorMessage, "", "");
+    }
+
+    function resetBillForm() {
+      state.editingBillId = null;
+      ui.billForm.reset();
+      ui.billDate.value = new Date().toISOString().slice(0, 10);
+      ui.billStatus.value = "unpaid";
+      ui.saveBillBtn.textContent = "Save vendor bill";
+      setMessage(ui.billMessage, "", "");
+    }
+
+    function fillVendorForm(vendor) {
+      state.editingVendorId = vendor.id;
+      ui.vendorName.value = vendor.name || "";
+      ui.vendorType.value = vendor.type || "";
+      ui.vendorEmail.value = vendor.email || "";
+      ui.vendorPhone.value = vendor.phone || "";
+      ui.vendorAddress.value = vendor.address || "";
+      ui.vendorTaxIdLast4.value = vendor.tax_id_last4 || "";
+      ui.vendorStatus.value = vendor.status || "active";
+      ui.vendorNotes.value = vendor.notes || "";
+      ui.saveVendorBtn.textContent = "Update vendor";
+      setMessage(ui.vendorMessage, "Editing saved vendor record.", "warning");
+      setFormTab("vendor");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function fillBillForm(bill) {
+      state.editingBillId = bill.id;
+      ui.billVendorId.value = bill.vendor_id || "";
+      ui.billDate.value = bill.date || "";
+      ui.billDueDate.value = bill.due_date || "";
+      ui.billStatus.value = bill.status || "unpaid";
+      ui.billAmount.value = String(bill.amount || "");
+      ui.billAccountCode.value = bill.account_code || "";
+      ui.billCategory.value = bill.category || "";
+      ui.billReferenceNumber.value = bill.reference_number || "";
+      ui.billPaymentMethod.value = bill.payment_method || "";
+      ui.billDescription.value = bill.description || "";
+      ui.saveBillBtn.textContent = "Update vendor bill";
+      setMessage(ui.billMessage, "Editing saved vendor bill or expense.", "warning");
+      setFormTab("bill");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function buildVendorPayload() {
+      return {
+        name: String(ui.vendorName.value || "").trim(),
+        type: String(ui.vendorType.value || "").trim(),
+        email: String(ui.vendorEmail.value || "").trim().toLowerCase(),
+        phone: String(ui.vendorPhone.value || "").trim(),
+        address: String(ui.vendorAddress.value || "").trim(),
+        tax_id_last4: String(ui.vendorTaxIdLast4.value || "").trim(),
+        status: String(ui.vendorStatus.value || "active").trim(),
+        notes: String(ui.vendorNotes.value || "").trim()
+      };
+    }
+
+    function buildBillPayload() {
+      const selectedVendor = state.vendors.find((vendor) => String(vendor.id) === String(ui.billVendorId.value || ""));
+      return {
+        vendor_id: String(ui.billVendorId.value || "").trim(),
+        vendor_name: selectedVendor ? selectedVendor.name : "",
+        entry_date: String(ui.billDate.value || "").trim(),
+        due_date: String(ui.billDueDate.value || "").trim(),
+        status: String(ui.billStatus.value || "unpaid").trim(),
+        amount: parseMoney(ui.billAmount.value),
+        account_code: String(ui.billAccountCode.value || "").trim(),
+        category: String(ui.billCategory.value || "").trim(),
+        reference_number: String(ui.billReferenceNumber.value || "").trim(),
+        payment_method: String(ui.billPaymentMethod.value || "").trim(),
+        description: String(ui.billDescription.value || "").trim(),
+        entry_type: "expense"
+      };
+    }
+
+    function validateVendorPayload(payload) {
+      if (!payload.name) {
+        return "Vendor name is required.";
+      }
+      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+        return "Vendor email format is invalid.";
+      }
+      if (payload.tax_id_last4 && !/^\d{4}$/.test(payload.tax_id_last4)) {
+        return "Tax ID last 4 must be exactly 4 digits.";
+      }
+      return "";
+    }
+
+    function validateBillPayload(payload) {
+      if (!payload.vendor_id) {
+        return "Select a saved vendor first.";
+      }
       if (!payload.entry_date) {
         return "Transaction date is required.";
       }
-      if (!payload.entry_type) {
-        return "Transaction type is required.";
+      if (payload.amount <= 0) {
+        return "Amount must be greater than zero.";
       }
       if (!payload.account_code) {
         return "Account code is required.";
@@ -998,17 +1548,14 @@
       if (!payload.category) {
         return "Category is required.";
       }
-      if (payload.amount <= 0) {
-        return "Amount must be greater than zero.";
-      }
       return "";
     }
 
-    async function saveEntry(payload) {
-      const method = editingEntryId ? "PUT" : "POST";
-      const urls = editingEntryId ? ENDPOINTS.update(editingEntryId) : ENDPOINTS.create;
+    async function saveVendor(payload) {
+      const paths = state.editingVendorId ? ENDPOINTS.vendorUpdate(state.editingVendorId) : ENDPOINTS.vendorCreate;
+      const method = state.editingVendorId ? "PUT" : "POST";
 
-      return requestCandidates(urls, {
+      return requestCandidates(paths, {
         method,
         headers: window.LH_APP_ACCESS.buildHeaders({
           "Content-Type": "application/json"
@@ -1018,97 +1565,277 @@
       });
     }
 
-    async function checkHealth() {
-      try {
-        const res = await fetch(`${API_BASE}/health`, {
-          method: "GET",
-          cache: "no-store"
-        });
-        if (!res.ok) {
-          setPill(systemPill, "System status: Limited", "warn");
-          return;
-        }
-        setPill(systemPill, "System status: Online", "ok");
-      } catch (_) {
-        setPill(systemPill, "System status: Unavailable", "error");
-      }
+    async function saveBill(payload) {
+      const paths = state.editingBillId ? ENDPOINTS.billUpdate(state.editingBillId) : ENDPOINTS.billCreate;
+      const method = state.editingBillId ? "PUT" : "POST";
+
+      return requestCandidates(paths, {
+        method,
+        headers: window.LH_APP_ACCESS.buildHeaders({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(payload),
+        cache: "no-store"
+      });
     }
 
-    entryForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      setMessage(formMessage, "", "");
+    function renderList() {
+      const search = String(ui.searchInput.value || "").trim().toLowerCase();
+      const statusFilter = String(ui.statusFilter.value || "all");
+      const view = String(ui.typeFilter.value || state.activeListTab || "vendors");
 
-      const payload = buildPayload();
-      const validationError = validatePayload(payload);
-      if (validationError) {
-        setMessage(formMessage, validationError, "error");
-        return;
+      state.activeListTab = view;
+      ui.recordList.innerHTML = "";
+
+      let rows = [];
+
+      if (view === "vendors") {
+        rows = state.vendors.filter((vendor) => {
+          const matchesSearch = !search || [
+            vendor.name,
+            vendor.type,
+            vendor.email,
+            vendor.phone,
+            vendor.address,
+            vendor.notes
+          ].join(" ").toLowerCase().includes(search);
+
+          const matchesStatus =
+            statusFilter === "all" ||
+            String(vendor.status || "").toLowerCase() === statusFilter;
+
+          return matchesSearch && matchesStatus;
+        });
+
+        ui.emptyState.textContent = "No vendors are saved yet. Register a vendor first so vendor bills and expenses can be linked and stored.";
+
+        rows.forEach((vendor) => {
+          const card = document.createElement("div");
+          card.className = "record-card";
+
+          card.innerHTML = `
+            <div class="record-top">
+              <div>
+                <div class="record-title">${escapeHtml(vendor.name || "Vendor")}</div>
+                <div class="record-sub">${escapeHtml(vendor.type || "Vendor type not set")}</div>
+              </div>
+              <div class="record-actions">
+                <button class="btn btn-soft" type="button" data-action="edit-vendor" data-id="${escapeHtml(vendor.id || "")}">Edit</button>
+              </div>
+            </div>
+
+            <div class="record-meta">
+              <div class="meta-box">
+                <div class="meta-k">Email</div>
+                <div class="meta-v">${escapeHtml(vendor.email || "Not set")}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Phone</div>
+                <div class="meta-v">${escapeHtml(vendor.phone || "Not set")}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Status</div>
+                <div class="meta-v">${escapeHtml(vendor.status || "active")}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Tax ID last 4</div>
+                <div class="meta-v">${escapeHtml(vendor.tax_id_last4 || "Not set")}</div>
+              </div>
+            </div>
+          `;
+
+          ui.recordList.appendChild(card);
+        });
+      } else {
+        rows = state.bills.filter((bill) => {
+          const matchesSearch = !search || [
+            bill.vendor_name,
+            bill.category,
+            bill.reference_number,
+            bill.description,
+            bill.account_code
+          ].join(" ").toLowerCase().includes(search);
+
+          const billStatus = String(bill.status || "").toLowerCase();
+          const matchesStatus =
+            statusFilter === "all" ||
+            billStatus === statusFilter;
+
+          return matchesSearch && matchesStatus;
+        });
+
+        ui.emptyState.textContent = "No vendor bills or expenses are saved yet. Register a vendor, then save the first vendor bill or bookkeeping expense.";
+
+        rows.forEach((bill) => {
+          const card = document.createElement("div");
+          card.className = "record-card";
+
+          card.innerHTML = `
+            <div class="record-top">
+              <div>
+                <div class="record-title">${escapeHtml(bill.vendor_name || "Vendor expense")}</div>
+                <div class="record-sub">${escapeHtml(bill.description || "No description provided")}</div>
+              </div>
+              <div class="record-actions">
+                <button class="btn btn-soft" type="button" data-action="edit-bill" data-id="${escapeHtml(bill.id || "")}">Edit</button>
+              </div>
+            </div>
+
+            <div class="record-meta">
+              <div class="meta-box">
+                <div class="meta-k">Amount</div>
+                <div class="meta-v">${escapeHtml(formatMoney(bill.amount))}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Status</div>
+                <div class="meta-v">${escapeHtml(bill.status || "unpaid")}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Category</div>
+                <div class="meta-v">${escapeHtml(bill.category || "Not set")}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-k">Reference</div>
+                <div class="meta-v">${escapeHtml(bill.reference_number || "Not set")}</div>
+              </div>
+            </div>
+          `;
+
+          ui.recordList.appendChild(card);
+        });
       }
 
-      saveBtn.disabled = true;
-      saveBtn.textContent = editingEntryId ? "Updating…" : "Saving…";
-
-      try {
-        await saveEntry(payload);
-        setMessage(formMessage, editingEntryId ? "Transaction updated." : "Transaction saved.", "ok");
-        resetForm();
-        await loadEntries();
-      } catch (err) {
-        setMessage(formMessage, err.message || "Failed to save transaction.", "error");
-      } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = editingEntryId ? "Update transaction" : "Save transaction";
-      }
-    });
-
-    entryList.addEventListener("click", (event) => {
-      const target = event.target.closest("[data-action='edit']");
-      if (!target) return;
-
-      const entryId = String(target.getAttribute("data-id") || "");
-      const entry = entries.find((item) => String(item.id) === entryId);
-      if (entry) {
-        fillForm(entry);
-      }
-    });
-
-    resetBtn.addEventListener("click", resetForm);
-    refreshBtn.addEventListener("click", loadEntries);
-    logoutBtn.addEventListener("click", () => {
-      window.LH_APP_ACCESS.logout();
-    });
-
-    [searchInput, typeFilter, categoryFilter, sortInput].forEach((el) => {
-      el.addEventListener("input", renderEntries);
-      el.addEventListener("change", renderEntries);
-    });
+      ui.emptyState.hidden = rows.length > 0;
+      ui.recordList.hidden = rows.length === 0;
+    }
 
     async function initializePage() {
-      const pageState = await window.LH_APP_ACCESS.init({
-        requirePaid: true,
+      const accessState = await window.LH_APP_ACCESS.init({
+        requirePaid: false,
         feature: "bookkeeping",
-        redirectOnFail: true,
-        allowIfEndpointMissing: false
+        redirectOnFail: true
       });
 
-      if (!pageState.ok) {
+      if (!accessState.ok) {
         return;
       }
 
-      setPill(authPill, "Signed in", "ok");
+      setPill(ui.authPill, "Authenticated", "ok");
 
-      const company = readStoredJson("lh_company");
-      if (company && company.name) {
-        setMessage(globalMessage, `Signed in for ${company.name}.`, "ok");
-      } else {
-        setMessage(globalMessage, "Signed in.", "ok");
+      const company = getStoredJson("lh_company");
+      ui.companyValue.textContent = firstDefinedValue(
+        company && company.name,
+        company && company.company_name,
+        "Authenticated company"
+      );
+
+      await checkHealth();
+      await loadBillingAccess();
+      await loadVendors();
+      await loadBills();
+      refreshSummary();
+      renderList();
+
+      ui.billDate.value = new Date().toISOString().slice(0, 10);
+      ui.billStatus.value = "unpaid";
+      ui.vendorStatus.value = "active";
+    }
+
+    ui.vendorForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const payload = buildVendorPayload();
+      const validationError = validateVendorPayload(payload);
+      if (validationError) {
+        setMessage(ui.vendorMessage, validationError, "error");
+        return;
       }
 
-      entryDate.value = new Date().toISOString().slice(0, 10);
-      refreshMetrics();
-      checkHealth();
-      loadEntries();
-    }
+      ui.saveVendorBtn.disabled = true;
+      ui.saveVendorBtn.textContent = state.editingVendorId ? "Updating…" : "Saving…";
+      setMessage(ui.vendorMessage, "", "");
+
+      try {
+        await saveVendor(payload);
+        setMessage(ui.vendorMessage, state.editingVendorId ? "Vendor updated successfully." : "Vendor saved successfully.", "ok");
+        resetVendorForm();
+        await loadVendors();
+        refreshSummary();
+        setListTab("vendors");
+      } catch (err) {
+        setMessage(ui.vendorMessage, err.message || "Unable to save vendor.", "error");
+      } finally {
+        ui.saveVendorBtn.disabled = false;
+        ui.saveVendorBtn.textContent = state.editingVendorId ? "Update vendor" : "Save vendor";
+      }
+    });
+
+    ui.billForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const payload = buildBillPayload();
+      const validationError = validateBillPayload(payload);
+      if (validationError) {
+        setMessage(ui.billMessage, validationError, "error");
+        return;
+      }
+
+      ui.saveBillBtn.disabled = true;
+      ui.saveBillBtn.textContent = state.editingBillId ? "Updating…" : "Saving…";
+      setMessage(ui.billMessage, "", "");
+
+      try {
+        await saveBill(payload);
+        setMessage(ui.billMessage, state.editingBillId ? "Vendor bill updated successfully." : "Vendor bill saved successfully.", "ok");
+        resetBillForm();
+        await loadBills();
+        refreshSummary();
+        setListTab("bills");
+      } catch (err) {
+        setMessage(ui.billMessage, err.message || "Unable to save vendor bill.", "error");
+      } finally {
+        ui.saveBillBtn.disabled = false;
+        ui.saveBillBtn.textContent = state.editingBillId ? "Update vendor bill" : "Save vendor bill";
+      }
+    });
+
+    ui.resetVendorBtn.addEventListener("click", resetVendorForm);
+    ui.resetBillBtn.addEventListener("click", resetBillForm);
+
+    ui.vendorTabBtn.addEventListener("click", () => setFormTab("vendor"));
+    ui.billTabBtn.addEventListener("click", () => setFormTab("bill"));
+    ui.goVendorTabBtn.addEventListener("click", () => setFormTab("vendor"));
+    ui.goBillTabBtn.addEventListener("click", () => setFormTab("bill"));
+
+    ui.vendorListTabBtn.addEventListener("click", () => setListTab("vendors"));
+    ui.billListTabBtn.addEventListener("click", () => setListTab("bills"));
+
+    ui.typeFilter.addEventListener("change", renderList);
+    ui.statusFilter.addEventListener("change", renderList);
+    ui.searchInput.addEventListener("input", renderList);
+
+    ui.recordList.addEventListener("click", (event) => {
+      const vendorBtn = event.target.closest('[data-action="edit-vendor"]');
+      if (vendorBtn) {
+        const vendor = state.vendors.find((item) => String(item.id) === String(vendorBtn.getAttribute("data-id") || ""));
+        if (vendor) {
+          fillVendorForm(vendor);
+        }
+        return;
+      }
+
+      const billBtn = event.target.closest('[data-action="edit-bill"]');
+      if (billBtn) {
+        const bill = state.bills.find((item) => String(item.id) === String(billBtn.getAttribute("data-id") || ""));
+        if (bill) {
+          fillBillForm(bill);
+        }
+      }
+    });
+
+    ui.logoutBtn.addEventListener("click", () => {
+      window.LH_APP_ACCESS.logout();
+    });
 
     initializePage();
   </script>
