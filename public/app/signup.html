@@ -2,393 +2,960 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Create LedgerHaul Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Account | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Create your LedgerHaul company account and administrator profile." />
   <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
 
   <style>
     * { box-sizing: border-box; }
+
+    :root {
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-2: rgba(246, 250, 253, 0.98);
+      --border: #d7e2ec;
+      --border-2: #dfe8f1;
+      --text: #132033;
+      --text-strong: #0b1628;
+      --muted: #526377;
+      --muted-2: #708298;
+      --accent: #2fb67f;
+      --accent-2: #269b6c;
+      --accent-text: #ffffff;
+      --danger: #b94a63;
+      --danger-bg: #fff4f6;
+      --danger-border: #efc4cd;
+      --ok: #237a56;
+      --ok-bg: #edf9f3;
+      --ok-border: #bfe3d0;
+      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1240px;
+      --header-height: 88px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #0e1f17;
-      color: #f4fff9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 22px;
-    }
-    .card {
-      width: 100%;
-      max-width: 560px;
-      background: #13261e;
-      border: 1px solid #214536;
-      border-radius: 18px;
-      padding: 38px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-    .logo {
-      font-weight: 800;
-      letter-spacing: .4px;
-      color: #37d18c;
-      font-size: 18px;
-    }
-    .pill {
-      font-size: 12px;
-      color: #cfe6db;
-      border: 1px solid #214536;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(14,31,23,.35);
-    }
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 30px;
-      color: #fff;
-      line-height: 1.15;
-    }
-    .sub {
-      margin: 0 0 26px 0;
-      color: #cfe6db;
-      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
     }
-    label {
-      display: block;
-      margin-bottom: 8px;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 247, 251, 0.84);
+      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
+      border: 1px solid rgba(47, 182, 127, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f7c58;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #1f7c58;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .subbrand {
       font-size: 13px;
-      color: #cfe6db;
+      color: var(--muted-2);
+      line-height: 1.3;
     }
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 18px;
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
       border-radius: 12px;
-      border: 1px solid #2a4b3a;
-      background: #0e1f17;
-      color: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: #1f3046;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      filter: brightness(1.01);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+    }
+
+    .main {
+      padding: 28px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #cce6da;
+      background: #edf9f3;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, h4, h5, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+      font-size: 46px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      max-width: 680px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.82;
+      max-width: 760px;
+      margin-bottom: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .mini-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
       font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
     }
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="password"]:focus {
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .form-head h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .form-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #d5e0ea;
+      background: #f7fbfd;
+      color: #6b7b8f;
+    }
+
+    .pill.ok {
+      border-color: var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .pill.error {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .message.ok { color: var(--ok); }
+    .message.error { color: var(--danger); }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #213247;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 14px;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
       outline: none;
-      border-color: #37d18c;
-      box-shadow: 0 0 0 3px rgba(55,209,140,.15);
+      border-color: #8fcfb1;
+      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
     }
-    .checkbox-wrap {
-      margin: 2px 0 18px 0;
-      padding: 14px;
-      border: 1px solid #2a4b3a;
-      border-radius: 12px;
-      background: rgba(14,31,23,.35);
+
+    .field-help {
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.55;
     }
-    .checkbox-label {
+
+    .password-meter {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .password-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #e7edf4;
+      overflow: hidden;
+    }
+
+    .password-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #d07d28 0%, #e0b225 45%, #2fb67f 100%);
+      transition: width .2s ease;
+    }
+
+    .password-label {
+      color: var(--muted-2);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .legal-shell {
+      margin-top: 18px;
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .legal-shell h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .legal-shell p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .check-row {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      margin: 0;
+      color: var(--muted);
       font-size: 13px;
-      color: #cfe6db;
-      line-height: 1.6;
-      cursor: pointer;
+      line-height: 1.72;
     }
-    .checkbox-label input[type="checkbox"] {
+
+    .check-row input {
+      margin-top: 3px;
       width: 16px;
       height: 16px;
-      margin: 2px 0 0 0;
+      accent-color: var(--accent);
       flex: 0 0 auto;
-      accent-color: #37d18c;
-      cursor: pointer;
     }
-    .checkbox-label a {
-      color: #a8c7bb;
+
+    .check-row a {
+      color: var(--text-strong);
       text-decoration: underline;
+      text-underline-offset: 2px;
     }
-    .checkbox-label a:hover {
-      color: #fff;
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
     }
-    button {
-      width: 100%;
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 22px 0 18px;
+    }
+
+    .helper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .helper-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
       padding: 16px;
-      border-radius: 14px;
-      border: none;
-      background: #37d18c;
-      color: #0b140f;
+    }
+
+    .helper-card h4 {
+      margin: 0 0 8px;
       font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
     }
-    button:disabled {
-      opacity: .65;
-      cursor: not-allowed;
-    }
-    .error {
-      margin-top: 16px;
+
+    .helper-card p {
+      margin: 0;
+      color: var(--muted);
       font-size: 13px;
-      color: #ff9b9b;
-      min-height: 18px;
+      line-height: 1.7;
     }
-    .ok {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #9ff2c9;
-      min-height: 18px;
+
+    .helper-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
     }
-    .links {
-      margin-top: 22px;
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #a8c7bb;
+      color: #7b8b9d;
     }
-    .links a {
-      color: #a8c7bb;
-      text-decoration: underline;
+
+    .footer a {
+      color: #7b8b9d;
+      margin-left: 14px;
     }
-    .links a:hover {
-      color: #fff;
+
+    .footer a:hover {
+      color: var(--text-strong);
     }
-    .legal {
-      margin-top: 26px;
-      font-size: 12px;
-      color: #a8c7bb;
-      text-align: center;
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .form-grid,
+      .mini-grid,
+      .helper-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
     }
-    .legal a {
-      color: #a8c7bb;
-      margin: 0 6px;
-      text-decoration: underline;
-    }
-    .legal a:hover {
-      color: #fff;
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .mini-card,
+      .helper-card,
+      .legal-shell {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .form-head h2 {
+        font-size: 28px;
+      }
+
+      .nav-actions,
+      .hero-actions,
+      .actions,
+      .helper-links {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="brand">
-      <div class="logo">LedgerHaul</div>
-      <div class="pill">Secure account creation</div>
-    </div>
+  <div class="topbar-shell">
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Create your company account and administrator profile</div>
+          </div>
+        </div>
 
-    <h1>Create your LedgerHaul account</h1>
-    <p class="sub">This creates your account in the live platform and triggers a verification email.</p>
-
-    <form id="signup-form" novalidate>
-      <label for="company">Company name</label>
-      <input id="company" name="company" type="text" autocomplete="organization" required />
-
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="email" required />
-
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="new-password" minlength="10" required />
-
-      <div class="checkbox-wrap">
-        <label class="checkbox-label" for="legal_acceptance">
-          <input id="legal_acceptance" name="legal_acceptance" type="checkbox" />
-          <span>
-            I agree to the
-            <a href="/legal/terms.html" target="_blank" rel="noopener noreferrer">Terms</a>,
-            <a href="/legal/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
-            and
-            <a href="/legal/refund.html" target="_blank" rel="noopener noreferrer">Refund Policy</a>.
-          </span>
-        </label>
-      </div>
-
-      <button id="submitBtn" type="submit">Create account</button>
-    </form>
-
-    <div id="error" class="error"></div>
-    <div id="ok" class="ok"></div>
-
-    <div class="links">
-      <a href="/app/login.html">Already have an account? Log in</a>
-      <a href="/app/forgot-password.html">Forgot password</a>
-    </div>
-
-    <div class="legal">
-      <span>Legal:</span>
-      <a href="/legal/terms.html">Terms</a> ·
-      <a href="/legal/privacy.html">Privacy</a> ·
-      <a href="/legal/refund.html">Refund</a>
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+        </div>
+      </header>
     </div>
   </div>
 
-  <script src="/assets/js/config.js"></script>
+  <main class="wrap main">
+    <section class="hero-grid">
+      <section class="panel">
+        <div class="eyebrow">Account onboarding</div>
+        <h1>Create your LedgerHaul account with the right operational controls from day one.</h1>
+        <p class="lead">
+          Account setup should establish the company administrator, legal acceptance, and the foundation for package-controlled access to contractors, payments, bookkeeping, and reporting workflows.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/pricing.html">View pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Already have an account?</a>
+        </div>
+
+        <div class="mini-grid">
+          <article class="mini-card">
+            <h3>Company-first setup</h3>
+            <p>Create the organization record and the initial administrator profile in one controlled onboarding flow.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Required legal acceptance</h3>
+            <p>Terms, privacy, and refund policy acceptance should be captured before operational access is granted.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Billing-aware access</h3>
+            <p>Package and subscription state should determine what the company can actually use after sign-up.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Operational readiness</h3>
+            <p>Once the account is created, the next step should be sign-in, package activation, and workflow setup.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="form-head">
+          <h2>Create account</h2>
+          <p>
+            Register the company and primary administrator account to begin LedgerHaul setup.
+          </p>
+        </div>
+
+        <div class="pill-row">
+          <div id="apiPill" class="pill">API status unknown</div>
+          <div id="accountPill" class="pill">Account not created</div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <form id="signupForm" novalidate>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="companyName">Company name</label>
+              <input id="companyName" type="text" maxlength="160" autocomplete="organization" required />
+            </div>
+
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" type="text" maxlength="80" autocomplete="given-name" required />
+            </div>
+
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" type="text" maxlength="80" autocomplete="family-name" required />
+            </div>
+
+            <div class="field full">
+              <label for="email">Email address</label>
+              <input id="email" type="email" maxlength="254" autocomplete="email" required />
+            </div>
+
+            <div class="field full">
+              <label for="password">Password</label>
+              <input id="password" type="password" minlength="10" maxlength="256" autocomplete="new-password" required />
+              <div class="field-help">Use at least 10 characters with a mix of upper case, lower case, number, and symbol.</div>
+
+              <div class="password-meter">
+                <div class="password-track">
+                  <div id="passwordFill" class="password-fill"></div>
+                </div>
+                <div id="passwordLabel" class="password-label">Password strength: not set</div>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="confirmPassword">Confirm password</label>
+              <input id="confirmPassword" type="password" minlength="10" maxlength="256" autocomplete="new-password" required />
+            </div>
+          </div>
+
+          <div class="legal-shell">
+            <h3>Required legal acceptance</h3>
+            <p>
+              Legal acceptance must be completed before the account is activated for operational use.
+            </p>
+
+            <div class="check-list">
+              <label class="check-row">
+                <input id="acceptTerms" type="checkbox" />
+                <span>I have reviewed and accept the <a href="/legal/terms.html" target="_blank" rel="noopener">Terms of Service</a>.</span>
+              </label>
+
+              <label class="check-row">
+                <input id="acceptPrivacy" type="checkbox" />
+                <span>I have reviewed and accept the <a href="/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+              </label>
+
+              <label class="check-row">
+                <input id="acceptRefund" type="checkbox" />
+                <span>I have reviewed and accept the <a href="/legal/refund.html" target="_blank" rel="noopener">Refund Policy</a>.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" class="btn btn-primary" type="submit">Create account</button>
+            <a class="btn btn-secondary" href="/app/login.html">Return to sign in</a>
+          </div>
+        </form>
+
+        <div class="divider"></div>
+
+        <div class="helper-grid">
+          <div class="helper-card">
+            <h4>After sign-up</h4>
+            <p>You should move into email verification or sign-in, depending on how account activation is configured.</p>
+          </div>
+
+          <div class="helper-card">
+            <h4>Access after registration</h4>
+            <p>Workspace access should still remain subject to package assignment and active subscription state.</p>
+          </div>
+        </div>
+
+        <div class="helper-links">
+          <a class="nav-link" href="/app/check-email.html">Check email</a>
+          <a class="nav-link" href="/app/login.html">Sign in instead</a>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </footer>
+  </main>
 
   <script>
-    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
-    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
-      ? String(metaApi.getAttribute("content")).trim()
-      : "";
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
 
-    const API_BASE =
-      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
-        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/,"")
-        : (metaApiBase ? metaApiBase.replace(/\/+$/,"") : "https://api.ledgerhaul.com");
-
-    const form = document.getElementById("signup-form");
-    const errorEl = document.getElementById("error");
-    const okEl = document.getElementById("ok");
+    const apiPill = document.getElementById("apiPill");
+    const accountPill = document.getElementById("accountPill");
+    const messageEl = document.getElementById("message");
+    const signupForm = document.getElementById("signupForm");
     const submitBtn = document.getElementById("submitBtn");
 
+    const companyNameInput = document.getElementById("companyName");
+    const firstNameInput = document.getElementById("firstName");
+    const lastNameInput = document.getElementById("lastName");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+
+    const acceptTermsInput = document.getElementById("acceptTerms");
+    const acceptPrivacyInput = document.getElementById("acceptPrivacy");
+    const acceptRefundInput = document.getElementById("acceptRefund");
+
+    const passwordFill = document.getElementById("passwordFill");
+    const passwordLabel = document.getElementById("passwordLabel");
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "pill" + (type ? ` ${type}` : "");
+    }
+
+    function setMessage(text, type) {
+      messageEl.textContent = text || "";
+      messageEl.className = "message" + (type ? ` ${type}` : "");
+    }
+
     function safeJsonParse(text) {
-      try { return JSON.parse(text); } catch { return null; }
-    }
-
-    function normalizeErrorMessage(r) {
-      const msg =
-        (r && r.json && (r.json.error || r.json.message || r.json.detail)) ||
-        (r && r.raw && r.raw.trim()) ||
-        `Signup failed (${(r && r.status) ? r.status : "unknown"})`;
-
-      const lowered = String(msg).toLowerCase();
-
-      if (lowered.includes("company_name required")) return "Company name is required.";
-      if (lowered.includes("email and password required")) return "Email and password are required.";
-      if (lowered.includes("password too short")) return "Password must be at least 10 characters.";
-      if (lowered.includes("legal_acceptance_required_at_signup")) {
-        return "You must accept the Terms, Privacy Policy, and Refund Policy to create an account.";
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return null;
       }
-      return msg;
     }
 
-    async function postJson(url, payload) {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+    function passwordScore(value) {
+      const password = String(value || "");
+      let score = 0;
 
-      const raw = await res.text();
-      const json = safeJsonParse(raw);
+      if (password.length >= 10) score += 1;
+      if (/[A-Z]/.test(password)) score += 1;
+      if (/[a-z]/.test(password)) score += 1;
+      if (/\d/.test(password)) score += 1;
+      if (/[^A-Za-z0-9]/.test(password)) score += 1;
+      if (password.length >= 14) score += 1;
 
-      return { ok: res.ok, status: res.status, json, raw };
+      return Math.min(score, 5);
     }
 
-    async function trySignup(company, email, password, accepted) {
-      const endpoints = [
-        `${API_BASE}/auth/register`,
-        `${API_BASE}/auth/signup`
+    function updatePasswordMeter() {
+      const score = passwordScore(passwordInput.value);
+      const percent = [0, 20, 40, 60, 80, 100][score];
+      passwordFill.style.width = `${percent}%`;
+
+      const labels = [
+        "Password strength: not set",
+        "Password strength: weak",
+        "Password strength: fair",
+        "Password strength: moderate",
+        "Password strength: strong",
+        "Password strength: strong"
       ];
 
-      const payloads = [
-        {
-          company_name: company,
-          email,
-          password,
-          legal_acceptance: accepted,
-          accepted_tos: accepted,
-          accepted_privacy: accepted,
-          accepted_refund: accepted
-        },
-        {
-          company_name: company,
-          company: company,
-          email,
-          password,
-          legal_acceptance: accepted,
-          accepted_tos: accepted,
-          accepted_privacy: accepted,
-          accepted_refund: accepted
-        },
-        {
-          company_name: company,
-          organization_name: company,
-          email,
-          password,
-          legal_acceptance: accepted,
-          accepted_tos: accepted,
-          accepted_privacy: accepted,
-          accepted_refund: accepted
-        },
-        {
-          company_name: company,
-          company: company,
-          organization_name: company,
-          email,
-          password,
-          legal_acceptance: accepted,
-          accepted_tos: accepted,
-          accepted_privacy: accepted,
-          accepted_refund: accepted
-        }
-      ];
-
-      let last = null;
-
-      for (const endpoint of endpoints) {
-        for (const payload of payloads) {
-          const r = await postJson(endpoint, payload);
-          if (r.ok) return;
-          last = r;
-        }
-      }
-
-      throw new Error(normalizeErrorMessage(last));
+      passwordLabel.textContent = labels[score];
     }
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      errorEl.textContent = "";
-      okEl.textContent = "";
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
 
-      const company = document.getElementById("company").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const accepted = !!document.getElementById("legal_acceptance").checked;
+        if (!res.ok) {
+          setPill(apiPill, "API limited", "error");
+          return;
+        }
 
-      if (!company) {
-        errorEl.textContent = "Company name is required.";
-        return;
+        setPill(apiPill, "API online", "ok");
+      } catch (_) {
+        setPill(apiPill, "API unavailable", "error");
+      }
+    }
+
+    function buildPayload() {
+      return {
+        company_name: String(companyNameInput.value || "").trim(),
+        first_name: String(firstNameInput.value || "").trim(),
+        last_name: String(lastNameInput.value || "").trim(),
+        email: String(emailInput.value || "").trim().toLowerCase(),
+        password: String(passwordInput.value || ""),
+        accepted_tos: Boolean(acceptTermsInput.checked),
+        accepted_privacy: Boolean(acceptPrivacyInput.checked),
+        accepted_refund: Boolean(acceptRefundInput.checked)
+      };
+    }
+
+    function validatePayload(payload) {
+      if (!payload.company_name || !payload.first_name || !payload.last_name || !payload.email || !payload.password) {
+        return "All registration fields are required.";
       }
 
-      if (!email) {
-        errorEl.textContent = "Email is required.";
-        return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+        return "Email format is invalid.";
       }
 
-      if (!password || password.length < 10) {
-        errorEl.textContent = "Password must be at least 10 characters.";
-        return;
+      if (payload.password.length < 10) {
+        return "Password must contain at least 10 characters.";
       }
 
-      if (!accepted) {
-        errorEl.textContent = "You must accept the Terms, Privacy Policy, and Refund Policy to create an account.";
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        return "Password confirmation does not match.";
+      }
+
+      if (!/[A-Z]/.test(payload.password) || !/[a-z]/.test(payload.password) || !/\d/.test(payload.password) || !/[^A-Za-z0-9]/.test(payload.password)) {
+        return "Password must include upper case, lower case, number, and symbol.";
+      }
+
+      if (!payload.accepted_tos || !payload.accepted_privacy || !payload.accepted_refund) {
+        return "All legal agreements must be accepted to continue.";
+      }
+
+      return "";
+    }
+
+    async function submitRegistration() {
+      const payload = buildPayload();
+      const validationError = validatePayload(payload);
+
+      if (validationError) {
+        setMessage(validationError, "error");
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = "Creating…";
+      setMessage("", "");
 
       try {
-        await trySignup(company, email, password, accepted);
-        okEl.textContent = "Account created. Check your email for the verification link.";
-        window.location.href = "/app/check-email.html";
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const raw = await res.text();
+        const json = safeJsonParse(raw) || {};
+
+        if (!res.ok) {
+          throw new Error(
+            String(json.error || json.message || json.detail || raw || "Unable to create account.")
+          );
+        }
+
+        setPill(accountPill, "Account created", "ok");
+
+        if (json.verification_required === true || json.verification_email_sent === true) {
+          setMessage("Account created. Verify your email address to continue.", "ok");
+          setTimeout(() => {
+            window.location.href = "/app/check-email.html";
+          }, 1000);
+          return;
+        }
+
+        setMessage("Account created. Continue to sign in.", "ok");
+        setTimeout(() => {
+          window.location.href = "/app/login.html";
+        }, 1000);
       } catch (err) {
-        errorEl.textContent = (err && err.message) ? err.message : "Signup failed";
+        setPill(accountPill, "Account not created", "error");
+        setMessage(err.message || "Unable to create account.", "error");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Create account";
       }
+    }
+
+    passwordInput.addEventListener("input", updatePasswordMeter);
+
+    signupForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await submitRegistration();
     });
+
+    updatePasswordMeter();
+    checkHealth();
   </script>
 </body>
 </html>
