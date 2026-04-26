@@ -14,35 +14,55 @@
     * { box-sizing: border-box; }
 
     :root {
-      --bg: #0b0f14;
-      --panel: #121a24;
-      --panel-2: #0e141d;
-      --border: #223044;
-      --border-2: #1c2738;
-      --text: #e9eef5;
-      --muted: #aebfd4;
-      --muted-2: #8ea4bf;
-      --accent: #38d39f;
-      --accent-2: #28c88f;
-      --accent-text: #08140f;
-      --danger: #ffb8c4;
-      --danger-bg: #2a1016;
-      --danger-border: #5c2430;
-      --ok: #9ff2c9;
-      --ok-bg: #10281f;
-      --ok-border: #21533f;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-2: rgba(246, 250, 253, 0.98);
+      --panel-3: rgba(240, 246, 251, 0.98);
+      --border: #d7e2ec;
+      --border-2: #dfe8f1;
+      --border-3: #cdd9e4;
+      --text: #132033;
+      --text-strong: #0b1628;
+      --muted: #526377;
+      --muted-2: #708298;
+      --muted-3: #8fa0b4;
+      --accent: #2fb67f;
+      --accent-2: #269b6c;
+      --accent-3: #1e845b;
+      --accent-soft: rgba(47, 182, 127, 0.08);
+      --accent-text: #ffffff;
+      --danger: #b94a63;
+      --danger-bg: #fff4f6;
+      --danger-border: #efc4cd;
+      --ok: #237a56;
+      --ok-bg: #edf9f3;
+      --ok-border: #bfe3d0;
+      --info: #285b94;
+      --info-bg: #eef5ff;
+      --info-border: #c5d8f4;
+      --warning: #9a6a07;
+      --warning-bg: #fff8e7;
+      --warning-border: #ecd9a6;
+      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.10);
+      --radius: 22px;
+      --max: 1360px;
+      --header-height: 88px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(56, 211, 159, 0.10), transparent 28%),
-        linear-gradient(180deg, #0b0f14 0%, #0d131b 100%);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
     }
 
     a {
@@ -50,63 +70,142 @@
       text-decoration: none;
     }
 
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
     .container {
-      width: min(1360px, calc(100% - 32px));
+      width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
     }
 
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 247, 251, 0.82);
+      border-bottom: 1px solid rgba(215, 226, 236, 0.90);
+    }
+
     .topbar {
+      min-height: var(--header-height);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 22px 0;
+      padding: 16px 0;
       flex-wrap: wrap;
     }
 
     .brand-block {
       display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
+      border: 1px solid rgba(47, 182, 127, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-3);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
     }
 
     .logo {
       font-size: 25px;
       font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.3px;
+      color: var(--accent-3);
+      letter-spacing: -0.03em;
+      line-height: 1;
     }
 
     .subbrand {
       font-size: 13px;
       color: var(--muted-2);
+      line-height: 1.3;
     }
 
     .nav-actions {
       display: flex;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.72);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: 46px;
       padding: 10px 16px;
-      border-radius: 12px;
-      border: 1px solid #243246;
-      background: #121a24;
-      color: #d7e3f4;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: #1f3046;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform .15s ease, filter .15s ease, border-color .15s ease;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
     }
 
     .btn:hover {
-      filter: brightness(1.04);
+      filter: brightness(1.01);
       transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .btn-primary {
@@ -116,112 +215,148 @@
     }
 
     .btn-secondary {
-      background: #0f1720;
+      background: #ffffff;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.55);
+      border-color: #d6e0ea;
+    }
+
+    .btn-block {
+      width: 100%;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 18px;
-      padding: 20px 0 10px;
+      padding: 24px 0 12px;
+      align-items: stretch;
     }
 
     .panel {
-      background: rgba(18, 26, 36, 0.96);
+      background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: var(--radius);
       padding: 28px;
       box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(47, 182, 127, 0.10) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      padding: 4px 10px;
+      min-height: 30px;
+      padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #224738;
-      background: #10281f;
+      border: 1px solid #cce6da;
+      background: #edf9f3;
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
-      letter-spacing: .09em;
+      letter-spacing: .10em;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
-    h1, h2, h3, h4, p {
+    h1, h2, h3, h4, h5, p {
       margin-top: 0;
     }
 
     h1 {
-      margin-bottom: 14px;
-      font-size: 48px;
+      margin-bottom: 16px;
+      font-size: 52px;
       line-height: 1.02;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.05em;
+      max-width: 900px;
+      color: var(--text-strong);
     }
 
     .hero-copy {
       color: var(--muted);
-      font-size: 16px;
-      line-height: 1.8;
-      max-width: 720px;
+      font-size: 17px;
+      line-height: 1.85;
+      max-width: 820px;
+      margin-bottom: 0;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 24px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 24px;
     }
 
     .hero-card {
       background: var(--panel-2);
       border: 1px solid var(--border-2);
       border-radius: 16px;
-      padding: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.03);
     }
 
     .hero-card h3 {
       font-size: 15px;
       margin-bottom: 8px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
     }
 
     .hero-card p {
       margin-bottom: 0;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.65;
+      line-height: 1.72;
     }
 
-    .status-stack {
-      display: grid;
+    .status-panel {
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .status-card {
-      background: var(--panel-2);
-      border: 1px solid var(--border-2);
-      border-radius: 18px;
-      padding: 18px;
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
 
-    .status-card h3 {
-      font-size: 17px;
+    .status-header h2 {
       margin-bottom: 8px;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
     }
 
     .status-copy {
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
       margin-bottom: 0;
     }
 
@@ -229,7 +364,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 2px;
     }
 
     .pill {
@@ -240,9 +375,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #2a3a52;
-      background: #0f1720;
-      color: #c9d6ea;
+      border: 1px solid #d5e0ea;
+      background: #f7fbfd;
+      color: #6b7b8f;
     }
 
     .pill.ok {
@@ -257,17 +392,58 @@
       color: var(--danger);
     }
 
+    .pill.info {
+      border-color: var(--info-border);
+      background: var(--info-bg);
+      color: var(--info);
+    }
+
     .message {
       min-height: 20px;
-      margin-top: 12px;
+      margin-top: 4px;
       font-size: 14px;
     }
 
     .message.ok { color: var(--ok); }
     .message.error { color: var(--danger); }
 
+    .status-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .status-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .status-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .status-value {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .status-help {
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
     .section {
-      padding-top: 22px;
+      padding-top: 24px;
     }
 
     .section-header {
@@ -282,20 +458,32 @@
     .section-header h2 {
       margin-bottom: 8px;
       font-size: 34px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
     }
 
     .section-header p {
       margin-bottom: 0;
       color: var(--muted);
       font-size: 15px;
-      line-height: 1.75;
-      max-width: 760px;
+      line-height: 1.82;
+      max-width: 840px;
     }
 
     .feature-grid,
     .control-grid,
-    .workflow-grid {
+    .workflow-grid,
+    .value-grid,
+    .proof-grid,
+    .governance-grid,
+    .use-case-grid,
+    .readiness-grid,
+    .security-grid,
+    .faq-grid,
+    .integration-grid,
+    .ops-grid,
+    .support-grid,
+    .reporting-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
@@ -303,8 +491,19 @@
 
     .feature-card,
     .control-card,
-    .workflow-card {
-      background: rgba(18, 26, 36, 0.98);
+    .workflow-card,
+    .value-card,
+    .proof-card,
+    .governance-card,
+    .use-case-card,
+    .readiness-card,
+    .security-card,
+    .faq-card,
+    .integration-card,
+    .ops-card,
+    .support-card,
+    .reporting-card {
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 22px;
@@ -313,26 +512,50 @@
 
     .feature-card h3,
     .control-card h3,
-    .workflow-card h3 {
+    .workflow-card h3,
+    .value-card h3,
+    .proof-card h3,
+    .governance-card h3,
+    .use-case-card h3,
+    .readiness-card h3,
+    .security-card h3,
+    .faq-card h3,
+    .integration-card h3,
+    .ops-card h3,
+    .support-card h3,
+    .reporting-card h3 {
       font-size: 18px;
       margin-bottom: 10px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
     }
 
     .feature-card p,
     .control-card p,
-    .workflow-card p {
+    .workflow-card p,
+    .value-card p,
+    .proof-card p,
+    .governance-card p,
+    .use-case-card p,
+    .readiness-card p,
+    .security-card p,
+    .faq-card p,
+    .integration-card p,
+    .ops-card p,
+    .support-card p,
+    .reporting-card p {
       margin-bottom: 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.8;
     }
 
     .workflow-number {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 999px;
-      background: #10281f;
-      border: 1px solid #21533f;
+      background: #edf9f3;
+      border: 1px solid #cce6da;
       color: var(--ok);
       display: inline-flex;
       align-items: center;
@@ -340,6 +563,199 @@
       font-size: 14px;
       font-weight: 800;
       margin-bottom: 12px;
+      box-shadow: inset 0 0 0 1px rgba(35, 122, 86, 0.02);
+    }
+
+    .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .card-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .card-list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .split-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .split-card h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .split-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.82;
+      margin-bottom: 0;
+    }
+
+    .split-card .card-list {
+      margin-top: 16px;
+    }
+
+    .comparison-shell {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .comparison-head {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbfd 100%);
+    }
+
+    .comparison-head h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .comparison-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .comparison-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .comparison-table th {
+      color: var(--text-strong);
+      background: #fbfdff;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 800;
+    }
+
+    .comparison-table td:first-child {
+      color: var(--text-strong);
+      font-weight: 700;
+      width: 240px;
+      background: #fcfeff;
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #edf9f3;
+      border: 1px solid #cce6da;
+      color: var(--ok);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .partial {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #fff8e7;
+      border: 1px solid #ecd9a6;
+      color: var(--warning);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .none {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #fff4f6;
+      border: 1px solid #efc4cd;
+      color: var(--danger);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .band {
+      background: linear-gradient(180deg, #ffffff 0%, #f4f9fc 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .band h2 {
+      margin-bottom: 10px;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .band p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+      max-width: 940px;
     }
 
     .cta-panel {
@@ -351,26 +767,158 @@
     }
 
     .cta-panel .copy {
-      max-width: 760px;
+      max-width: 820px;
     }
 
     .cta-panel .copy h2 {
       margin-bottom: 10px;
       font-size: 34px;
       letter-spacing: -0.02em;
+      color: var(--text-strong);
     }
 
     .cta-panel .copy p {
       margin-bottom: 0;
       color: var(--muted);
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.82;
     }
 
     .cta-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .quote-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .quote-card .quote-mark {
+      color: var(--accent-3);
+      font-size: 38px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .quote-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.88;
+    }
+
+    .quote-card .author {
+      margin-top: 16px;
+      color: var(--text-strong);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .timeline-shell {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      align-items: start;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #edf9f3;
+      border: 1px solid #cce6da;
+      color: var(--ok);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .timeline-content h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .timeline-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.82;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .mini-card h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .highlight-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .highlight-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f3f8fc;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .footer {
@@ -382,29 +930,49 @@
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #95a9c2;
+      color: #7b8b9d;
     }
 
     .footer a {
-      color: #95a9c2;
+      color: #7b8b9d;
       margin-left: 14px;
     }
 
     .footer a:hover {
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
-    @media (max-width: 1120px) {
+    @media (max-width: 1180px) {
       .hero,
       .feature-grid,
       .control-grid,
       .workflow-grid,
-      .hero-grid {
+      .value-grid,
+      .proof-grid,
+      .governance-grid,
+      .use-case-grid,
+      .readiness-grid,
+      .security-grid,
+      .faq-grid,
+      .integration-grid,
+      .ops-grid,
+      .support-grid,
+      .reporting-grid,
+      .hero-grid,
+      .split-section,
+      .quote-grid,
+      .mini-grid {
         grid-template-columns: 1fr;
       }
 
       h1 {
-        font-size: 40px;
+        font-size: 42px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .timeline-item {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -413,56 +981,94 @@
         width: min(100% - 24px, 1360px);
       }
 
+      .topbar {
+        padding: 14px 0;
+      }
+
       .panel,
       .feature-card,
       .control-card,
-      .workflow-card {
+      .workflow-card,
+      .value-card,
+      .proof-card,
+      .governance-card,
+      .use-case-card,
+      .readiness-card,
+      .security-card,
+      .faq-card,
+      .integration-card,
+      .ops-card,
+      .support-card,
+      .reporting-card,
+      .split-card,
+      .band,
+      .quote-card,
+      .timeline-item,
+      .comparison-head,
+      .status-card,
+      .hero-card,
+      .mini-card {
         padding: 18px;
       }
 
       h1 {
-        font-size: 31px;
+        font-size: 32px;
       }
 
       .section-header h2,
+      .band h2,
       .cta-panel .copy h2 {
         font-size: 28px;
       }
 
       .nav-actions,
       .hero-actions,
-      .cta-actions {
+      .cta-actions,
+      .highlight-bar {
         width: 100%;
       }
 
       .btn {
         width: 100%;
       }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 14px 12px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="topbar-shell">
+    <div class="container">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+        </div>
+      </header>
+    </div>
+  </div>
+
   <div class="container">
-    <header class="topbar">
-      <div class="brand-block">
-        <div class="logo">LedgerHaul</div>
-        <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
-      </div>
-
-      <div class="nav-actions">
-        <a class="btn btn-secondary" href="/pricing.html">Pricing</a>
-        <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
-        <a class="btn btn-primary" href="/app/register.html">Create account</a>
-      </div>
-    </header>
-
     <section class="hero">
-      <div class="panel">
+      <div class="panel hero-main">
         <div class="eyebrow">Financial operations platform</div>
         <h1>One controlled workspace for contractor payments, bookkeeping, and operational reporting.</h1>
         <div class="hero-copy">
-          LedgerHaul is designed to centralize contractor records, contractor payment activity, bookkeeping transactions, and reporting workflows inside a subscription-controlled operating environment.
+          LedgerHaul is designed to centralize contractor records, contractor payment activity, bookkeeping transactions, and reporting workflows inside a subscription-controlled operating environment. The product is intended to support a structured business sequence: create the account, assign package access, establish operational records, record payments and transactions, and then surface reporting and exports only when the business is entitled to use them.
         </div>
 
         <div class="hero-actions">
@@ -470,19 +1076,30 @@
           <a class="btn btn-secondary" href="/pricing.html">View pricing</a>
         </div>
 
+        <div class="highlight-bar">
+          <div class="highlight-pill">Contractor master records</div>
+          <div class="highlight-pill">Operational payment controls</div>
+          <div class="highlight-pill">Bookkeeping workflows</div>
+          <div class="highlight-pill">1099 and ledger reporting</div>
+          <div class="highlight-pill">Subscription-controlled access</div>
+        </div>
+
         <div class="hero-grid">
           <div class="hero-card">
             <h3>Contractor operations</h3>
             <p>Maintain contractor profiles, tax classification, contact information, and W-9 status used throughout downstream payment and reporting workflows.</p>
           </div>
+
           <div class="hero-card">
             <h3>Payment control</h3>
             <p>Record contractor pay, deductions, reimbursements, and settlement-level activity with a controlled operational register.</p>
           </div>
+
           <div class="hero-card">
             <h3>Bookkeeping activity</h3>
             <p>Capture account-coded transactions for fuel, maintenance, tolls, insurance, administrative expense, and income activity.</p>
           </div>
+
           <div class="hero-card">
             <h3>Controlled reporting</h3>
             <p>Surface reporting and export access only when package entitlements and active subscription requirements are satisfied.</p>
@@ -490,15 +1107,20 @@
         </div>
       </div>
 
-      <div class="panel">
-        <h2>Platform status</h2>
-        <div class="status-copy">
-          Customer access should remain aligned to active billing state, assigned package controls, and authenticated company context.
+      <div class="panel status-panel">
+        <div class="status-header">
+          <div>
+            <h2>Platform status</h2>
+            <p class="status-copy">
+              Customer access should remain aligned to active billing state, assigned package controls, and authenticated company context.
+            </p>
+          </div>
         </div>
 
         <div class="pill-row">
           <div id="apiPill" class="pill">API status unknown</div>
           <div id="statusPill" class="pill">Access status unknown</div>
+          <div id="featurePill" class="pill info">Feature status pending</div>
         </div>
 
         <div id="message" class="message"></div>
@@ -506,17 +1128,26 @@
         <div class="status-stack">
           <div class="status-card">
             <h3>Company context</h3>
-            <p id="companyValue" class="status-copy">Not signed in</p>
+            <div id="companyValue" class="status-value">Not signed in</div>
+            <div class="status-help">Operational visibility should always be scoped to the authenticated company context.</div>
           </div>
 
           <div class="status-card">
             <h3>Assigned package</h3>
-            <p id="packageValue" class="status-copy">Not assigned</p>
+            <div id="packageValue" class="status-value">Not assigned</div>
+            <div class="status-help">Packages should determine which workspaces, reports, and exports are available.</div>
           </div>
 
           <div class="status-card">
             <h3>Operational access</h3>
-            <p id="accessValue" class="status-copy">Restricted</p>
+            <div id="accessValue" class="status-value">Restricted</div>
+            <div class="status-help">Inactive or unpaid accounts should not retain unrestricted product access.</div>
+          </div>
+
+          <div class="status-card">
+            <h3>Feature entitlements</h3>
+            <div id="featureValue" class="status-value">Awaiting package data</div>
+            <div class="status-help">Contractor, payment, bookkeeping, and reporting workflows should match assigned entitlements.</div>
           </div>
         </div>
       </div>
@@ -526,24 +1157,50 @@
       <div class="section-header">
         <div>
           <h2>Core workspaces</h2>
-          <p>Operational workflows should begin with record creation, continue through payment and bookkeeping activity, and end with reporting and export actions based on real customer data.</p>
+          <p>
+            Operational workflows should begin with record creation, continue through payment and bookkeeping activity, and end with reporting and export actions based on real customer data instead of placeholder views.
+          </p>
         </div>
       </div>
 
       <div class="feature-grid">
         <article class="feature-card">
           <h3>Contractor records workspace</h3>
-          <p>Create and maintain contractor records, tax classification details, W-9 status, and contact data before payment activity begins.</p>
+          <p>
+            Create and maintain contractor records, tax classification details, W-9 status, and contact data before payment activity begins.
+          </p>
+          <ul class="card-list">
+            <li>Contractor legal and business identity support</li>
+            <li>Tax classification and TIN-last-4 handling</li>
+            <li>W-9 tracking used for 1099-readiness control</li>
+            <li>Foundational data used by payments and reporting</li>
+          </ul>
         </article>
 
         <article class="feature-card">
           <h3>Contractor payments workspace</h3>
-          <p>Manage contractor payment history, deductions, reimbursements, reference numbers, and settlement dates used for operational history and 1099 support.</p>
+          <p>
+            Manage contractor payment history, deductions, reimbursements, reference numbers, and settlement dates used for operational history and 1099 support.
+          </p>
+          <ul class="card-list">
+            <li>Gross-to-net activity structure</li>
+            <li>Reimbursements and deductions support</li>
+            <li>Reference and settlement-number visibility</li>
+            <li>Payment-date-driven reporting context</li>
+          </ul>
         </article>
 
         <article class="feature-card">
           <h3>Bookkeeping workspace</h3>
-          <p>Enter, classify, review, and manage bookkeeping transactions tied to account codes, transaction types, vendors, and general ledger activity.</p>
+          <p>
+            Enter, classify, review, and manage bookkeeping transactions tied to account codes, transaction types, vendors, and general ledger activity.
+          </p>
+          <ul class="card-list">
+            <li>Account-code-based transaction entry</li>
+            <li>Category and type classification support</li>
+            <li>Operational bookkeeping review workflow</li>
+            <li>Ledger export readiness based on stored entries</li>
+          </ul>
         </article>
       </div>
     </section>
@@ -552,7 +1209,9 @@
       <div class="section-header">
         <div>
           <h2>Expected workflow sequence</h2>
-          <p>The product flow should move customers through a disciplined operational path instead of placing blank reporting screens at the front of the experience.</p>
+          <p>
+            The product flow should move customers through a disciplined operational path instead of placing blank reporting screens at the front of the experience.
+          </p>
         </div>
       </div>
 
@@ -560,20 +1219,197 @@
         <article class="workflow-card">
           <div class="workflow-number">1</div>
           <h3>Create contractor records</h3>
-          <p>Establish contractor master data, tax status, and W-9 readiness before any compensation activity is entered.</p>
+          <p>
+            Establish contractor master data, tax status, and W-9 readiness before any compensation activity is entered.
+          </p>
+          <ul class="card-list">
+            <li>Legal name and business identity validation</li>
+            <li>Tax classification handling</li>
+            <li>W-9 status visibility</li>
+            <li>Operational readiness before pay activity</li>
+          </ul>
         </article>
 
         <article class="workflow-card">
           <div class="workflow-number">2</div>
           <h3>Record payments and bookkeeping</h3>
-          <p>Enter contractor payment events and bookkeeping transactions as the operational source data used by downstream reporting.</p>
+          <p>
+            Enter contractor payment events and bookkeeping transactions as the operational source data used by downstream reporting.
+          </p>
+          <ul class="card-list">
+            <li>Payment activity captured with date and method</li>
+            <li>Reimbursements and deductions recorded in context</li>
+            <li>Bookkeeping entries tied to category and account code</li>
+            <li>Real operational history built before exports</li>
+          </ul>
         </article>
 
         <article class="workflow-card">
           <div class="workflow-number">3</div>
           <h3>Review reports and exports</h3>
-          <p>Use 1099 summary, contractor exports, and ledger reporting only after underlying operational records have been captured and reviewed.</p>
+          <p>
+            Use 1099 summary, contractor exports, and ledger reporting only after underlying operational records have been captured and reviewed.
+          </p>
+          <ul class="card-list">
+            <li>1099 summary visibility from stored contractor activity</li>
+            <li>CSV and JSON export support for operational reporting</li>
+            <li>General ledger review based on real transaction data</li>
+            <li>Controlled reporting access by package entitlement</li>
+          </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split-section">
+        <div class="split-card">
+          <h3>What the platform should solve</h3>
+          <p>
+            Many businesses trying to manage contractor pay and financial operations end up splitting work across email threads, spreadsheets, bookkeeping tools, and disconnected payment tracking. That creates reporting delays, payment confusion, and weak visibility into operational history.
+          </p>
+          <ul class="card-list">
+            <li>Reduce manual reconciliation between contractor records and pay history</li>
+            <li>Reduce blank dashboard experiences that do not guide customer action</li>
+            <li>Reduce uncontrolled access to reports, exports, and operational pages</li>
+            <li>Replace fragmented workflows with a cleaner operating sequence</li>
+          </ul>
+        </div>
+
+        <div class="split-card">
+          <h3>How LedgerHaul should behave</h3>
+          <p>
+            LedgerHaul should act like a controlled operations platform, not a loose collection of screens. The system should guide the customer into the next required action and keep operational data tied to company context, package controls, and active billing state.
+          </p>
+          <ul class="card-list">
+            <li>Guide customers to create records before reviewing reports</li>
+            <li>Keep access aligned with active subscription and package entitlements</li>
+            <li>Preserve tenant isolation across all workspaces and exports</li>
+            <li>Provide a professional, enterprise-ready experience from sign-in through reporting</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Value delivered by module</h2>
+          <p>
+            Each LedgerHaul workspace should add immediate operational value instead of existing as a disconnected menu item.
+          </p>
+        </div>
+      </div>
+
+      <div class="value-grid">
+        <article class="value-card">
+          <h3>Contractor master data</h3>
+          <p>
+            Contractor setup becomes the source record used across payment history, tax-readiness tracking, and operational review.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <h3>Payment history integrity</h3>
+          <p>
+            Contractor payments are not just recorded; they become linked operational history that supports later reporting and review.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <h3>Bookkeeping consistency</h3>
+          <p>
+            Transactions are stored with structure and classification so financial exports reflect the underlying ledger workflow instead of manual notes.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <h3>Reporting readiness</h3>
+          <p>
+            Reports become meaningful because they reflect actual operational data entered by the customer over time.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <h3>Revenue protection</h3>
+          <p>
+            Subscription controls reduce the risk of unpaid access to operational screens, reports, and export endpoints.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <h3>Controlled growth path</h3>
+          <p>
+            Customers can start with contractor workflows and expand into broader bookkeeping and financial operations as needs increase.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="comparison-shell">
+        <div class="comparison-head">
+          <h3>Operational comparison</h3>
+          <p>
+            LedgerHaul should present a controlled, ordered workflow instead of leaving customers to manage fragmented operational data manually.
+          </p>
+        </div>
+
+        <div class="comparison-table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Operational area</th>
+                <th>Disconnected process</th>
+                <th>LedgerHaul target state</th>
+                <th>Business impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Contractor setup</td>
+                <td>Spreadsheet or email-based intake with inconsistent tax data</td>
+                <td><span class="check">Yes</span> Contractor records workspace with structured tax and W-9 status handling</td>
+                <td>Improves payment readiness and reporting consistency</td>
+              </tr>
+              <tr>
+                <td>Payment activity</td>
+                <td>Manual settlement notes and loosely stored reference detail</td>
+                <td><span class="check">Yes</span> Contractor payments workspace tied to contractor records</td>
+                <td>Strengthens operational visibility and payment history</td>
+              </tr>
+              <tr>
+                <td>Bookkeeping</td>
+                <td>Transactions captured elsewhere without unified operational context</td>
+                <td><span class="check">Yes</span> Bookkeeping workspace with account code and category logic</td>
+                <td>Improves ledger accuracy and export usefulness</td>
+              </tr>
+              <tr>
+                <td>1099 readiness</td>
+                <td>Recreated manually near filing time</td>
+                <td><span class="partial">Partial</span> Dependent on contractor records and payment history being maintained</td>
+                <td>Reduces last-minute cleanup and confusion</td>
+              </tr>
+              <tr>
+                <td>Report access control</td>
+                <td>Often exposed without clear package or billing restrictions</td>
+                <td><span class="check">Yes</span> Should be gated by feature entitlement and active billing state</td>
+                <td>Protects revenue and reduces free usage leakage</td>
+              </tr>
+              <tr>
+                <td>Tenant isolation</td>
+                <td>Sometimes handled only at the front end</td>
+                <td><span class="check">Yes</span> Should remain enforced by authenticated company context and backend scope checks</td>
+                <td>Protects data integrity and customer trust</td>
+              </tr>
+              <tr>
+                <td>Guided workflow</td>
+                <td>Blank dashboards and unclear starting points</td>
+                <td><span class="check">Yes</span> Dashboard should route customers into required operational actions</td>
+                <td>Improves activation, usage, and customer success</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -581,33 +1417,788 @@
       <div class="section-header">
         <div>
           <h2>Control requirements</h2>
-          <p>Revenue protection and platform integrity depend on billing enforcement, tenant isolation, feature entitlement controls, and authenticated access gates across all application pages and endpoints.</p>
+          <p>
+            Revenue protection and platform integrity depend on billing enforcement, tenant isolation, feature entitlement controls, and authenticated access gates across all application pages and endpoints.
+          </p>
         </div>
       </div>
 
       <div class="control-grid">
         <article class="control-card">
           <h3>Subscription enforcement</h3>
-          <p>Workspace and report access should be revoked automatically for canceled, unpaid, expired, or downgraded accounts.</p>
+          <p>
+            Workspace and report access should be revoked automatically for canceled, unpaid, expired, or downgraded accounts.
+          </p>
+          <ul class="card-list">
+            <li>Inactive access should not reach core workspaces</li>
+            <li>Reporting and exports should not remain open after downgrade</li>
+            <li>Billing state should be reflected consistently across product pages</li>
+          </ul>
         </article>
 
         <article class="control-card">
           <h3>Feature entitlements</h3>
-          <p>Customers should only access contractors, payments, bookkeeping, and reporting tools that are included in the assigned package.</p>
+          <p>
+            Customers should only access contractors, payments, bookkeeping, and reporting tools that are included in the assigned package.
+          </p>
+          <ul class="card-list">
+            <li>Frontend visibility should match backend enforcement</li>
+            <li>Hidden features should also be blocked at the endpoint layer</li>
+            <li>Package access should remain easy for the customer to understand</li>
+          </ul>
         </article>
 
         <article class="control-card">
           <h3>Tenant-scoped access</h3>
-          <p>All operations should remain locked to authenticated company context so customers only see and manage their own records and exports.</p>
+          <p>
+            All operations should remain locked to authenticated company context so customers only see and manage their own records and exports.
+          </p>
+          <ul class="card-list">
+            <li>Company context should not be trust-based from the front end alone</li>
+            <li>Export endpoints should preserve tenant isolation</li>
+            <li>Operational data should never leak across company boundaries</li>
+          </ul>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <div class="panel cta-panel">
+      <div class="section-header">
+        <div>
+          <h2>Operational readiness signals</h2>
+          <p>
+            A professional platform should make readiness visible to the customer before they hit preventable blockers.
+          </p>
+        </div>
+      </div>
+
+      <div class="readiness-grid">
+        <article class="readiness-card">
+          <h3>Contractor readiness</h3>
+          <p>
+            The system should clearly indicate whether contractor records are missing legal name, tax classification, or W-9 status before payment activity begins.
+          </p>
+        </article>
+
+        <article class="readiness-card">
+          <h3>Payment readiness</h3>
+          <p>
+            Payment workflows should block incomplete contractor payment submissions and show what is missing before save attempts occur.
+          </p>
+        </article>
+
+        <article class="readiness-card">
+          <h3>Bookkeeping readiness</h3>
+          <p>
+            Bookkeeping workflows should make account code, category, date, and amount requirements obvious at the point of entry.
+          </p>
+        </article>
+
+        <article class="readiness-card">
+          <h3>1099 readiness</h3>
+          <p>
+            Reporting should make clear whether contractor records and payment activity are sufficient to support 1099 output.
+          </p>
+        </article>
+
+        <article class="readiness-card">
+          <h3>Ledger readiness</h3>
+          <p>
+            Ledger exports should reflect whether sufficient transaction history exists and whether records are properly classified.
+          </p>
+        </article>
+
+        <article class="readiness-card">
+          <h3>Subscription readiness</h3>
+          <p>
+            Customers should understand when package or billing status is the reason access is restricted, rather than encountering vague failures.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="band">
+        <h2>Built around the business sequence, not just the interface.</h2>
+        <p>
+          LedgerHaul should not only look professional. It should behave like a real financial operations platform by directing customers through the operational sequence that actually produces value: record setup, payment activity, bookkeeping capture, reporting readiness, and controlled export access.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Reporting and export expectations</h2>
+          <p>
+            Reporting should be the result of maintained operational records, not a disconnected front-door experience.
+          </p>
+        </div>
+      </div>
+
+      <div class="reporting-grid">
+        <article class="reporting-card">
+          <h3>1099 summary</h3>
+          <p>
+            1099 summaries should reflect contractor payment activity scoped to the appropriate reporting period and company context.
+          </p>
+        </article>
+
+        <article class="reporting-card">
+          <h3>1099 exports</h3>
+          <p>
+            CSV and export workflows should only be available when the customer package includes reporting entitlements and the subscription remains active.
+          </p>
+        </article>
+
+        <article class="reporting-card">
+          <h3>Ledger views</h3>
+          <p>
+            General ledger views should surface actual bookkeeping records, classification detail, and transaction history—not placeholder samples.
+          </p>
+        </article>
+
+        <article class="reporting-card">
+          <h3>Ledger exports</h3>
+          <p>
+            Ledger export workflows should carry account code, category, date, amount, and reference detail for downstream accounting use.
+          </p>
+        </article>
+
+        <article class="reporting-card">
+          <h3>Usage control</h3>
+          <p>
+            Export downloads should remain subject to the same access restrictions that apply to viewing the associated report.
+          </p>
+        </article>
+
+        <article class="reporting-card">
+          <h3>Operational trust</h3>
+          <p>
+            Customers should be able to trust that what they see in reports is directly tied to what they entered operationally.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split-section">
+        <div class="split-card">
+          <h3>Designed for teams that need discipline</h3>
+          <p>
+            Businesses do not need more unstructured screens. They need workflows that support clean records, controlled access, and operational visibility from the start.
+          </p>
+          <ul class="card-list">
+            <li>Cleaner contractor onboarding and data hygiene</li>
+            <li>Better visibility into contractor settlement history</li>
+            <li>More structured bookkeeping and ledger preparation</li>
+            <li>Improved export and reporting confidence</li>
+          </ul>
+        </div>
+
+        <div class="split-card">
+          <h3>Designed for growth without chaos</h3>
+          <p>
+            As customer volume grows, the product should scale by package depth and operational complexity rather than forcing the customer to rebuild core processes elsewhere.
+          </p>
+          <ul class="card-list">
+            <li>Start with contractor workflows</li>
+            <li>Expand into broader bookkeeping operations</li>
+            <li>Layer in more advanced financial controls over time</li>
+            <li>Keep access and billing aligned as usage increases</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Use cases</h2>
+          <p>
+            LedgerHaul should support a range of customers who need operational structure around pay activity, contractor management, bookkeeping, and controlled reporting access.
+          </p>
+        </div>
+      </div>
+
+      <div class="use-case-grid">
+        <article class="use-case-card">
+          <h3>Contractor-heavy operations</h3>
+          <p>
+            Businesses managing recurring contractor pay activity can use LedgerHaul to structure records, payment events, and reporting workflows.
+          </p>
+        </article>
+
+        <article class="use-case-card">
+          <h3>Financial operations teams</h3>
+          <p>
+            Teams needing cleaner transaction entry, better record discipline, and more predictable export behavior can use LedgerHaul as a controlled operating layer.
+          </p>
+        </article>
+
+        <article class="use-case-card">
+          <h3>Growth-stage companies</h3>
+          <p>
+            Companies expanding beyond spreadsheets and email-driven operations can use LedgerHaul to centralize records before financial complexity increases further.
+          </p>
+        </article>
+
+        <article class="use-case-card">
+          <h3>Multi-workflow businesses</h3>
+          <p>
+            Customers that need both contractor payment activity and bookkeeping workflows can keep those functions aligned inside one system.
+          </p>
+        </article>
+
+        <article class="use-case-card">
+          <h3>Reporting-sensitive teams</h3>
+          <p>
+            Organizations that depend on readiness for 1099 or ledger outputs can benefit from operational records that support reporting upstream.
+          </p>
+        </article>
+
+        <article class="use-case-card">
+          <h3>Controlled-access environments</h3>
+          <p>
+            Businesses that care about package enforcement, billing alignment, and entitlement-driven visibility can use LedgerHaul as a disciplined access-controlled platform.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Governance expectations</h2>
+          <p>
+            Governance is not separate from usability. Strong governance makes the product clearer for customers and safer for the business.
+          </p>
+        </div>
+      </div>
+
+      <div class="governance-grid">
+        <article class="governance-card">
+          <h3>Authentication-first routing</h3>
+          <p>
+            Operational screens should not be reachable as public pages without an authenticated session and valid company context.
+          </p>
+        </article>
+
+        <article class="governance-card">
+          <h3>Billing-aware experience</h3>
+          <p>
+            Restricted billing states should lead customers toward clear resolution paths, not silent failures or confusing page behavior.
+          </p>
+        </article>
+
+        <article class="governance-card">
+          <h3>Audit-oriented structure</h3>
+          <p>
+            Operational activity should remain stored in a way that supports later review, export, and business accountability.
+          </p>
+        </article>
+
+        <article class="governance-card">
+          <h3>Controlled visibility</h3>
+          <p>
+            Pages, actions, and reports should align with role, package, and subscription state rather than assuming universal access.
+          </p>
+        </article>
+
+        <article class="governance-card">
+          <h3>Consistent system messaging</h3>
+          <p>
+            The customer should understand whether a blocker is caused by missing data, access restrictions, or billing state.
+          </p>
+        </article>
+
+        <article class="governance-card">
+          <h3>Professional UX standards</h3>
+          <p>
+            Product presentation should feel structured, trustworthy, and enterprise-ready rather than improvised or overly consumer-oriented.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="comparison-shell">
+        <div class="comparison-head">
+          <h3>Feature coverage by operational area</h3>
+          <p>
+            The product should make the role of each module clear so customers understand how the platform fits together.
+          </p>
+        </div>
+
+        <div class="comparison-table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Area</th>
+                <th>Primary purpose</th>
+                <th>Upstream dependency</th>
+                <th>Downstream outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Contractor records</td>
+                <td>Create structured contractor identity and tax-readiness data</td>
+                <td>Company account and authenticated tenant context</td>
+                <td>Payment workflows and 1099 support start from valid records</td>
+              </tr>
+              <tr>
+                <td>Contractor payments</td>
+                <td>Store pay events, adjustments, and settlement details</td>
+                <td>Valid contractor records</td>
+                <td>Operational history and contractor reporting support</td>
+              </tr>
+              <tr>
+                <td>Bookkeeping</td>
+                <td>Capture operational financial entries with account and category logic</td>
+                <td>Active subscription and bookkeeping entitlement</td>
+                <td>Ledger views and export workflows</td>
+              </tr>
+              <tr>
+                <td>1099 reporting</td>
+                <td>Summarize contractor activity for reporting readiness</td>
+                <td>Contractor records plus payment history</td>
+                <td>1099 summary and export availability</td>
+              </tr>
+              <tr>
+                <td>Ledger reporting</td>
+                <td>Surface bookkeeping records in reviewable export form</td>
+                <td>Stored bookkeeping transactions</td>
+                <td>Financial review and downstream accounting support</td>
+              </tr>
+              <tr>
+                <td>Access control</td>
+                <td>Align visibility and usage rights to package and billing state</td>
+                <td>Authentication, billing, and entitlement logic</td>
+                <td>Revenue protection and cleaner customer behavior</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h4>Tenant isolation</h4>
+          <p>Operational records, reports, and exports should remain scoped to the correct company at all times.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Entitlement enforcement</h4>
+          <p>Package restrictions should apply at both the interface and endpoint levels.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Reporting integrity</h4>
+          <p>Reports should be generated from actual data, not placeholder content or disconnected samples.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Professional guidance</h4>
+          <p>The system should direct the customer toward the next required operational task.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Security and trust expectations</h2>
+          <p>
+            Product trust is not created by wording alone. It is created when access behavior, data visibility, and billing logic are predictable and controlled.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-grid">
+        <article class="security-card">
+          <h3>Session handling</h3>
+          <p>
+            Expired or invalid sessions should redirect cleanly and prevent continued access to protected operational pages.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Export protection</h3>
+          <p>
+            Download workflows should inherit the same access rules as the corresponding report views and not operate as open endpoints.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Scoped data retrieval</h3>
+          <p>
+            Queries, lists, and exports should always resolve within authenticated tenant scope rather than relying on front-end values alone.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Controlled legal acceptance</h3>
+          <p>
+            Account creation should require legal acceptance before operational access is granted, supporting a cleaner go-live posture.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Subscription-aware messaging</h3>
+          <p>
+            Customers should see a clear distinction between restricted access caused by billing state and restricted access caused by missing entitlements.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <h3>Operational accountability</h3>
+          <p>
+            The system should support business review and accountability by keeping operational records structured and traceable.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="band">
+        <h2>What makes the product enterprise-ready</h2>
+        <p>
+          Enterprise readiness is not about making the interface heavier. It is about making the product more disciplined. Customers should know where to start, what to do next, what is required before a report is available, what package they are on, and why access is available or restricted. LedgerHaul should feel like a professional operating environment from the first account screen through daily operational use.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Operational proof points</h2>
+          <p>
+            The strongest product story is built around how the system behaves during real daily use.
+          </p>
+        </div>
+      </div>
+
+      <div class="proof-grid">
+        <article class="proof-card">
+          <h3>Clear start point</h3>
+          <p>
+            Customers should enter the application at a dashboard that directs them into contractors, payments, bookkeeping, and reporting as appropriate.
+          </p>
+        </article>
+
+        <article class="proof-card">
+          <h3>Reduced rework</h3>
+          <p>
+            Better upstream data entry reduces cleanup work later when reports, exports, or reviews are needed.
+          </p>
+        </article>
+
+        <article class="proof-card">
+          <h3>More predictable billing behavior</h3>
+          <p>
+            Paid access stays aligned with billing state so the business is not leaking operational value to inactive accounts.
+          </p>
+        </article>
+
+        <article class="proof-card">
+          <h3>Better package clarity</h3>
+          <p>
+            Customers understand what features are included and what additional operational capabilities come with deeper packages.
+          </p>
+        </article>
+
+        <article class="proof-card">
+          <h3>Cleaner operational history</h3>
+          <p>
+            Contractor and bookkeeping records are easier to review because they live in structured registers rather than fragmented locations.
+          </p>
+        </article>
+
+        <article class="proof-card">
+          <h3>Improved trust</h3>
+          <p>
+            Customers trust the platform more when it behaves consistently and explains access, readiness, and workflow logic clearly.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="timeline-shell">
+        <div class="timeline-item">
+          <div class="timeline-step">Step 01</div>
+          <div class="timeline-content">
+            <h3>Create the account and establish legal acceptance</h3>
+            <p>
+              The company administrator account should be created only after terms, privacy, and refund policy acceptance is captured. This sets the correct operational and legal baseline before platform access begins.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-step">Step 02</div>
+          <div class="timeline-content">
+            <h3>Assign package and billing state</h3>
+            <p>
+              The package should determine the entitlements the customer receives, and the active billing state should determine whether those entitlements remain usable inside the application.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-step">Step 03</div>
+          <div class="timeline-content">
+            <h3>Complete operational setup</h3>
+            <p>
+              Contractor records, tax details, and W-9 status should be created before payments are entered. Bookkeeping workflows should follow with clean transaction entry structure.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-step">Step 04</div>
+          <div class="timeline-content">
+            <h3>Operate continuously</h3>
+            <p>
+              Daily use should center around maintaining contractor records, payment events, bookkeeping transactions, and the operational history those workflows produce.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-step">Step 05</div>
+          <div class="timeline-content">
+            <h3>Review, report, and export</h3>
+            <p>
+              Reporting becomes a downstream benefit of disciplined operational entry, not the first experience customers see when they enter the product.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Integrations and ecosystem fit</h2>
+          <p>
+            The product should fit into the broader financial operations stack without losing control over tenant scope, access rules, or billing behavior.
+          </p>
+        </div>
+      </div>
+
+      <div class="integration-grid">
+        <article class="integration-card">
+          <h3>Authentication-aware integrations</h3>
+          <p>
+            Integrated flows should respect tenant context, token validity, and role-based access rather than operating as loose public callbacks.
+          </p>
+        </article>
+
+        <article class="integration-card">
+          <h3>Billing-provider alignment</h3>
+          <p>
+            Subscription state from billing providers should translate cleanly into platform access behavior without manual reconciliation.
+          </p>
+        </article>
+
+        <article class="integration-card">
+          <h3>Operational export compatibility</h3>
+          <p>
+            CSV, JSON, and reporting outputs should be structured in a way that supports downstream accounting and financial review processes.
+          </p>
+        </article>
+
+        <article class="integration-card">
+          <h3>Secure configuration</h3>
+          <p>
+            Integration configuration should preserve HTTPS expectations, token safety, and environment-specific endpoint control.
+          </p>
+        </article>
+
+        <article class="integration-card">
+          <h3>Tenant-safe data flow</h3>
+          <p>
+            External service interactions should never weaken tenant isolation or allow cross-company exposure of operational data.
+          </p>
+        </article>
+
+        <article class="integration-card">
+          <h3>Predictable user transitions</h3>
+          <p>
+            When a workflow leaves the product and returns, the user should land back in a clean, controlled operational context.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split-section">
+        <div class="split-card">
+          <h3>For operational leaders</h3>
+          <p>
+            LedgerHaul should help leaders standardize how contractor data, payment history, bookkeeping activity, and reporting workflows are handled across the business.
+          </p>
+          <ul class="card-list">
+            <li>More reliable operational visibility</li>
+            <li>Cleaner access control behavior</li>
+            <li>Better readiness for reporting periods</li>
+            <li>Stronger alignment between billing and access</li>
+          </ul>
+        </div>
+
+        <div class="split-card">
+          <h3>For finance and administrative teams</h3>
+          <p>
+            Teams responsible for maintaining records, reconciling activity, and supporting reporting need a structured system that reduces manual reconstruction.
+          </p>
+          <ul class="card-list">
+            <li>Cleaner contractor record management</li>
+            <li>Structured payment-event visibility</li>
+            <li>Better bookkeeping-entry consistency</li>
+            <li>More trustworthy export behavior</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quote-grid">
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p>
+            The best financial operations products do not overwhelm customers with pages. They reduce uncertainty by making the next required action obvious and by keeping reporting tied to actual operational records.
+          </p>
+          <div class="author">LedgerHaul product principle</div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p>
+            Professional software does not just look organized. It behaves in an organized way. Billing, access, records, reports, and exports should all follow the same business logic.
+          </p>
+          <div class="author">LedgerHaul operating standard</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Operational support model</h2>
+          <p>
+            Customers should not be left guessing how to get from setup to usable workflows. The product experience should support activation and reduce friction throughout.
+          </p>
+        </div>
+      </div>
+
+      <div class="support-grid">
+        <article class="support-card">
+          <h3>Onboarding clarity</h3>
+          <p>
+            Customers should understand exactly where to begin after sign-in and what records must exist before reports will have value.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h3>Readable system messaging</h3>
+          <p>
+            Error, warning, and readiness states should explain what is missing or why access is restricted in direct operational language.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h3>Fewer dead ends</h3>
+          <p>
+            Pages should route customers toward the next meaningful task rather than leaving them in empty or blocked states without guidance.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h3>Role and package awareness</h3>
+          <p>
+            The experience should feel tailored to what the customer has actually purchased and what role they hold inside the company context.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h3>Operational continuity</h3>
+          <p>
+            The product should preserve context cleanly across refreshes, return visits, and ongoing billing or package changes.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h3>Professional confidence</h3>
+          <p>
+            Customers should feel that the platform is ready for real recurring use, not that they are navigating loosely connected demos.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Frequently asked operational questions</h2>
+          <p>
+            These questions should be easy for the platform to answer through its behavior, not just documentation.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3>Where should a new customer start?</h3>
+          <p>
+            A new customer should start with account creation, legal acceptance, package activation, contractor record setup, and then proceed into payment and bookkeeping activity.
+          </p>
+        </article>
+
+        <article class="faq-card">
+          <h3>Why are reports blank?</h3>
+          <p>
+            Reports should only populate after the underlying contractor records, payment events, and bookkeeping transactions have been entered.
+          </p>
+        </article>
+
+        <article class="faq-card">
+          <h3>Why is a feature unavailable?</h3>
+          <p>
+            The system should make it clear whether the blocker is caused by missing subscription status, missing package entitlement, or missing operational data.
+          </p>
+        </article>
+
+        <article class="faq-card">
+          <h3>Why is access restricted after billing changes?</h3>
+          <p>
+            Access should remain aligned to actual billing state so unpaid, canceled, or downgraded accounts do not retain unrestricted use of paid functionality.
+          </p>
+        </article>
+
+        <article class="faq-card">
+          <h3>Can one company see another company’s data?</h3>
+          <p>
+            No. Tenant isolation should ensure that operational data, reports, and exports remain scoped to the authenticated company context.
+          </p>
+        </article>
+
+        <article class="faq-card">
+          <h3>What makes the product enterprise-ready?</h3>
+          <p>
+            Enterprise readiness comes from disciplined workflow design, predictable access control, structured records, and reporting that reflects real business activity.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="band cta-panel">
         <div class="copy">
           <h2>Start with controlled account setup.</h2>
-          <p>Create the company administrator account, complete legal acceptance, select the appropriate package, and move into operational workflows with controlled platform access.</p>
+          <p>
+            Create the company administrator account, complete legal acceptance, select the appropriate package, and move into operational workflows with controlled platform access. LedgerHaul should guide the customer into real daily use while keeping financial operations, reporting, and exports aligned to actual entitlements.
+          </p>
         </div>
 
         <div class="cta-actions">
@@ -638,10 +2229,12 @@
 
     const apiPill = document.getElementById("apiPill");
     const statusPill = document.getElementById("statusPill");
+    const featurePill = document.getElementById("featurePill");
     const messageEl = document.getElementById("message");
     const companyValue = document.getElementById("companyValue");
     const packageValue = document.getElementById("packageValue");
     const accessValue = document.getElementById("accessValue");
+    const featureValue = document.getElementById("featureValue");
 
     function setPill(el, text, type) {
       el.textContent = text;
@@ -654,7 +2247,11 @@
     }
 
     function safeJsonParse(text) {
-      try { return JSON.parse(text); } catch (_) { return null; }
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return null;
+      }
     }
 
     function getStorageItem(key) {
@@ -682,6 +2279,12 @@
       if (company && company.company_id !== undefined && company.company_id !== null) {
         return String(company.company_id);
       }
+
+      const user = readStoredJson("lh_user");
+      if (user && user.company_id !== undefined && user.company_id !== null) {
+        return String(user.company_id);
+      }
+
       return "";
     }
 
@@ -710,6 +2313,65 @@
         .split(" ")
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
         .join(" ");
+    }
+
+    function summarizeFeatures(raw) {
+      const features = [];
+      const payload = raw && typeof raw === "object" ? raw : {};
+
+      const entries = [];
+
+      if (Array.isArray(payload.features)) {
+        payload.features.forEach((item) => entries.push(String(item || "").trim().toLowerCase()));
+      }
+
+      if (payload.features && typeof payload.features === "object" && !Array.isArray(payload.features)) {
+        Object.keys(payload.features).forEach((key) => {
+          if (payload.features[key]) {
+            entries.push(String(key).trim().toLowerCase());
+          }
+        });
+      }
+
+      if (payload.entitlements && Array.isArray(payload.entitlements)) {
+        payload.entitlements.forEach((item) => entries.push(String(item || "").trim().toLowerCase()));
+      }
+
+      if (payload.entitlements && typeof payload.entitlements === "object" && !Array.isArray(payload.entitlements)) {
+        Object.keys(payload.entitlements).forEach((key) => {
+          if (payload.entitlements[key]) {
+            entries.push(String(key).trim().toLowerCase());
+          }
+        });
+      }
+
+      const set = new Set(entries);
+
+      if (set.has("reports1099") || set.has("1099") || set.has("1099-reports") || set.has("contractor_payments") || set.has("contractor-payments")) {
+        features.push("1099");
+      }
+
+      if (set.has("bookkeeping") || set.has("ledger") || set.has("general_ledger") || set.has("general-ledger")) {
+        features.push("Bookkeeping");
+      }
+
+      if (set.has("payroll") || set.has("w2") || set.has("employee_payroll") || set.has("employee-payroll")) {
+        features.push("Payroll");
+      }
+
+      if (set.has("contractors") || set.has("contractor_records") || set.has("contractor-records")) {
+        features.push("Contractors");
+      }
+
+      if (set.has("payments") || set.has("contractor_payments") || set.has("contractor-payments")) {
+        features.push("Payments");
+      }
+
+      if (!features.length) {
+        return "Awaiting package data";
+      }
+
+      return features.join(", ");
     }
 
     async function checkHealth() {
@@ -803,13 +2465,16 @@
       if (!state) {
         packageValue.textContent = "Not assigned";
         accessValue.textContent = "Restricted";
+        featureValue.textContent = "Awaiting package data";
         setPill(statusPill, "Access status unavailable", "error");
+        setPill(featurePill, "Feature data unavailable", "info");
         if (message) setMessage(message, "error");
         return;
       }
 
       packageValue.textContent = normalizePlanName(state.plan);
       accessValue.textContent = state.active ? "Active" : "Restricted";
+      featureValue.textContent = summarizeFeatures(state.raw);
 
       if (state.active) {
         setPill(statusPill, "Access active", "ok");
@@ -817,6 +2482,12 @@
       } else {
         setPill(statusPill, "Access restricted", "error");
         setMessage(message || "Active subscription is required to access LedgerHaul workspaces.", "error");
+      }
+
+      if (featureValue.textContent === "Awaiting package data") {
+        setPill(featurePill, "Feature data pending", "info");
+      } else {
+        setPill(featurePill, "Feature data loaded", "ok");
       }
     }
 
