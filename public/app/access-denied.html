@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Access Required | LedgerHaul</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0f14;
+      --panel: #121a24;
+      --panel-2: #0e141d;
+      --border: #223044;
+      --border-2: #1c2738;
+      --text: #e9eef5;
+      --muted: #aebfd4;
+      --muted-2: #8ea4bf;
+      --accent: #38d39f;
+      --accent-2: #28c88f;
+      --accent-text: #08140f;
+      --danger: #ffb8c4;
+      --danger-bg: #2a1016;
+      --danger-border: #5c2430;
+      --ok: #9ff2c9;
+      --ok-bg: #10281f;
+      --ok-border: #21533f;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.10), transparent 28%),
+        linear-gradient(180deg, #0b0f14 0%, #0d131b 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: rgba(18, 26, 36, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 620px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: .3px;
+      margin-bottom: 8px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #5c2430;
+      background: #2a1016;
+      color: var(--danger);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 38px;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .hero-card-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-copy {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .hero-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      margin-top: 26px;
+      color: #95a9c2;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .hero-footer a:hover {
+      color: #ffffff;
+    }
+
+    .access-panel h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .access-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #2a3a52;
+      background: #0f1720;
+      color: #c9d6ea;
+    }
+
+    .pill.ok {
+      border-color: var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .pill.error {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .pill.warn {
+      border-color: #5f4a20;
+      background: #251d0d;
+      color: #f6d58c;
+    }
+
+    .message {
+      min-height: 20px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .message.error { color: var(--danger); }
+    .message.ok { color: var(--ok); }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #243246;
+      background: #121a24;
+      color: #d7e3f4;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-danger {
+      background: #1a1416;
+      border-color: #4a2b32;
+      color: #f3c9cf;
+    }
+
+    .helper-links {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .helper-links a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <section class="panel hero">
+      <div>
+        <div class="logo">LedgerHaul</div>
+        <div class="eyebrow">Access restricted</div>
+        <h1>Workspace access is currently unavailable for this account.</h1>
+        <div class="hero-copy">
+          LedgerHaul workspaces, exports, and reporting tools are restricted when authentication, package assignment, or subscription status requirements are not satisfied.
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="hero-card-title">Authentication required</div>
+            <div class="hero-card-copy">Application access remains blocked until the user signs in under an authorized company context.</div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-title">Active subscription required</div>
+            <div class="hero-card-copy">Operational access should be removed automatically for inactive, unpaid, canceled, or downgraded accounts.</div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-title">Feature entitlement control</div>
+            <div class="hero-card-copy">Customers should only access the workspaces and reports included in the assigned package.</div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-title">Revenue protection</div>
+            <div class="hero-card-copy">Controlled access prevents free use of contractor, bookkeeping, and reporting tools outside active paid access.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <div>© 2026 LedgerHaul. All rights reserved.</div>
+        <div>
+          <a href="/legal/terms.html">Terms</a>
+          <a href="/legal/privacy.html">Privacy</a>
+          <a href="/legal/refund.html">Refund</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel access-panel">
+      <h2>Access review</h2>
+      <div class="access-copy">
+        Review the current account status below, then continue to sign in, manage billing, or return to package selection.
+      </div>
+
+      <div class="status-row">
+        <div id="apiPill" class="pill">API status unknown</div>
+        <div id="accessPill" class="pill">Access state unknown</div>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <div class="meta-list">
+        <div class="meta-card">
+          <div class="meta-label">Company</div>
+          <div id="companyValue" class="meta-value">Not signed in</div>
+        </div>
+
+        <div class="meta-card">
+          <div class="meta-label">Assigned package</div>
+          <div id="packageValue" class="meta-value">Not assigned</div>
+        </div>
+
+        <div class="meta-card">
+          <div class="meta-label">Access status</div>
+          <div id="statusValue" class="meta-value">Restricted</div>
+        </div>
+
+        <div class="meta-card">
+          <div class="meta-label">Next action</div>
+          <div id="nextActionValue" class="meta-value">Sign in or activate billing access to continue.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/pricing.html">View pricing</a>
+        <a class="btn" href="/app/login.html">Sign in</a>
+        <button id="refreshBtn" class="btn" type="button">Refresh status</button>
+        <button id="logoutBtn" class="btn btn-danger" type="button">Clear session</button>
+      </div>
+
+      <div class="helper-links">
+        <a href="/product.html">Product</a>
+        <a href="/app/register.html">Create account</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
+
+    const STORAGE_KEYS = {
+      accessToken: "lh_access_token",
+      refreshToken: "lh_refresh_token",
+      company: "lh_company",
+      user: "lh_user",
+      authResponse: "lh_auth_response",
+      accessState: "lh_access_state",
+      subscriptionState: "lh_subscription_state"
+    };
+
+    const apiPill = document.getElementById("apiPill");
+    const accessPill = document.getElementById("accessPill");
+    const messageEl = document.getElementById("message");
+    const companyValue = document.getElementById("companyValue");
+    const packageValue = document.getElementById("packageValue");
+    const statusValue = document.getElementById("statusValue");
+    const nextActionValue = document.getElementById("nextActionValue");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "pill" + (type ? ` ${type}` : "");
+    }
+
+    function setMessage(text, type) {
+      messageEl.textContent = text || "";
+      messageEl.className = "message" + (type ? ` ${type}` : "");
+    }
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch (_) { return null; }
+    }
+
+    function getStorageItem(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+    }
+
+    function readStoredJson(key) {
+      const raw = getStorageItem(key);
+      try {
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function removeStorageItem(key) {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    }
+
+    function clearAuthStorage() {
+      Object.values(STORAGE_KEYS).forEach(removeStorageItem);
+    }
+
+    function getAccessToken() {
+      return getStorageItem(STORAGE_KEYS.accessToken);
+    }
+
+    function getCompanyId() {
+      const company = readStoredJson(STORAGE_KEYS.company);
+      if (company && company.id !== undefined && company.id !== null) {
+        return String(company.id);
+      }
+      if (company && company.company_id !== undefined && company.company_id !== null) {
+        return String(company.company_id);
+      }
+      return "";
+    }
+
+    function buildHeaders(extra) {
+      const headers = Object.assign({ Accept: "application/json" }, extra || {});
+      const token = getAccessToken();
+      const companyId = getCompanyId();
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      if (companyId) {
+        headers["X-Company-Id"] = companyId;
+      }
+
+      return headers;
+    }
+
+    function normalizePlanName(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "Not assigned";
+      return raw
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ")
+        .split(" ")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ");
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+
+        if (!res.ok) {
+          setPill(apiPill, "API limited", "error");
+          return;
+        }
+
+        setPill(apiPill, "API online", "ok");
+      } catch (_) {
+        setPill(apiPill, "API unavailable", "error");
+      }
+    }
+
+    async function fetchAccessState() {
+      const candidates = [
+        "/billing/access",
+        "/billing/subscription/access",
+        "/billing/entitlements",
+        "/billing/subscription/status",
+        "/api/billing/access"
+      ];
+
+      let endpointFound = false;
+
+      for (const path of candidates) {
+        try {
+          const res = await fetch(`${API_BASE}${path}`, {
+            method: "GET",
+            headers: buildHeaders(),
+            cache: "no-store"
+          });
+
+          const raw = await res.text();
+          const json = safeJsonParse(raw) || {};
+
+          if (res.status === 404) {
+            continue;
+          }
+
+          endpointFound = true;
+
+          if (res.status === 401) {
+            updateAccessView(null, "Authentication required.");
+            return;
+          }
+
+          if (!res.ok) {
+            updateAccessView({
+              active: false,
+              plan: "",
+              status: json.status || "",
+              raw: json
+            }, String(json.error || json.message || json.detail || "Subscription status unavailable."));
+            return;
+          }
+
+          updateAccessView({
+            active: Boolean(
+              json.active === true ||
+              json.subscription_active === true ||
+              String(json.status || "").toLowerCase() === "active" ||
+              String(json.status || "").toLowerCase() === "trialing"
+            ),
+            plan: String(json.plan || json.plan_name || json.package || "").trim(),
+            status: String(json.status || "").trim(),
+            raw: json
+          }, "");
+
+          return;
+        } catch (_) {
+          continue;
+        }
+      }
+
+      if (!endpointFound) {
+        updateAccessView(null, "Billing access endpoint is not yet connected.");
+      }
+    }
+
+    function updateAccessView(state, message) {
+      const company = readStoredJson(STORAGE_KEYS.company);
+      companyValue.textContent = company && company.name ? company.name : "Not signed in";
+
+      if (!state) {
+        packageValue.textContent = "Not assigned";
+        statusValue.textContent = "Restricted";
+        nextActionValue.textContent = "Sign in or activate billing access to continue.";
+        setPill(accessPill, "Access restricted", "error");
+        if (message) setMessage(message, "error");
+        return;
+      }
+
+      packageValue.textContent = normalizePlanName(state.plan);
+      statusValue.textContent = state.active ? "Active" : "Restricted";
+
+      if (state.active) {
+        nextActionValue.textContent = "Return to the application workspace.";
+        setPill(accessPill, "Access active", "ok");
+        setMessage(message || "Active package access confirmed.", "ok");
+      } else {
+        nextActionValue.textContent = "Review package access and billing status.";
+        setPill(accessPill, "Access restricted", "error");
+        setMessage(message || "Active subscription is required to access LedgerHaul workspaces.", "error");
+      }
+    }
+
+    refreshBtn.addEventListener("click", async () => {
+      await fetchAccessState();
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      clearAuthStorage();
+      window.location.href = "/app/login.html";
+    });
+
+    checkHealth();
+    fetchAccessState();
+  </script>
+</body>
+</html>
