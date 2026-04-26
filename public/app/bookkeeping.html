@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bookkeeping | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="LedgerHaul bookkeeping workspace for vendor and transaction records." />
+  <meta name="description" content="LedgerHaul bookkeeping workspace for vendors, bills, and transaction records." />
   <meta name="ledgerhaul-api-base" content="" />
 
   <script src="/assets/js/config.js"></script>
@@ -657,9 +657,9 @@
     <section class="hero-grid">
       <section class="panel">
         <div class="eyebrow">Vendor and transaction records</div>
-        <h1>Vendor register</h1>
+        <h1>Vendor register and bookkeeping entry</h1>
         <p class="lead">
-          Save vendor records and transaction records used for bills, expenses, and bookkeeping activity.
+          Save vendors first, then save vendor bills and bookkeeping transactions tied to those saved vendor records.
         </p>
 
         <div class="pill-row">
@@ -673,7 +673,7 @@
 
         <div class="hero-actions">
           <button id="goVendorTabBtn" class="btn btn-primary" type="button">Vendor record</button>
-          <button id="goBillTabBtn" class="btn btn-secondary" type="button">Transaction</button>
+          <button id="goBillTabBtn" class="btn btn-secondary" type="button">Bill / transaction</button>
         </div>
       </section>
 
@@ -682,19 +682,19 @@
           <div class="status-card">
             <h3>Company</h3>
             <div id="companyValue" class="status-value">Loading…</div>
-            <div class="status-help">Records remain scoped to the signed-in company.</div>
+            <div class="status-help">Vendor and bookkeeping records should stay scoped to the signed-in company.</div>
           </div>
 
           <div class="status-card">
             <h3>Assigned package</h3>
             <div id="packageValue" class="status-value">Checking…</div>
-            <div class="status-help">Access follows package and billing status.</div>
+            <div class="status-help">Bookkeeping access should follow the company package and billing status.</div>
           </div>
 
           <div class="status-card">
-            <h3>Current status</h3>
-            <div id="nextStateValue" class="status-value">Checking records…</div>
-            <div class="status-help">Save a vendor first before entering a transaction.</div>
+            <h3>Workspace state</h3>
+            <div id="nextStateValue" class="status-value">Checking vendor and transaction readiness…</div>
+            <div class="status-help">If no vendors exist yet, save a vendor first before recording a bill or expense.</div>
           </div>
         </div>
       </section>
@@ -703,7 +703,7 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Summary</h2>
+          <h2>Bookkeeping summary</h2>
           <p>Review saved vendor and transaction activity.</p>
         </div>
       </div>
@@ -716,7 +716,7 @@
 
         <article class="summary-card">
           <div id="billCount" class="metric-value">0</div>
-          <div class="metric-label">Saved transactions</div>
+          <div class="metric-label">Saved bills / transactions</div>
         </article>
 
         <article class="summary-card">
@@ -726,7 +726,7 @@
 
         <article class="summary-card">
           <div id="expenseTotal" class="metric-value">$0.00</div>
-          <div class="metric-label">Recorded total</div>
+          <div class="metric-label">Recorded transaction total</div>
         </article>
       </div>
     </section>
@@ -735,14 +735,14 @@
       <section class="form-shell">
         <div class="section-head">
           <div>
-            <h2>Entry form</h2>
-            <p>Save vendors and transactions.</p>
+            <h2>Save records</h2>
+            <p>Register vendors, then save bookkeeping entries linked to those vendors.</p>
           </div>
         </div>
 
         <div class="hero-actions">
           <button id="vendorTabBtn" class="btn btn-primary" type="button">Vendor record</button>
-          <button id="billTabBtn" class="btn btn-secondary" type="button">Transaction</button>
+          <button id="billTabBtn" class="btn btn-secondary" type="button">Bill / transaction</button>
         </div>
 
         <div id="vendorFormWrap">
@@ -800,13 +800,13 @@
               <div class="field full">
                 <label for="vendorNotes">Notes</label>
                 <textarea id="vendorNotes" maxlength="2000"></textarea>
-                <div class="field-help">Save the vendor before entering a transaction.</div>
+                <div class="field-help">Save the vendor first so it can be selected on transaction entry.</div>
               </div>
             </div>
 
             <div class="actions">
               <button id="saveVendorBtn" class="btn btn-primary" type="submit">Save vendor</button>
-              <button id="resetVendorBtn" class="btn btn-secondary" type="button">Clear form</button>
+              <button id="resetVendorBtn" class="btn btn-secondary" type="button">Clear vendor form</button>
             </div>
 
             <div id="vendorMessage" class="message"></div>
@@ -873,7 +873,7 @@
               </div>
 
               <div class="field">
-                <label for="billReferenceNumber">Reference number</label>
+                <label for="billReferenceNumber">Invoice / reference #</label>
                 <input id="billReferenceNumber" type="text" maxlength="120" />
               </div>
 
@@ -894,13 +894,13 @@
               <div class="field full">
                 <label for="billDescription">Description</label>
                 <textarea id="billDescription" maxlength="2000"></textarea>
-                <div class="field-help">Save the transaction to the selected vendor record.</div>
+                <div class="field-help">This saves a bookkeeping transaction tied to the selected vendor.</div>
               </div>
             </div>
 
             <div class="actions">
-              <button id="saveBillBtn" class="btn btn-primary" type="submit">Save transaction</button>
-              <button id="resetBillBtn" class="btn btn-secondary" type="button">Clear form</button>
+              <button id="saveBillBtn" class="btn btn-primary" type="submit">Save bill / transaction</button>
+              <button id="resetBillBtn" class="btn btn-secondary" type="button">Clear bill form</button>
             </div>
 
             <div id="billMessage" class="message"></div>
@@ -911,14 +911,14 @@
       <section class="list-shell">
         <div class="section-head">
           <div>
-            <h2>Register</h2>
-            <p>Search, filter, refresh, and edit saved records.</p>
+            <h2>Saved records</h2>
+            <p>Search, filter, refresh, and edit vendors or bookkeeping transactions.</p>
           </div>
         </div>
 
         <div class="hero-actions">
           <button id="vendorListTabBtn" class="btn btn-primary" type="button">Vendors</button>
-          <button id="billListTabBtn" class="btn btn-secondary" type="button">Transactions</button>
+          <button id="billListTabBtn" class="btn btn-secondary" type="button">Bills / transactions</button>
         </div>
 
         <div class="toolbar">
@@ -933,9 +933,9 @@
               <option value="all">All</option>
               <option value="active">Active vendors</option>
               <option value="inactive">Inactive vendors</option>
-              <option value="unpaid">Unpaid transactions</option>
-              <option value="paid">Paid transactions</option>
-              <option value="partial">Partial transactions</option>
+              <option value="unpaid">Unpaid bills</option>
+              <option value="paid">Paid bills</option>
+              <option value="partial">Partial bills</option>
             </select>
           </div>
 
@@ -943,7 +943,7 @@
             <label for="typeFilter">View</label>
             <select id="typeFilter">
               <option value="vendors">Vendors</option>
-              <option value="bills">Transactions</option>
+              <option value="bills">Bills / transactions</option>
             </select>
           </div>
 
@@ -951,7 +951,7 @@
         </div>
 
         <div id="listMessage" class="message"></div>
-        <div id="emptyState" class="empty-state">No records found.</div>
+        <div id="emptyState" class="empty-state">No saved records found yet.</div>
         <div id="recordList" class="card-list"></div>
       </section>
     </section>
@@ -1095,6 +1095,7 @@
       const base = appAccessAvailable()
         ? window.LH_APP_ACCESS.buildHeaders(extraHeaders || {})
         : Object.assign({ Accept: "application/json" }, extraHeaders || {});
+
       return base;
     }
 
@@ -1287,7 +1288,7 @@
           setPill(ui.billingPill, "Package active", "ok");
         } else {
           setPill(ui.billingPill, "Package restricted", "error");
-          setMessage(ui.pageMessage, "Bookkeeping access is restricted by package or billing status.", "error");
+          setMessage(ui.pageMessage, "Bookkeeping access is currently restricted by package or billing state.", "error");
         }
 
         return { active, payload };
@@ -1301,8 +1302,10 @@
     function setFormTab(tab) {
       state.activeFormTab = tab;
       const vendorActive = tab === "vendor";
+
       ui.vendorFormWrap.hidden = !vendorActive;
       ui.billFormWrap.hidden = vendorActive;
+
       ui.vendorTabBtn.className = vendorActive ? "btn btn-primary" : "btn btn-secondary";
       ui.billTabBtn.className = vendorActive ? "btn btn-secondary" : "btn btn-primary";
       ui.goVendorTabBtn.className = vendorActive ? "btn btn-primary" : "btn btn-secondary";
@@ -1330,7 +1333,7 @@
       ui.billForm.reset();
       ui.billDate.value = new Date().toISOString().slice(0, 10);
       ui.billStatus.value = "unpaid";
-      ui.saveBillBtn.textContent = "Save transaction";
+      ui.saveBillBtn.textContent = "Save bill / transaction";
       setMessage(ui.billMessage, "", "");
     }
 
@@ -1384,12 +1387,14 @@
     function populateVendorSelect() {
       const currentValue = ui.billVendorId.value;
       ui.billVendorId.innerHTML = '<option value="">Select vendor</option>';
+
       state.vendors.forEach((vendor) => {
         const option = document.createElement("option");
         option.value = String(vendor.id || "");
         option.textContent = vendor.name || `Vendor ${vendor.id || ""}`;
         ui.billVendorId.appendChild(option);
       });
+
       if (currentValue) {
         ui.billVendorId.value = currentValue;
       }
@@ -1573,25 +1578,25 @@
       ui.expenseTotal.textContent = formatMoney(state.bills.reduce((sum, item) => sum + Number(item.amount || 0), 0));
 
       if (state.vendors.length === 0) {
-        ui.nextStateValue.textContent = "Vendor record required.";
+        ui.nextStateValue.textContent = "Save the first vendor record.";
         setPill(ui.savePill, state.saveMode === "backend" ? "Ready to save" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
         setMessage(ui.pageMessage, state.saveMode === "backend"
-          ? "No vendor records found."
-          : "Live bookkeeping endpoint unavailable. Local save mode is active.", state.saveMode === "backend" ? "ok" : "warning");
+          ? "No vendors saved yet. Save a vendor first."
+          : "Live bookkeeping endpoint unavailable. This page is working in local save mode until the backend endpoint is available.", state.saveMode === "backend" ? "ok" : "warning");
       } else if (state.bills.length === 0) {
-        ui.nextStateValue.textContent = "Transaction entry required.";
+        ui.nextStateValue.textContent = "Vendor records exist. Save the first bill or bookkeeping transaction.";
         setPill(ui.savePill, state.saveMode === "backend" ? "Vendor save active" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
         setMessage(ui.pageMessage, state.saveMode === "backend"
-          ? "Vendor saved. Enter the first transaction next."
-          : "Vendor saved in local mode. Enter the first transaction next.", state.saveMode === "backend" ? "ok" : "warning");
+          ? "Vendor register is active. Save a bill or transaction next."
+          : "Vendor register is active in local save mode. Save a bill or transaction next.", state.saveMode === "backend" ? "ok" : "warning");
       } else {
         ui.nextStateValue.textContent = state.saveMode === "backend"
-          ? "Vendor and transaction save active."
-          : "Vendor and transaction local save active.";
+          ? "Vendor and bookkeeping records are saving to the live register."
+          : "Vendor and bookkeeping records are saving locally until the live endpoint is available.";
         setPill(ui.savePill, state.saveMode === "backend" ? "Live save active" : "Local save active", state.saveMode === "backend" ? "ok" : "warning");
         setMessage(ui.pageMessage, state.saveMode === "backend"
-          ? "Vendor and transaction records are saving."
-          : "Vendor and transaction records are saving in local fallback mode.", state.saveMode === "backend" ? "ok" : "warning");
+          ? "Vendor and transaction save flow is active."
+          : "Vendor and transaction save flow is active in local fallback mode.", state.saveMode === "backend" ? "ok" : "warning");
       }
     }
 
@@ -1623,8 +1628,8 @@
       ui.billReferenceNumber.value = bill.reference_number || "";
       ui.billPaymentMethod.value = bill.payment_method || "";
       ui.billDescription.value = bill.description || "";
-      ui.saveBillBtn.textContent = "Update transaction";
-      setMessage(ui.billMessage, "Editing transaction record.", "warning");
+      ui.saveBillBtn.textContent = "Update bill / transaction";
+      setMessage(ui.billMessage, "Editing bill / transaction record.", "warning");
       setFormTab("bill");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1657,7 +1662,7 @@
           return matchesSearch && matchesStatus;
         });
 
-        ui.emptyState.textContent = "No vendor records found.";
+        ui.emptyState.textContent = "No vendors saved yet.";
 
         rows.forEach((vendor) => {
           const card = document.createElement("div");
@@ -1714,7 +1719,7 @@
           return matchesSearch && matchesStatus;
         });
 
-        ui.emptyState.textContent = "No transaction records found.";
+        ui.emptyState.textContent = "No bills or transactions saved yet.";
 
         rows.forEach((bill) => {
           const card = document.createElement("div");
@@ -1723,7 +1728,7 @@
           card.innerHTML = `
             <div class="record-top">
               <div>
-                <div class="record-title">${escapeHtml(bill.vendor_name || "Transaction")}</div>
+                <div class="record-title">${escapeHtml(bill.vendor_name || "Vendor transaction")}</div>
                 <div class="record-sub">${escapeHtml(bill.description || "No description saved")}</div>
               </div>
               <div class="record-actions">
@@ -1820,7 +1825,7 @@
         setMessage(
           ui.vendorMessage,
           result.mode === "backend"
-            ? "Vendor saved."
+            ? "Vendor saved successfully."
             : "Vendor saved in local fallback mode.",
           result.mode === "backend" ? "ok" : "warning"
         );
@@ -1853,16 +1858,16 @@
         setMessage(
           ui.billMessage,
           result.mode === "backend"
-            ? "Transaction saved."
-            : "Transaction saved in local fallback mode.",
+            ? "Bill / transaction saved successfully."
+            : "Bill / transaction saved in local fallback mode.",
           result.mode === "backend" ? "ok" : "warning"
         );
         setListTab("bills");
       } catch (err) {
-        setMessage(ui.billMessage, err.message || "Unable to save transaction.", "error");
+        setMessage(ui.billMessage, err.message || "Unable to save bill / transaction.", "error");
       } finally {
         ui.saveBillBtn.disabled = false;
-        ui.saveBillBtn.textContent = state.editingBillId ? "Update transaction" : "Save transaction";
+        ui.saveBillBtn.textContent = state.editingBillId ? "Update bill / transaction" : "Save bill / transaction";
       }
     });
 
