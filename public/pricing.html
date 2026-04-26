@@ -606,17 +606,17 @@
         <div class="eyebrow">Pricing structure</div>
         <h1>Start with a lower-friction entry point and scale revenue by operational depth.</h1>
         <div class="hero-copy">
-          The pricing model should make it easy for a contractor-focused customer to say yes quickly, support accounting-only buyers, and expand into higher-value payroll and broader financial operations as needs grow.
+          The pricing model should make it easy for a contractor-focused customer to say yes quickly, then expand into bookkeeping and broader financial operations as needs grow.
         </div>
 
         <div class="hero-points">
           <div class="hero-point">
             <h3>Lower entry barrier</h3>
-            <p>1099-first customers should see an accessible starting price before encountering broader bookkeeping or payroll positioning.</p>
+            <p>Customers should be able to move directly from pricing into Stripe checkout without getting stuck in billing management flows.</p>
           </div>
           <div class="hero-point">
             <h3>Bookkeeping-only option</h3>
-            <p>Accounting-focused customers should be able to buy bookkeeping access without being forced into payroll or contractor workflows first.</p>
+            <p>Accounting-focused customers should be able to buy bookkeeping access without being forced into payroll first.</p>
           </div>
           <div class="hero-point">
             <h3>Clear feature progression</h3>
@@ -632,7 +632,7 @@
       <div class="panel">
         <h2>Billing access</h2>
         <div class="status-copy">
-          First-time package purchases should open checkout. Existing customers should still be able to manage billing through the billing portal.
+          New package selection should open Stripe checkout. Existing customers can still use billing management after purchase.
         </div>
 
         <div class="pill-row">
@@ -669,9 +669,9 @@
     <section class="pricing-section">
       <div class="section-header">
         <div>
-          <h2>Recommended package structure</h2>
+          <h2>Package options</h2>
           <p>
-            Lead with a contractor-pay entry package, support an accounting-only package, then expand into advanced contractor operations and full payroll plus bookkeeping.
+            Start with the package that matches the customer’s current operational need, then grow into broader financial workflows later.
           </p>
         </div>
       </div>
@@ -686,7 +686,7 @@
             <div class="cycle">/ month</div>
           </div>
 
-          <div class="plan-extra">+ $4–$6 per contractor / month</div>
+          <div class="plan-extra">Contractor-focused entry package</div>
 
           <ul class="feature-list">
             <li>Contractor profiles</li>
@@ -713,22 +713,22 @@
             <div class="cycle">/ month</div>
           </div>
 
-          <div class="plan-extra">Core bookkeeping workspace access</div>
+          <div class="plan-extra">Bookkeeping workspace access</div>
 
           <ul class="feature-list">
             <li>Bookkeeping workspace</li>
             <li>Transaction entry</li>
             <li>Vendor tracking</li>
-            <li>Ledger views and exports</li>
-            <li>Month-end reporting support</li>
+            <li>Ledger views</li>
+            <li>Ledger exports</li>
           </ul>
 
           <div class="plan-note">
-            For customers that need accounting workflows without payroll or contractor-pay features first.
+            For customers that need bookkeeping workflows without payroll first.
           </div>
 
           <div class="plan-actions">
-            <button class="btn btn-primary plan-select-btn" type="button" data-plan="bookkeeping">Select Bookkeeping</button>
+            <button class="btn btn-primary plan-select-btn" type="button" data-plan="bookkeeping_only">Select Bookkeeping</button>
           </div>
         </article>
 
@@ -742,7 +742,7 @@
             <div class="cycle">/ month</div>
           </div>
 
-          <div class="plan-extra">+ $6–$8 per contractor / month</div>
+          <div class="plan-extra">Advanced contractor operations</div>
 
           <ul class="feature-list">
             <li>Exports</li>
@@ -753,7 +753,7 @@
           </ul>
 
           <div class="plan-note">
-            For customers needing deeper contractor operations without stepping into full payroll.
+            For customers needing deeper contractor operations without stepping into full bookkeeping plus payroll.
           </div>
 
           <div class="plan-actions">
@@ -770,13 +770,13 @@
             <div class="cycle">/ month</div>
           </div>
 
-          <div class="plan-extra">+ per worker pricing</div>
+          <div class="plan-extra">Combined payroll and bookkeeping access</div>
 
           <ul class="feature-list">
-            <li>Contractor pay tools</li>
             <li>Bookkeeping workflows</li>
-            <li>Payroll and compensation logic</li>
-            <li>Compliance and audit controls</li>
+            <li>Payroll operations</li>
+            <li>Compensation logic</li>
+            <li>Compliance controls</li>
             <li>Expanded reporting access</li>
           </ul>
 
@@ -785,7 +785,7 @@
           </div>
 
           <div class="plan-actions">
-            <button class="btn btn-primary plan-select-btn" type="button" data-plan="payroll_bookkeeping">Select Payroll + Bookkeeping</button>
+            <button class="btn btn-primary plan-select-btn" type="button" data-plan="combo">Select Payroll + Bookkeeping</button>
           </div>
         </article>
       </div>
@@ -796,30 +796,30 @@
         <div>
           <h2>Why this structure works</h2>
           <p>
-            Leading with accessible contractor pricing and a separate bookkeeping option creates cleaner initial conversion paths while preserving stronger upsell movement into broader operational packages.
+            It creates cleaner initial conversion paths while preserving stronger upsell movement into broader operational packages.
           </p>
         </div>
       </div>
 
       <div class="comparison-grid">
         <article class="comparison-card">
-          <h3>Stronger entry conversion</h3>
+          <h3>Direct Stripe conversion</h3>
           <p>
-            Starting at $39 is a more approachable front-door price than opening with a heavier contractor-only package before buyers understand the operational value.
+            Package buttons now go into checkout flow for first purchase instead of trying to open the billing portal too early.
           </p>
         </article>
 
         <article class="comparison-card">
           <h3>Cleaner buyer fit</h3>
           <p>
-            Accounting-focused customers can buy bookkeeping directly instead of being forced into contractor or payroll positioning that does not match their immediate need.
+            Accounting-focused customers can buy bookkeeping directly instead of being forced into payroll positioning that does not match their immediate need.
           </p>
         </article>
 
         <article class="comparison-card">
           <h3>Higher-value upsell path</h3>
           <p>
-            Payroll plus bookkeeping should remain the premium position because those workflows create broader operational leverage and support higher pricing.
+            Combined payroll plus bookkeeping remains the premium position for broader operational leverage and higher-value usage.
           </p>
         </article>
       </div>
@@ -919,8 +919,12 @@
       return getStorageItem("lh_access_token");
     }
 
+    function getCompany() {
+      return readStoredJson("lh_company") || {};
+    }
+
     function getCompanyId() {
-      const company = readStoredJson("lh_company");
+      const company = getCompany();
       if (company && company.id !== undefined && company.id !== null) {
         return String(company.id);
       }
@@ -976,6 +980,9 @@
     }
 
     async function fetchAccessState() {
+      const company = getCompany();
+      companyValue.textContent = company && company.name ? company.name : "Not signed in";
+
       const candidates = [
         "/billing/access",
         "/billing/subscription/access",
@@ -1012,8 +1019,7 @@
             updateAccessView({
               active: false,
               plan: "",
-              status: json.status || "",
-              raw: json
+              status: json.status || ""
             }, String(json.error || json.message || json.detail || "Subscription status unavailable."));
             return;
           }
@@ -1026,8 +1032,7 @@
               String(json.status || "").toLowerCase() === "trialing"
             ),
             plan: String(json.plan || json.plan_name || json.package || "").trim(),
-            status: String(json.status || "").trim(),
-            raw: json
+            status: String(json.status || "").trim()
           }, "");
 
           return;
@@ -1042,9 +1047,6 @@
     }
 
     function updateAccessView(state, message) {
-      const company = readStoredJson("lh_company");
-      companyValue.textContent = company && company.name ? company.name : "Not signed in";
-
       if (!state) {
         packageValue.textContent = "Not assigned";
         accessValue.textContent = "Restricted";
@@ -1067,17 +1069,25 @@
 
     async function openCheckout(selectedPlan) {
       const token = getAccessToken();
+      const companyId = getCompanyId();
+
       if (!token) {
         window.location.href = "/app/login.html";
         return;
       }
 
+      if (!companyId) {
+        setMessage("Company context is missing. Sign in again before selecting a package.", "error");
+        return;
+      }
+
       const candidates = [
         "/billing/checkout",
-        "/billing/checkout/session",
-        "/billing/create-checkout-session",
         "/api/billing/checkout",
-        "/api/billing/checkout/session"
+        "/billing/checkout/session",
+        "/api/billing/checkout/session",
+        "/billing/create-checkout-session",
+        "/api/billing/create-checkout-session"
       ];
 
       for (const path of candidates) {
@@ -1088,8 +1098,11 @@
               "Content-Type": "application/json"
             }),
             body: JSON.stringify({
-              plan: selectedPlan || "",
-              package: selectedPlan || ""
+              plan: selectedPlan,
+              company_id: Number(companyId),
+              employees: 1,
+              package: selectedPlan,
+              selected_plan: selectedPlan
             })
           });
 
@@ -1111,10 +1124,10 @@
           }
 
           const checkoutUrl =
-            json.url ||
             json.checkout_url ||
-            json.checkoutUrl ||
+            json.url ||
             json.session_url ||
+            json.redirect_url ||
             "";
 
           if (checkoutUrl) {
@@ -1129,11 +1142,12 @@
         }
       }
 
-      setMessage("Checkout is not yet connected.", "error");
+      setMessage("Stripe checkout is not yet connected.", "error");
     }
 
     async function openBillingPortal() {
       const token = getAccessToken();
+
       if (!token) {
         window.location.href = "/app/login.html";
         return;
@@ -1198,7 +1212,7 @@
 
     planButtons.forEach((button) => {
       button.addEventListener("click", async () => {
-        const selectedPlan = String(button.getAttribute("data-plan") || "");
+        const selectedPlan = String(button.getAttribute("data-plan") || "").trim();
         await openCheckout(selectedPlan);
       });
     });
