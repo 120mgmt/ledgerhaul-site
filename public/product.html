@@ -15,42 +15,42 @@
 
     :root {
       --bg:
-        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
-        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
-      --panel: rgba(255, 255, 255, 0.98);
-      --panel-2: rgba(246, 250, 253, 0.98);
-      --panel-3: rgba(240, 246, 251, 0.98);
-      --border: #d7e2ec;
-      --border-2: #dfe8f1;
-      --border-3: #cdd9e4;
-      --text: #132033;
-      --text-strong: #0b1628;
-      --muted: #526377;
-      --muted-2: #708298;
-      --muted-3: #8fa0b4;
-      --accent: #2fb67f;
-      --accent-2: #269b6c;
-      --accent-3: #1e845b;
-      --accent-soft: rgba(47, 182, 127, 0.08);
-      --accent-text: #ffffff;
-      --danger: #b94a63;
-      --danger-bg: #fff4f6;
-      --danger-border: #efc4cd;
-      --ok: #237a56;
-      --ok-bg: #edf9f3;
-      --ok-border: #bfe3d0;
-      --info: #285b94;
-      --info-bg: #eef5ff;
-      --info-border: #c5d8f4;
-      --warning: #9a6a07;
-      --warning-bg: #fff8e7;
-      --warning-border: #ecd9a6;
-      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.10);
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 26%),
+        linear-gradient(180deg, #121821 0%, #171f29 100%);
+      --panel: rgba(28, 36, 48, 0.96);
+      --panel-2: rgba(34, 43, 57, 0.96);
+      --panel-3: rgba(30, 39, 52, 0.98);
+      --border: #34465d;
+      --border-2: #41556f;
+      --border-3: #4b5e77;
+      --text: #f4f7fb;
+      --text-strong: #ffffff;
+      --muted: #c4cfdb;
+      --muted-2: #9eb0c5;
+      --muted-3: #8ea1b7;
+      --accent: #46c896;
+      --accent-2: #39bb89;
+      --accent-3: #2ea574;
+      --accent-soft: rgba(70, 200, 150, 0.08);
+      --accent-text: #07140f;
+      --danger: #ffd0d8;
+      --danger-bg: #352028;
+      --danger-border: #74414c;
+      --ok: #b9f3d8;
+      --ok-bg: #18352a;
+      --ok-border: #316451;
+      --info: #cfe4ff;
+      --info-bg: #1f3145;
+      --info-border: #436284;
+      --warning: #ffe3aa;
+      --warning-bg: #3d3118;
+      --warning-border: #866633;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.18);
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+      --shadow-lg: 0 30px 72px rgba(0, 0, 0, 0.28);
       --radius: 22px;
-      --max: 1360px;
-      --header-height: 88px;
+      --max: 1200px;
+      --header-height: 84px;
     }
 
     html {
@@ -63,6 +63,8 @@
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -91,9 +93,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(244, 247, 251, 0.82);
-      border-bottom: 1px solid rgba(215, 226, 236, 0.90);
+      backdrop-filter: blur(12px);
+      background: rgba(18, 24, 33, 0.84);
+      border-bottom: 1px solid rgba(52, 70, 93, 0.90);
     }
 
     .topbar {
@@ -102,34 +104,11 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 16px 0;
+      padding: 14px 0;
       flex-wrap: wrap;
     }
 
     .brand-block {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background:
-        linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
-      border: 1px solid rgba(47, 182, 127, 0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-3);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      flex: 0 0 auto;
-    }
-
-    .brand-copy {
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -137,17 +116,18 @@
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 22px;
       font-weight: 800;
-      color: var(--accent-3);
-      letter-spacing: -0.03em;
+      color: var(--accent);
+      letter-spacing: -0.02em;
       line-height: 1;
     }
 
     .subbrand {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted-2);
-      line-height: 1.3;
+      line-height: 1.2;
+      font-weight: 600;
     }
 
     .nav-actions {
@@ -167,24 +147,29 @@
       color: var(--muted);
       font-size: 14px;
       font-weight: 700;
-      transition: color .15s ease, background .15s ease;
+      transition: color .15s ease, background .15s ease, border-color .15s ease, transform .15s ease;
+      border: 1px solid transparent;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .nav-link:hover {
       color: var(--text-strong);
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-3);
+      transform: translateY(-1px);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: 10px 16px;
-      border-radius: 14px;
-      border: 1px solid #d4dee8;
-      background: #ffffff;
-      color: #1f3046;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #3e526b;
+      background: rgba(36, 48, 64, 0.80);
+      color: #eef4fa;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -196,12 +181,12 @@
         background .15s ease;
       box-shadow: var(--shadow-sm);
       white-space: nowrap;
+      line-height: 1;
     }
 
     .btn:hover {
-      filter: brightness(1.01);
+      filter: brightness(1.03);
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
     }
 
     .btn:active {
@@ -215,12 +200,15 @@
     }
 
     .btn-secondary {
-      background: #ffffff;
+      background: rgba(39, 51, 67, 0.88);
+      border-color: #3e526b;
+      color: #eef4fa;
     }
 
     .btn-ghost {
-      background: rgba(255, 255, 255, 0.55);
-      border-color: #d6e0ea;
+      background: rgba(36, 48, 64, 0.55);
+      border-color: var(--border-2);
+      color: #eef4fa;
     }
 
     .btn-block {
@@ -231,7 +219,7 @@
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 18px;
-      padding: 24px 0 12px;
+      padding: 26px 0 12px;
       align-items: stretch;
     }
 
@@ -255,7 +243,7 @@
       width: 280px;
       height: 280px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(47, 182, 127, 0.10) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(70, 200, 150, 0.10) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -265,8 +253,8 @@
       min-height: 30px;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid #cce6da;
-      background: #edf9f3;
+      border: 1px solid #3c6a57;
+      background: #18352a;
       color: var(--ok);
       font-size: 11px;
       font-weight: 800;
@@ -315,7 +303,7 @@
       border: 1px solid var(--border-2);
       border-radius: 16px;
       padding: 18px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.03);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
     }
 
     .hero-card h3 {
@@ -375,9 +363,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #d5e0ea;
-      background: #f7fbfd;
-      color: #6b7b8f;
+      border: 1px solid #4b5e77;
+      background: #263343;
+      color: #d7e2ee;
     }
 
     .pill.ok {
@@ -503,7 +491,7 @@
     .ops-card,
     .support-card,
     .reporting-card {
-      background: var(--panel);
+      background: var(--panel-3);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 22px;
@@ -554,8 +542,8 @@
       width: 38px;
       height: 38px;
       border-radius: 999px;
-      background: #edf9f3;
-      border: 1px solid #cce6da;
+      background: #18352a;
+      border: 1px solid #316451;
       color: var(--ok);
       display: inline-flex;
       align-items: center;
@@ -636,7 +624,7 @@
     .comparison-head {
       padding: 22px 24px;
       border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, #ffffff 0%, #f7fbfd 100%);
+      background: linear-gradient(180deg, rgba(34, 43, 57, 0.98) 0%, rgba(28, 36, 48, 0.98) 100%);
     }
 
     .comparison-head h3 {
@@ -676,7 +664,7 @@
 
     .comparison-table th {
       color: var(--text-strong);
-      background: #fbfdff;
+      background: rgba(34, 43, 57, 0.98);
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: .06em;
@@ -687,7 +675,7 @@
       color: var(--text-strong);
       font-weight: 700;
       width: 240px;
-      background: #fcfeff;
+      background: rgba(28, 36, 48, 0.98);
     }
 
     .check {
@@ -698,8 +686,8 @@
       min-height: 28px;
       padding: 0 8px;
       border-radius: 999px;
-      background: #edf9f3;
-      border: 1px solid #cce6da;
+      background: #18352a;
+      border: 1px solid #316451;
       color: var(--ok);
       font-size: 13px;
       font-weight: 800;
@@ -713,8 +701,8 @@
       min-height: 28px;
       padding: 0 8px;
       border-radius: 999px;
-      background: #fff8e7;
-      border: 1px solid #ecd9a6;
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
       color: var(--warning);
       font-size: 13px;
       font-weight: 800;
@@ -728,15 +716,15 @@
       min-height: 28px;
       padding: 0 8px;
       border-radius: 999px;
-      background: #fff4f6;
-      border: 1px solid #efc4cd;
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
       color: var(--danger);
       font-size: 13px;
       font-weight: 800;
     }
 
     .band {
-      background: linear-gradient(180deg, #ffffff 0%, #f4f9fc 100%);
+      background: linear-gradient(180deg, rgba(34, 43, 57, 0.98) 0%, rgba(28, 36, 48, 0.98) 100%);
       border: 1px solid var(--border);
       border-radius: 22px;
       padding: 28px;
@@ -805,7 +793,7 @@
     }
 
     .quote-card .quote-mark {
-      color: var(--accent-3);
+      color: var(--accent);
       font-size: 38px;
       line-height: 1;
       margin-bottom: 10px;
@@ -849,8 +837,8 @@
       min-height: 34px;
       padding: 0 12px;
       border-radius: 999px;
-      background: #edf9f3;
-      border: 1px solid #cce6da;
+      background: #18352a;
+      border: 1px solid #316451;
       color: var(--ok);
       font-size: 12px;
       font-weight: 800;
@@ -914,8 +902,8 @@
       min-height: 34px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: #f3f8fc;
-      border: 1px solid var(--border);
+      background: rgba(36, 48, 64, 0.88);
+      border: 1px solid var(--border-2);
       color: var(--muted);
       font-size: 13px;
       font-weight: 700;
@@ -930,11 +918,11 @@
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #7b8b9d;
+      color: #95a9c2;
     }
 
     .footer a {
-      color: #7b8b9d;
+      color: #95a9c2;
       margin-left: 14px;
     }
 
@@ -978,7 +966,7 @@
 
     @media (max-width: 680px) {
       .container {
-        width: min(100% - 24px, 1360px);
+        width: min(100% - 24px, 1200px);
       }
 
       .topbar {
@@ -1045,18 +1033,15 @@
     <div class="container">
       <header class="topbar">
         <div class="brand-block">
-          <div class="brand-mark">LH</div>
-          <div class="brand-copy">
-            <div class="logo">LedgerHaul</div>
-            <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
-          </div>
+          <div class="logo">LedgerHaul</div>
+          <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
         </div>
 
         <div class="nav-actions">
           <a class="nav-link" href="/product.html">Product</a>
           <a class="nav-link" href="/pricing.html">Pricing</a>
           <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
-          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
         </div>
       </header>
     </div>
@@ -1072,7 +1057,7 @@
         </div>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
           <a class="btn btn-secondary" href="/pricing.html">View pricing</a>
         </div>
 
@@ -2202,7 +2187,7 @@
         </div>
 
         <div class="cta-actions">
-          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
           <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
         </div>
       </div>
