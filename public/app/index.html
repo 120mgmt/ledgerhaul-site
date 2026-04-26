@@ -337,14 +337,10 @@
       <section class="panel">
         <h1>Financial operations dashboard</h1>
         <div class="muted">
-          Use this dashboard to validate live access, review 1099 data, and export bookkeeping ledger files from the production API.
+          Use this dashboard to review 1099 reports, bookkeeping records, and downloadable financial reports.
         </div>
 
         <div class="meta-grid">
-          <div class="meta-card">
-            <div class="meta-label">API Base</div>
-            <div class="meta-value" id="apiBaseValue">—</div>
-          </div>
           <div class="meta-card">
             <div class="meta-label">Company ID</div>
             <div class="meta-value" id="companyIdValue">—</div>
@@ -354,14 +350,14 @@
             <div class="meta-value" id="userValue">—</div>
           </div>
           <div class="meta-card">
-            <div class="meta-label">Auth Status</div>
+            <div class="meta-label">Sign-in status</div>
             <div class="meta-value" id="authValue">—</div>
           </div>
         </div>
 
         <div class="status-row">
-          <div id="healthPill" class="status-pill">API health not checked</div>
-          <div id="sessionPill" class="status-pill">Session not checked</div>
+          <div id="systemStatusPill" class="status-pill">System status unknown</div>
+          <div id="signInPill" class="status-pill">Sign-in status unknown</div>
         </div>
 
         <div id="globalMessage" class="message"></div>
@@ -382,12 +378,12 @@
           </div>
 
           <div class="field">
-            <label for="startDateInput">Ledger start date</label>
+            <label for="startDateInput">Report start date</label>
             <input id="startDateInput" type="date" />
           </div>
 
           <div class="field">
-            <label for="endDateInput">Ledger end date</label>
+            <label for="endDateInput">Report end date</label>
             <input id="endDateInput" type="date" />
           </div>
 
@@ -397,7 +393,7 @@
           </div>
 
           <div class="field">
-            <label for="limitInput">Ledger limit</label>
+            <label for="limitInput">Report limit</label>
             <input id="limitInput" type="number" min="1" max="50000" step="1" value="1000" />
           </div>
         </div>
@@ -406,28 +402,28 @@
 
     <div class="grid-2">
       <section class="panel">
-        <h3 class="section-title">1099 tools</h3>
+        <h3 class="section-title">1099 reports</h3>
         <div class="muted">
-          Query the live 1099 summary endpoint or download a CSV export using your authenticated session.
+          Review your 1099 summary or download a 1099 report using your signed-in account.
         </div>
 
         <div class="tool-actions">
-          <button id="load1099Btn" class="btn btn-primary" type="button">Load 1099 summary</button>
-          <button id="download1099Btn" class="btn" type="button">Download 1099 CSV</button>
+          <button id="load1099Btn" class="btn btn-primary" type="button">View 1099 summary</button>
+          <button id="download1099Btn" class="btn" type="button">Download 1099 report</button>
         </div>
 
         <div id="message1099" class="message"></div>
       </section>
 
       <section class="panel">
-        <h3 class="section-title">Bookkeeping tools</h3>
+        <h3 class="section-title">Bookkeeping reports</h3>
         <div class="muted">
-          Query canonical ledger export data or download the ledger CSV from the live bookkeeping export routes.
+          Review your general ledger data or download a general ledger report.
         </div>
 
         <div class="tool-actions">
-          <button id="loadLedgerBtn" class="btn btn-primary" type="button">Load ledger JSON</button>
-          <button id="downloadLedgerBtn" class="btn" type="button">Download ledger CSV</button>
+          <button id="loadLedgerBtn" class="btn btn-primary" type="button">View general ledger</button>
+          <button id="downloadLedgerBtn" class="btn" type="button">Download general ledger report</button>
         </div>
 
         <div id="messageLedger" class="message"></div>
@@ -435,7 +431,7 @@
     </div>
 
     <section class="panel" style="margin-top:18px;">
-      <h3 class="section-title">Response preview</h3>
+      <h3 class="section-title">Report preview</h3>
       <div id="preview" class="preview empty">No data loaded yet.</div>
     </section>
 
@@ -480,12 +476,11 @@
     const globalMessageEl = document.getElementById("globalMessage");
     const message1099El = document.getElementById("message1099");
     const messageLedgerEl = document.getElementById("messageLedger");
-    const apiBaseValueEl = document.getElementById("apiBaseValue");
     const companyIdValueEl = document.getElementById("companyIdValue");
     const userValueEl = document.getElementById("userValue");
     const authValueEl = document.getElementById("authValue");
-    const healthPillEl = document.getElementById("healthPill");
-    const sessionPillEl = document.getElementById("sessionPill");
+    const systemStatusPillEl = document.getElementById("systemStatusPill");
+    const signInPillEl = document.getElementById("signInPill");
 
     const yearInput = document.getElementById("yearInput");
     const companyIdInput = document.getElementById("companyIdInput");
@@ -596,7 +591,6 @@
       const jwt = decodeJwtPayload(accessToken);
       const companyId = getCompanyId();
 
-      apiBaseValueEl.textContent = API_BASE;
       companyIdValueEl.textContent = companyId || "Unavailable";
 
       if (user && (user.email || user.first_name || user.last_name)) {
@@ -608,12 +602,12 @@
         userValueEl.textContent = "Unavailable";
       }
 
-      authValueEl.textContent = accessToken ? "Authenticated" : "Missing token";
+      authValueEl.textContent = accessToken ? "Signed in" : "Not signed in";
 
       if (accessToken) {
-        setPill(sessionPillEl, "Session token found", "ok");
+        setPill(signInPillEl, "Signed in", "ok");
       } else {
-        setPill(sessionPillEl, "Missing session token", "error");
+        setPill(signInPillEl, "Not signed in", "error");
       }
 
       if (!companyIdInput.value && companyId) {
@@ -637,12 +631,12 @@
           cache: "no-store"
         });
         if (!res.ok) {
-          setPill(healthPillEl, `API health failed (${res.status})`, "warn");
+          setPill(systemStatusPillEl, "System status: Limited", "warn");
           return;
         }
-        setPill(healthPillEl, "API health ok", "ok");
+        setPill(systemStatusPillEl, "System status: Online", "ok");
       } catch (_) {
-        setPill(healthPillEl, "API health unreachable", "error");
+        setPill(systemStatusPillEl, "System status: Unavailable", "error");
       }
     }
 
@@ -779,9 +773,9 @@
 
         const filename = `1099_summary_${companyId}_${yearInput.value || getCurrentYear()}.csv`;
         await requestBlob(build1099CsvUrl(), companyId, filename);
-        setMessage(message1099El, "1099 CSV download started.", "ok");
+        setMessage(message1099El, "1099 report download started.", "ok");
       } catch (err) {
-        setMessage(message1099El, err.message || "Failed to download 1099 CSV.", "error");
+        setMessage(message1099El, err.message || "Failed to download 1099 report.", "error");
       }
     });
 
@@ -795,9 +789,9 @@
 
         const data = await requestJson(buildLedgerJsonUrl(), companyId);
         setPreview(data);
-        setMessage(messageLedgerEl, "Ledger JSON loaded.", "ok");
+        setMessage(messageLedgerEl, "General ledger loaded.", "ok");
       } catch (err) {
-        setMessage(messageLedgerEl, err.message || "Failed to load ledger JSON.", "error");
+        setMessage(messageLedgerEl, err.message || "Failed to load general ledger.", "error");
       }
     });
 
@@ -809,11 +803,11 @@
           throw new Error("Company ID is required.");
         }
 
-        const filename = `ledger_export_${companyId}.csv`;
+        const filename = `general_ledger_${companyId}.csv`;
         await requestBlob(buildLedgerCsvUrl(), companyId, filename);
-        setMessage(messageLedgerEl, "Ledger CSV download started.", "ok");
+        setMessage(messageLedgerEl, "General ledger report download started.", "ok");
       } catch (err) {
-        setMessage(messageLedgerEl, err.message || "Failed to download ledger CSV.", "error");
+        setMessage(messageLedgerEl, err.message || "Failed to download general ledger report.", "error");
       }
     });
 
