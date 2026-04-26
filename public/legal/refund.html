@@ -1,128 +1,546 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" />
-    <title>Refund & Billing Policy | LedgerHaul</title>
-    <style>
-      :root { color-scheme: light; }
-      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.55; color: #111827; background: #ffffff; }
-      .wrap { max-width: 860px; margin: 0 auto; padding: 32px 18px; }
-      h1 { font-size: 28px; margin: 0 0 6px; }
-      .meta { color: #6b7280; font-size: 14px; margin: 0 0 22px; }
-      h2 { font-size: 18px; margin: 26px 0 8px; }
-      p { margin: 10px 0; }
-      ul { margin: 10px 0 10px 18px; }
-      li { margin: 6px 0; }
-      .callout { border: 1px solid #e5e7eb; background: #f9fafb; padding: 12px 14px; border-radius: 10px; margin: 14px 0; }
-      a { color: #111827; }
-      hr { border: 0; border-top: 1px solid #e5e7eb; margin: 22px 0; }
-      footer { color: #6b7280; font-size: 13px; margin-top: 26px; }
-      code { background: #f3f4f6; padding: 1px 6px; border-radius: 6px; }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refund Policy | LedgerHaul</title>
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="LedgerHaul Refund Policy." />
 
-  <body>
-    <main class="wrap">
-      <h1>Refund &amp; Billing Policy</h1>
-      <p class="meta">
-        Effective Date: <strong>2026-02-08</strong><br />
-        Company: <strong>LedgerHaul</strong>
-      </p>
+  <style>
+    * { box-sizing: border-box; }
 
-      <div class="callout">
-        <strong>Summary:</strong> LedgerHaul is a subscription software service. Subscription fees are generally non-refundable once a billing period begins.
-        Fees tied to processing, payroll execution, filings facilitation, payment transmission, and third-party services are non-refundable once initiated.
-      </div>
+    :root {
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 26%),
+        linear-gradient(180deg, #121821 0%, #171f29 100%);
+      --panel: rgba(28, 36, 48, 0.96);
+      --panel-2: rgba(34, 43, 57, 0.96);
+      --border: #34465d;
+      --border-2: #41556f;
+      --text: #f4f7fb;
+      --text-strong: #ffffff;
+      --muted: #c4cfdb;
+      --muted-2: #9eb0c5;
+      --accent: #46c896;
+      --accent-2: #39bb89;
+      --accent-text: #07140f;
+      --ok: #b9f3d8;
+      --ok-bg: #18352a;
+      --ok-border: #316451;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.18);
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+      --radius: 22px;
+      --max: 1200px;
+      --header-height: 84px;
+    }
 
-      <h2>1) Subscription Fees</h2>
-      <p>
-        Subscription fees are charged in advance for the billing period shown at checkout (monthly or annual, if offered).
-        Unless required by law, subscription fees are <strong>non-refundable</strong> once a billing period begins, including in cases of partial use,
-        early cancellation, or unused time.
-      </p>
+    html { scroll-behavior: smooth; }
 
-      <h2>2) Trials and First-Time Subscriptions</h2>
-      <ul>
-        <li>If a free or discounted trial is offered, you may cancel before the trial ends to avoid charges.</li>
-        <li>If you are charged because you did not cancel before the trial ends, refunds are not guaranteed.</li>
-        <li>Where required by applicable law, we will honor mandatory cancellation/refund rights.</li>
-      </ul>
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-      <h2>3) Processing, Payroll, and Third-Party Fees</h2>
-      <p>
-        Certain Service features may initiate processing events, including but not limited to payment processing, ACH or banking network instructions,
-        payroll execution, document generation, or filings facilitation via third-party providers.
-      </p>
-      <p>
-        <strong>All such fees are non-refundable once processing has commenced</strong>, including in cases where results are delayed, rejected,
-        reversed, or impacted by third-party outages, bank rules, insufficient funds, incorrect input, authorization issues, or other conditions outside
-        our control.
-      </p>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-      <h2>4) Upgrade / Downgrade</h2>
-      <ul>
-        <li>Upgrades may take effect immediately. Any proration is handled by the payment processor (e.g., Stripe) based on your plan configuration.</li>
-        <li>Downgrades generally take effect at the next renewal unless stated otherwise during plan change.</li>
-        <li>Plan changes do not automatically create refund rights for previously paid amounts.</li>
-      </ul>
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-      <h2>5) Cancellation</h2>
-      <p>
-        You may cancel at any time. Cancellation stops future renewals, but does not automatically refund fees already paid.
-        Your access remains active through the end of the current paid period unless your account is suspended for policy violations,
-        non-payment, chargeback risk, fraud prevention, or legal compliance requirements.
-      </p>
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(18, 24, 33, 0.84);
+      border-bottom: 1px solid rgba(52, 70, 93, 0.90);
+    }
 
-      <h2>6) Payment Disputes and Chargebacks</h2>
-      <p>
-        If you initiate a chargeback or payment dispute, we may suspend service access while the dispute is investigated.
-        You remain responsible for amounts due under your subscription and for any fees or costs incurred by us as a result of the dispute.
-        Repeated disputes, suspected fraud, or abuse indicators may result in account termination.
-      </p>
+    .topbar {
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
 
-      <h2>7) Exceptional Refunds (Case-by-Case)</h2>
-      <p>
-        We may consider a refund or credit in limited cases, at our discretion, for example:
-      </p>
-      <ul>
-        <li>Duplicate subscription charges confirmed for the same billing period.</li>
-        <li>Billing errors caused by a verified system malfunction supported by our logs.</li>
-        <li>Refunds required by applicable law.</li>
-      </ul>
-      <p>
-        Any approved refund is issued to the original payment method. Posting times depend on your bank or payment method and may take several business days.
-      </p>
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-      <h2>8) Taxes and Governmental Fees</h2>
-      <p>
-        Taxes, governmental fees, and third-party processing fees are generally non-refundable unless required by law.
-      </p>
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(70, 200, 150, 0.12) 0%, rgba(70, 200, 150, 0.18) 100%);
+      border: 1px solid rgba(70, 200, 150, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
 
-      <h2>9) How to Request a Refund Review</h2>
-      <p>
-        To request a refund review, contact support and include:
-      </p>
-      <ul>
-        <li>Account email</li>
-        <li>Company name (if applicable)</li>
-        <li>Invoice ID or Stripe receipt reference</li>
-        <li>Reason for request</li>
-      </ul>
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-      <h2>10) Policy Relationship</h2>
-      <p>
-        This policy is incorporated by reference into our Terms of Service. In the event of conflict, the Terms of Service controls unless prohibited by law.
-      </p>
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
 
-      <hr />
+    .subbrand {
+      font-size: 12px;
+      color: var(--muted-2);
+      line-height: 1.2;
+      font-weight: 600;
+    }
 
-      <footer>
-        <p>
-          This Refund &amp; Billing Policy is provided for transparency and operational clarity. It does not limit any rights you may have under applicable law.
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      border: 1px solid transparent;
+      transition: color .15s ease, background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-2);
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #3e526b;
+      background: rgba(36, 48, 64, 0.80);
+      color: #eef4fa;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .btn:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-secondary {
+      background: rgba(39, 51, 67, 0.88);
+      border-color: #3e526b;
+      color: #eef4fa;
+    }
+
+    .main {
+      padding: 28px 0 40px;
+    }
+
+    .hero {
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #3c6a57;
+      background: #18352a;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, p, ul {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 44px;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.82;
+      max-width: 860px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .toc,
+    .content-shell {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .toc {
+      padding: 20px;
+      position: sticky;
+      top: calc(var(--header-height) + 18px);
+    }
+
+    .toc h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .toc-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .toc-links a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .toc-links a:hover {
+      color: var(--text-strong);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-2);
+    }
+
+    .content-shell {
+      padding: 28px;
+    }
+
+    .section {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .section p,
+    .section li {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .section ul {
+      margin: 14px 0 0 20px;
+      padding: 0;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .footer a:hover {
+      color: var(--text-strong);
+    }
+
+    @media (max-width: 980px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .toc,
+      .content-shell {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .nav-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar-shell">
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Billing, cancellations, and refund terms</div>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <main class="wrap main">
+    <section class="hero">
+      <div class="panel">
+        <div class="eyebrow">Legal</div>
+        <h1>Refund Policy</h1>
+        <p class="lead">
+          This Refund Policy explains how LedgerHaul handles subscription billing, cancellation timing, non-refundable charges, and any approved refunds or credits.
         </p>
-      </footer>
-    </main>
-  </body>
+        <div class="meta-row">
+          <div class="pill">Applies to paid subscriptions</div>
+          <div class="pill">Reviewed with account signup</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <aside class="toc">
+        <h2>Sections</h2>
+        <div class="toc-links">
+          <a href="#scope">1. Scope</a>
+          <a href="#subscriptions">2. Subscription Charges</a>
+          <a href="#refund-eligibility">3. Refund Eligibility</a>
+          <a href="#non-refundable">4. Non-Refundable Charges</a>
+          <a href="#cancellations">5. Cancellations</a>
+          <a href="#downgrades">6. Downgrades and Access Changes</a>
+          <a href="#processing">7. Refund Processing</a>
+          <a href="#contact">8. Contact and Review Requests</a>
+        </div>
+      </aside>
+
+      <section class="content-shell">
+        <section id="scope" class="section">
+          <h2>1. Scope</h2>
+          <p>
+            This Refund Policy applies to amounts charged for access to LedgerHaul subscriptions, packages, and related paid platform functionality. By purchasing or maintaining a paid subscription, you agree to this Refund Policy in addition to the Terms of Service and Privacy Policy.
+          </p>
+        </section>
+
+        <section id="subscriptions" class="section">
+          <h2>2. Subscription Charges</h2>
+          <p>
+            LedgerHaul may charge recurring subscription fees, package-based fees, user-based fees, contractor-based fees, or other approved charges tied to platform access and operational functionality. Charges are billed according to the subscription plan or package selected by the customer.
+          </p>
+          <ul>
+            <li>Billing may recur automatically until canceled in accordance with platform rules.</li>
+            <li>Access to certain workspaces or features may depend on successful payment and active subscription status.</li>
+            <li>Failure to pay may result in restricted or suspended access.</li>
+          </ul>
+        </section>
+
+        <section id="refund-eligibility" class="section">
+          <h2>3. Refund Eligibility</h2>
+          <p>
+            Except where required by law or expressly approved by LedgerHaul in writing, subscription charges are generally non-refundable once a billing period has started and platform access has been made available. Refund requests may be reviewed on a case-by-case basis for duplicate billing, proven billing errors, or other exceptional circumstances.
+          </p>
+          <ul>
+            <li>Any approved refund remains discretionary unless required by law.</li>
+            <li>Requests must include sufficient detail to identify the charge and reason for review.</li>
+            <li>Partial credits may be issued instead of full refunds where appropriate.</li>
+          </ul>
+        </section>
+
+        <section id="non-refundable" class="section">
+          <h2>4. Non-Refundable Charges</h2>
+          <p>
+            Unless otherwise required by law, the following are generally non-refundable:
+          </p>
+          <ul>
+            <li>Subscription fees for billing periods already started.</li>
+            <li>Fees tied to activated or assigned feature access.</li>
+            <li>Charges associated with account inactivity caused by customer choice or failure to cancel before renewal.</li>
+            <li>Implementation, onboarding, customization, support, or setup work if separately offered and completed.</li>
+          </ul>
+        </section>
+
+        <section id="cancellations" class="section">
+          <h2>5. Cancellations</h2>
+          <p>
+            You may cancel your subscription according to the cancellation process provided within LedgerHaul or through the applicable billing workflow. Cancellation generally stops future renewal charges but does not automatically create a refund for the current billing period unless otherwise required by law or expressly approved.
+          </p>
+        </section>
+
+        <section id="downgrades" class="section">
+          <h2>6. Downgrades and Access Changes</h2>
+          <p>
+            If your subscription is downgraded, canceled, unpaid, or otherwise restricted, access to certain features, reports, exports, or workspaces may be reduced or removed. Changes in access level do not by themselves create an automatic right to a refund for previously billed periods.
+          </p>
+        </section>
+
+        <section id="processing" class="section">
+          <h2>7. Refund Processing</h2>
+          <p>
+            If LedgerHaul approves a refund, the refund will generally be processed back to the original payment method when reasonably possible. Processing times may vary depending on the payment provider, card network, bank, or financial institution involved.
+          </p>
+        </section>
+
+        <section id="contact" class="section">
+          <h2>8. Contact and Review Requests</h2>
+          <p>
+            Refund or billing review requests should be submitted with the company name, account email, date of charge, amount charged, and a clear explanation of the issue. LedgerHaul may request additional information reasonably needed to review the request.
+          </p>
+        </section>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </footer>
+  </main>
+</body>
 </html>
