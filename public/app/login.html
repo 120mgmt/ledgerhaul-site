@@ -3,13 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login | LedgerHaul</title>
+  <title>Sign In | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Sign in to LedgerHaul." />
   <meta name="ledgerhaul-api-base" content="" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="/assets/js/config.js"></script>
 
@@ -43,8 +40,8 @@
       --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
       --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
       --radius: 22px;
-      --max: 1240px;
-      --header-height: 88px;
+      --max: 1120px;
+      --header-height: 84px;
     }
 
     html { scroll-behavior: smooth; }
@@ -88,7 +85,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 16px 0;
+      padding: 14px 0;
       flex-wrap: wrap;
     }
 
@@ -99,8 +96,8 @@
     }
 
     .brand-mark {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
       border: 1px solid rgba(47, 182, 127, 0.18);
@@ -144,7 +141,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: 42px;
       padding: 10px 14px;
       border-radius: 12px;
       color: var(--muted);
@@ -198,21 +195,21 @@
     }
 
     .main {
-      padding: 28px 0 40px;
-    }
-
-    .hero-grid {
+      min-height: calc(100vh - var(--header-height));
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 20px;
-      align-items: stretch;
+      place-items: center;
+      padding: 36px 0 48px;
     }
 
-    .panel {
+    .signin-shell {
+      width: min(100%, 560px);
+    }
+
+    .signin-card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 30px;
       box-shadow: var(--shadow);
     }
 
@@ -232,74 +229,23 @@
       margin-bottom: 16px;
     }
 
-    h1, h2, h3, h4, p {
+    h1, h2, h3, p {
       margin-top: 0;
     }
 
     h1 {
-      margin-bottom: 14px;
-      font-size: 46px;
-      line-height: 1.04;
-      letter-spacing: -0.04em;
-      color: var(--text-strong);
-      max-width: 680px;
-    }
-
-    .lead {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.82;
-      max-width: 760px;
-      margin-bottom: 0;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .mini-card {
-      background: var(--panel-2);
-      border: 1px solid var(--border-2);
-      border-radius: 16px;
-      padding: 18px;
-    }
-
-    .mini-card h3 {
-      margin: 0 0 8px;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      color: var(--text-strong);
-    }
-
-    .mini-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.72;
-    }
-
-    .form-head h2 {
-      margin: 0 0 8px;
-      font-size: 32px;
+      margin-bottom: 10px;
+      font-size: 34px;
+      line-height: 1.08;
       letter-spacing: -0.03em;
       color: var(--text-strong);
     }
 
-    .form-head p {
-      margin: 0;
+    .lead {
       color: var(--muted);
       font-size: 15px;
       line-height: 1.8;
+      margin-bottom: 0;
     }
 
     .pill-row {
@@ -399,37 +345,30 @@
       margin-top: 20px;
     }
 
-    .helper-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .support-row {
+      display: flex;
+      justify-content: space-between;
       gap: 12px;
-      margin-top: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
     }
 
-    .helper-card {
-      background: var(--panel-2);
-      border: 1px solid var(--border-2);
-      border-radius: 16px;
-      padding: 16px;
+    .support-link {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .helper-card h4 {
-      margin: 0 0 8px;
-      font-size: 15px;
-      letter-spacing: -0.01em;
+    .support-link:hover {
       color: var(--text-strong);
     }
 
-    .helper-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.72;
-    }
-
     .footer {
-      margin-top: 34px;
-      padding: 24px 0 40px;
+      margin-top: 18px;
+      padding-top: 18px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -448,49 +387,30 @@
       color: var(--text-strong);
     }
 
-    @media (max-width: 1080px) {
-      .hero-grid,
-      .mini-grid,
-      .helper-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 38px;
-      }
-    }
-
     @media (max-width: 680px) {
       .wrap {
         width: min(100% - 24px, var(--max));
       }
 
-      .topbar {
-        padding: 14px 0;
-      }
-
-      .panel,
-      .mini-card,
-      .helper-card {
-        padding: 18px;
+      .signin-card {
+        padding: 20px;
       }
 
       h1 {
-        font-size: 30px;
-      }
-
-      .form-head h2 {
         font-size: 28px;
       }
 
       .nav-actions,
-      .hero-actions,
       .actions {
         width: 100%;
       }
 
       .btn {
         width: 100%;
+      }
+
+      .support-row {
+        align-items: stretch;
       }
     }
   </style>
@@ -504,7 +424,7 @@
           <div class="brand-mark">LH</div>
           <div class="brand-copy">
             <div class="logo">LedgerHaul</div>
-            <div class="subbrand">Sign in and continue onboarding</div>
+            <div class="subbrand">Secure account access</div>
           </div>
         </div>
 
@@ -518,49 +438,11 @@
   </div>
 
   <main class="wrap main">
-    <section class="hero-grid">
-      <section class="panel">
+    <div class="signin-shell">
+      <section class="signin-card">
         <div class="eyebrow">Account access</div>
-        <h1>Sign in and move directly into the next required operational step.</h1>
-        <p class="lead">
-          Login should not drop a new customer into empty register views. It should restore the authenticated company context, confirm access state, and route the user into the correct next step based on what has already been set up.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/pricing.html">View pricing</a>
-          <a class="btn btn-secondary" href="/app/signup.html">Create account</a>
-        </div>
-
-        <div class="mini-grid">
-          <article class="mini-card">
-            <h3>Company-aware sign-in</h3>
-            <p>The login flow should restore tenant context, administrator identity, and package access state before routing the customer forward.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>No broken redirect logic</h3>
-            <p>Post-login routing should not depend on a missing dashboard-only page or send users to an incorrect public root.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>Onboarding-aware routing</h3>
-            <p>New customers without records should land on the main app index so they can begin contractors, payments, and bookkeeping in order.</p>
-          </article>
-
-          <article class="mini-card">
-            <h3>Billing-aware access</h3>
-            <p>If access is restricted by subscription state, the user should be routed to pricing instead of receiving confusing empty screens.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="form-head">
-          <h2>Sign in</h2>
-          <p>
-            Enter your account credentials to restore your LedgerHaul company session.
-          </p>
-        </div>
+        <h1>Sign in</h1>
+        <p class="lead">Enter your email and password to access your LedgerHaul account.</p>
 
         <div class="pill-row">
           <div id="apiPill" class="pill">API status unknown</div>
@@ -587,7 +469,7 @@
                 <option value="">Select company if prompted</option>
               </select>
               <div id="companyHelp" class="field-help">
-                Company selection will only be needed if your email is connected to more than one company context.
+                Company selection is only needed if your email is connected to more than one company.
               </div>
             </div>
           </div>
@@ -598,28 +480,21 @@
           </div>
         </form>
 
-        <div class="helper-grid">
-          <div class="helper-card">
-            <h4>After sign-in</h4>
-            <p>The customer should be routed into the protected app start state at <code>/app/index.html</code> or to pricing if access is restricted.</p>
-          </div>
+        <div class="support-row">
+          <a class="support-link" href="/app/signup.html">Create account</a>
+          <a class="support-link" href="/pricing.html">View pricing</a>
+        </div>
 
-          <div class="helper-card">
-            <h4>New customer experience</h4>
-            <p>Customers with no contractor, payment, or bookkeeping records should still land in the correct protected onboarding state.</p>
+        <div class="footer">
+          <div>© 2026 LedgerHaul. All rights reserved.</div>
+          <div>
+            <a href="/legal/terms.html">Terms</a>
+            <a href="/legal/privacy.html">Privacy</a>
+            <a href="/legal/refund.html">Refund</a>
           </div>
         </div>
       </section>
-    </section>
-
-    <footer class="footer">
-      <div>© 2026 LedgerHaul. All rights reserved.</div>
-      <div>
-        <a href="/legal/terms.html">Terms</a>
-        <a href="/legal/privacy.html">Privacy</a>
-        <a href="/legal/refund.html">Refund</a>
-      </div>
-    </footer>
+    </div>
   </main>
 
   <script>
@@ -730,7 +605,7 @@
       companySelector.disabled = !needsSelection;
       companyHelp.textContent = needsSelection
         ? "Select the correct company context to complete sign-in."
-        : "Company selection will only be needed if your email is connected to more than one company context.";
+        : "Company selection is only needed if your email is connected to more than one company.";
     }
 
     function getCompanyIdFromStorage() {
