@@ -1,274 +1,623 @@
-<!-- File: public/product.html (FULL FILE REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>LedgerHaul | Product</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LedgerHaul unifies payroll, contractor settlements, bookkeeping, compliance, and cost-per-mile intelligence for trucking and logistics operators." />
+  <title>Product | LedgerHaul</title>
   <meta name="robots" content="index,follow" />
+  <meta name="description" content="LedgerHaul contractor payments, bookkeeping, and financial operations platform." />
+  <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
 
   <style>
     * { box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0f14;
+      --panel: #121a24;
+      --panel-2: #0e141d;
+      --border: #223044;
+      --border-2: #1c2738;
+      --text: #e9eef5;
+      --muted: #aebfd4;
+      --muted-2: #8ea4bf;
+      --accent: #38d39f;
+      --accent-2: #28c88f;
+      --accent-text: #08140f;
+      --danger: #ffb8c4;
+      --danger-bg: #2a1016;
+      --danger-border: #5c2430;
+      --ok: #9ff2c9;
+      --ok-bg: #10281f;
+      --ok-border: #21533f;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #0b0f14;
-      color: #e9eef5;
+      background:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.10), transparent 28%),
+        linear-gradient(180deg, #0b0f14 0%, #0d131b 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .container {
-      max-width: 1200px;
+      width: min(1360px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 56px 24px;
     }
 
-    header {
+    .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 64px;
-      flex-wrap: wrap;
       gap: 16px;
+      padding: 22px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #38d39f;
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.3px;
     }
 
-    nav {
+    .subbrand {
+      font-size: 13px;
+      color: var(--muted-2);
+    }
+
+    .nav-actions {
       display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    nav a {
-      font-size: 14px;
-      color: #c9d6ea;
-      padding: 10px 12px;
-      border-radius: 10px;
-    }
-
-    nav a:hover { color: #ffffff; }
-
-    .nav-cta {
-      border: 1px solid #2a3a52;
-      background: rgba(18,26,36,.35);
-    }
-
-    .nav-primary {
-      background: #38d39f;
-      color: #08140f !important;
-      font-weight: 700;
-    }
-
-    h1 {
-      font-size: 44px;
-      margin-bottom: 18px;
-    }
-
-    .subhead {
-      max-width: 760px;
-      font-size: 17px;
-      line-height: 1.7;
-      color: #b8c6d9;
-      margin-bottom: 60px;
-    }
-
-    section { margin-bottom: 80px; }
-
-    h2 {
-      font-size: 24px;
-      margin-bottom: 16px;
-      color: #38d39f;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      border: 1px solid #223044;
-      border-radius: 16px;
-      padding: 24px;
-      background: #121a24;
-    }
-
-    .card h3 {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #e9eef5;
-    }
-
-    .card p {
-      font-size: 14px;
-      line-height: 1.65;
-      color: #b8c6d9;
-      margin: 0;
-    }
-
-    .cta {
-      margin-top: 40px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 14px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
       border-radius: 12px;
+      border: 1px solid #243246;
+      background: #121a24;
+      color: #d7e3f4;
       font-size: 14px;
       font-weight: 700;
-      margin-right: 14px;
+      cursor: pointer;
+      transition: transform .15s ease, filter .15s ease, border-color .15s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
     }
 
     .btn-primary {
-      background: #38d39f;
-      color: #08140f;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
     }
 
-    .btn-ghost {
-      border: 1px solid #2a3a52;
-      background: rgba(18,26,36,.35);
-      color: #c9d6ea;
+    .btn-secondary {
+      background: #0f1720;
     }
 
-    footer {
-      border-top: 1px solid #223044;
-      padding: 36px 0;
-      font-size: 13px;
-      color: #9bb0c9;
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      padding: 20px 0 10px;
+    }
+
+    .panel {
+      background: rgba(18, 26, 36, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #224738;
+      background: #10281f;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3, h4, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+      font-size: 48px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .hero-actions {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .hero-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .hero-card h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .status-stack {
+      display: grid;
       gap: 12px;
     }
 
-    footer a {
-      margin-left: 18px;
-      color: #9bb0c9;
+    .status-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 18px;
     }
 
-    footer a:hover { color: #ffffff; }
+    .status-card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
 
-    @media (max-width: 700px) {
-      h1 { font-size: 34px; }
+    .status-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #2a3a52;
+      background: #0f1720;
+      color: #c9d6ea;
+    }
+
+    .pill.ok {
+      border-color: var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .pill.error {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .message.ok { color: var(--ok); }
+    .message.error { color: var(--danger); }
+
+    .section {
+      padding-top: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      margin-bottom: 8px;
+      font-size: 34px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      max-width: 760px;
+    }
+
+    .feature-grid,
+    .control-grid,
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .control-card,
+    .workflow-card {
+      background: rgba(18, 26, 36, 0.98);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card h3,
+    .control-card h3,
+    .workflow-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p,
+    .control-card p,
+    .workflow-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .workflow-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: #10281f;
+      border: 1px solid #21533f;
+      color: var(--ok);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .cta-panel {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-panel .copy {
+      max-width: 760px;
+    }
+
+    .cta-panel .copy h2 {
+      margin-bottom: 10px;
+      font-size: 34px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-panel .copy p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .footer a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 1120px) {
+      .hero,
+      .feature-grid,
+      .control-grid,
+      .workflow-grid,
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 24px, 1360px);
+      }
+
+      .panel,
+      .feature-card,
+      .control-card,
+      .workflow-card {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+
+      .section-header h2,
+      .cta-panel .copy h2 {
+        font-size: 28px;
+      }
+
+      .nav-actions,
+      .hero-actions,
+      .cta-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="logo">LedgerHaul</div>
+        <div class="subbrand">Contractor payments, bookkeeping, and financial operations</div>
+      </div>
 
-    <header>
-      <div class="logo"><a href="/index.html">LedgerHaul</a></div>
-      <nav>
-        <a href="/product.html">Product</a>
-        <a href="/pricing.html">Pricing</a>
-        <a class="nav-cta" href="/app/login.html">Log in</a>
-        <a class="nav-primary" href="/app/signup.html">Create account</a>
-        <a href="/legal/terms.html">Legal</a>
-      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="/pricing.html">Pricing</a>
+        <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+        <a class="btn btn-primary" href="/app/register.html">Create account</a>
+      </div>
     </header>
 
-    <section>
-      <h1>Trucking finance, unified.</h1>
-      <p class="subhead">
-        LedgerHaul replaces scattered spreadsheets and disconnected tools with one system for
-        driver pay, contractor settlements, bookkeeping, compliance, and cost-per-mile visibility.
-        Built for owner-operators, fleets, dispatch-heavy operations, and logistics teams that run on tight margins.
-      </p>
-
-      <div class="cta">
-        <a class="btn btn-primary" href="/app/signup.html">Create account</a>
-        <a class="btn btn-ghost" href="/pricing.html">View pricing</a>
-      </div>
-    </section>
-
-    <section>
-      <h2>Driver Pay & Contractor Settlements</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Trucking Pay Models</h3>
-          <p>
-            Configure CPM, percentage, hourly, salary, flat rate, and hybrid pay with accessorials
-            (detention, layover, stops), deductions (insurance, escrow), and clean pay statements.
-          </p>
+    <section class="hero">
+      <div class="panel">
+        <div class="eyebrow">Financial operations platform</div>
+        <h1>One controlled workspace for contractor payments, bookkeeping, and operational reporting.</h1>
+        <div class="hero-copy">
+          LedgerHaul is designed to centralize contractor records, contractor payment activity, bookkeeping transactions, and reporting workflows inside a subscription-controlled operating environment.
         </div>
-        <div class="card">
-          <h3>Provider-Agnostic Payroll Architecture</h3>
-          <p>
-            Integrations are abstracted behind adapters so your workflow stays stable while providers can be added or swapped
-            without rewriting your core system.
-          </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+          <a class="btn btn-secondary" href="/pricing.html">View pricing</a>
         </div>
-        <div class="card">
-          <h3>Audit-Ready Payroll Runs</h3>
-          <p>
-            Structured payroll runs with immutable results for dispute-proof reporting, reconciliation, and compliance evidence.
-            Built for operational accuracy—not guesswork.
-          </p>
+
+        <div class="hero-grid">
+          <div class="hero-card">
+            <h3>Contractor operations</h3>
+            <p>Maintain contractor profiles, tax classification, contact information, and W-9 status used throughout downstream payment and reporting workflows.</p>
+          </div>
+          <div class="hero-card">
+            <h3>Payment control</h3>
+            <p>Record contractor pay, deductions, reimbursements, and settlement-level activity with a controlled operational register.</p>
+          </div>
+          <div class="hero-card">
+            <h3>Bookkeeping activity</h3>
+            <p>Capture account-coded transactions for fuel, maintenance, tolls, insurance, administrative expense, and income activity.</p>
+          </div>
+          <div class="hero-card">
+            <h3>Controlled reporting</h3>
+            <p>Surface reporting and export access only when package entitlements and active subscription requirements are satisfied.</p>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section>
-      <h2>Bookkeeping Built for Fleets</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Chart of Accounts for Trucking</h3>
-          <p>
-            Track revenue and true costs across fuel, maintenance, tolls, permits, insurance, factoring, repairs,
-            driver pay, and reserves—organized for real fleet reporting.
-          </p>
+      <div class="panel">
+        <h2>Platform status</h2>
+        <div class="status-copy">
+          Customer access should remain aligned to active billing state, assigned package controls, and authenticated company context.
         </div>
-        <div class="card">
-          <h3>Reconciliation That Matches Real Cash Flow</h3>
-          <p>
-            Reconcile deposits and expenses against operational reality—settlements, fuel cards, repairs, and recurring costs—
-            to eliminate month-end chaos.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Receipts & Expense Discipline</h3>
-          <p>
-            Capture and categorize receipts for fuel, maintenance, supplies, and travel so you can defend expenses, stay organized,
-            and make faster decisions.
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <section>
-      <h2>Compliance, Controls, and Trust</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Legal Acceptance & Audit Trails</h3>
-          <p>
-            Enforced legal acceptance tracking and immutable audit trails across payroll, billing, and account activity—designed for
-            real compliance needs and operational accountability.
-          </p>
+        <div class="pill-row">
+          <div id="apiPill" class="pill">API status unknown</div>
+          <div id="statusPill" class="pill">Access status unknown</div>
         </div>
-        <div class="card">
-          <h3>Secure Access by Design</h3>
-          <p>
-            JWT authentication, hardened APIs, and role-based controls to keep sensitive payroll and financial data protected while teams collaborate.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Production-Grade Deployment</h3>
-          <p>
-            Cloud-ready reliability with environment isolation and operational durability—built for live customer usage, not demo environments.
-          </p>
+
+        <div id="message" class="message"></div>
+
+        <div class="status-stack">
+          <div class="status-card">
+            <h3>Company context</h3>
+            <p id="companyValue" class="status-copy">Not signed in</p>
+          </div>
+
+          <div class="status-card">
+            <h3>Assigned package</h3>
+            <p id="packageValue" class="status-copy">Not assigned</p>
+          </div>
+
+          <div class="status-card">
+            <h3>Operational access</h3>
+            <p id="accessValue" class="status-copy">Restricted</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <footer>
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Core workspaces</h2>
+          <p>Operational workflows should begin with record creation, continue through payment and bookkeeping activity, and end with reporting and export actions based on real customer data.</p>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Contractor records workspace</h3>
+          <p>Create and maintain contractor records, tax classification details, W-9 status, and contact data before payment activity begins.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Contractor payments workspace</h3>
+          <p>Manage contractor payment history, deductions, reimbursements, reference numbers, and settlement dates used for operational history and 1099 support.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Bookkeeping workspace</h3>
+          <p>Enter, classify, review, and manage bookkeeping transactions tied to account codes, transaction types, vendors, and general ledger activity.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Expected workflow sequence</h2>
+          <p>The product flow should move customers through a disciplined operational path instead of placing blank reporting screens at the front of the experience.</p>
+        </div>
+      </div>
+
+      <div class="workflow-grid">
+        <article class="workflow-card">
+          <div class="workflow-number">1</div>
+          <h3>Create contractor records</h3>
+          <p>Establish contractor master data, tax status, and W-9 readiness before any compensation activity is entered.</p>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">2</div>
+          <h3>Record payments and bookkeeping</h3>
+          <p>Enter contractor payment events and bookkeeping transactions as the operational source data used by downstream reporting.</p>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">3</div>
+          <h3>Review reports and exports</h3>
+          <p>Use 1099 summary, contractor exports, and ledger reporting only after underlying operational records have been captured and reviewed.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Control requirements</h2>
+          <p>Revenue protection and platform integrity depend on billing enforcement, tenant isolation, feature entitlement controls, and authenticated access gates across all application pages and endpoints.</p>
+        </div>
+      </div>
+
+      <div class="control-grid">
+        <article class="control-card">
+          <h3>Subscription enforcement</h3>
+          <p>Workspace and report access should be revoked automatically for canceled, unpaid, expired, or downgraded accounts.</p>
+        </article>
+
+        <article class="control-card">
+          <h3>Feature entitlements</h3>
+          <p>Customers should only access contractors, payments, bookkeeping, and reporting tools that are included in the assigned package.</p>
+        </article>
+
+        <article class="control-card">
+          <h3>Tenant-scoped access</h3>
+          <p>All operations should remain locked to authenticated company context so customers only see and manage their own records and exports.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel cta-panel">
+        <div class="copy">
+          <h2>Start with controlled account setup.</h2>
+          <p>Create the company administrator account, complete legal acceptance, select the appropriate package, and move into operational workflows with controlled platform access.</p>
+        </div>
+
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="/app/register.html">Create account</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
       <div>© 2026 LedgerHaul. All rights reserved.</div>
       <div>
         <a href="/legal/terms.html">Terms</a>
@@ -276,7 +625,203 @@
         <a href="/legal/refund.html">Refund</a>
       </div>
     </footer>
-
   </div>
+
+  <script>
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
+
+    const apiPill = document.getElementById("apiPill");
+    const statusPill = document.getElementById("statusPill");
+    const messageEl = document.getElementById("message");
+    const companyValue = document.getElementById("companyValue");
+    const packageValue = document.getElementById("packageValue");
+    const accessValue = document.getElementById("accessValue");
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "pill" + (type ? ` ${type}` : "");
+    }
+
+    function setMessage(text, type) {
+      messageEl.textContent = text || "";
+      messageEl.className = "message" + (type ? ` ${type}` : "");
+    }
+
+    function safeJsonParse(text) {
+      try { return JSON.parse(text); } catch (_) { return null; }
+    }
+
+    function getStorageItem(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+    }
+
+    function readStoredJson(key) {
+      const raw = getStorageItem(key);
+      try {
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function getAccessToken() {
+      return getStorageItem("lh_access_token");
+    }
+
+    function getCompanyId() {
+      const company = readStoredJson("lh_company");
+      if (company && company.id !== undefined && company.id !== null) {
+        return String(company.id);
+      }
+      if (company && company.company_id !== undefined && company.company_id !== null) {
+        return String(company.company_id);
+      }
+      return "";
+    }
+
+    function buildHeaders(extra) {
+      const headers = Object.assign({ Accept: "application/json" }, extra || {});
+      const token = getAccessToken();
+      const companyId = getCompanyId();
+
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      if (companyId) {
+        headers["X-Company-Id"] = companyId;
+      }
+
+      return headers;
+    }
+
+    function normalizePlanName(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "Not assigned";
+      return raw
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ")
+        .split(" ")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ");
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+
+        if (!res.ok) {
+          setPill(apiPill, "API limited", "error");
+          return;
+        }
+
+        setPill(apiPill, "API online", "ok");
+      } catch (_) {
+        setPill(apiPill, "API unavailable", "error");
+      }
+    }
+
+    async function fetchAccessState() {
+      const candidates = [
+        "/billing/access",
+        "/billing/subscription/access",
+        "/billing/entitlements",
+        "/billing/subscription/status",
+        "/api/billing/access"
+      ];
+
+      let endpointFound = false;
+
+      for (const path of candidates) {
+        try {
+          const res = await fetch(`${API_BASE}${path}`, {
+            method: "GET",
+            headers: buildHeaders(),
+            cache: "no-store"
+          });
+
+          const raw = await res.text();
+          const json = safeJsonParse(raw) || {};
+
+          if (res.status === 404) {
+            continue;
+          }
+
+          endpointFound = true;
+
+          if (res.status === 401) {
+            updateAccessView(null, "Authentication required.");
+            return;
+          }
+
+          if (!res.ok) {
+            updateAccessView({
+              active: false,
+              plan: "",
+              status: json.status || "",
+              raw: json
+            }, String(json.error || json.message || json.detail || "Subscription status unavailable."));
+            return;
+          }
+
+          updateAccessView({
+            active: Boolean(
+              json.active === true ||
+              json.subscription_active === true ||
+              String(json.status || "").toLowerCase() === "active" ||
+              String(json.status || "").toLowerCase() === "trialing"
+            ),
+            plan: String(json.plan || json.plan_name || json.package || "").trim(),
+            status: String(json.status || "").trim(),
+            raw: json
+          }, "");
+
+          return;
+        } catch (_) {
+          continue;
+        }
+      }
+
+      if (!endpointFound) {
+        updateAccessView(null, "Billing access endpoint is not yet connected.");
+      }
+    }
+
+    function updateAccessView(state, message) {
+      const company = readStoredJson("lh_company");
+      companyValue.textContent = company && company.name ? company.name : "Not signed in";
+
+      if (!state) {
+        packageValue.textContent = "Not assigned";
+        accessValue.textContent = "Restricted";
+        setPill(statusPill, "Access status unavailable", "error");
+        if (message) setMessage(message, "error");
+        return;
+      }
+
+      packageValue.textContent = normalizePlanName(state.plan);
+      accessValue.textContent = state.active ? "Active" : "Restricted";
+
+      if (state.active) {
+        setPill(statusPill, "Access active", "ok");
+        setMessage(message || "Active package access confirmed.", "ok");
+      } else {
+        setPill(statusPill, "Access restricted", "error");
+        setMessage(message || "Active subscription is required to access LedgerHaul workspaces.", "error");
+      }
+    }
+
+    checkHealth();
+    fetchAccessState();
+  </script>
 </body>
 </html>
