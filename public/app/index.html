@@ -22,7 +22,7 @@
     a { color: inherit; text-decoration: none; }
 
     .container {
-      max-width: 1240px;
+      max-width: 1360px;
       margin: 0 auto;
       padding: 28px 20px 48px;
     }
@@ -97,7 +97,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
+      grid-template-columns: 1.35fr 1fr;
       gap: 18px;
       margin-bottom: 18px;
     }
@@ -156,54 +156,6 @@
       word-break: break-word;
     }
 
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .field label {
-      display: block;
-      font-size: 13px;
-      color: #b8c6d9;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .field input,
-    .field select {
-      width: 100%;
-      min-height: 44px;
-      border-radius: 12px;
-      border: 1px solid #2a3a52;
-      background: #0c1219;
-      color: #e9eef5;
-      padding: 10px 12px;
-      font-size: 14px;
-    }
-
-    .field-help {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #8ea4bf;
-      line-height: 1.5;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .tool-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
     .status-row {
       display: flex;
       align-items: center;
@@ -253,6 +205,111 @@
     .message.ok { color: #9ff2c9; }
     .message.warn { color: #f6d58c; }
 
+    .package-banner {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #2a3a52;
+      background: #0f1720;
+      color: #d7e3f4;
+      line-height: 1.55;
+    }
+
+    .package-banner.show {
+      display: block;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .quick-card {
+      display: block;
+      background: #0e141d;
+      border: 1px solid #1c2738;
+      border-radius: 16px;
+      padding: 18px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-2px);
+      border-color: #2a3a52;
+      background: #111a24;
+    }
+
+    .quick-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .quick-copy {
+      color: #aebfd4;
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .quick-link {
+      color: #38d39f;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .tool-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      color: #b8c6d9;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid #2a3a52;
+      background: #0c1219;
+      color: #e9eef5;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .field-help {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #8ea4bf;
+      line-height: 1.5;
+    }
+
     .preview {
       width: 100%;
       min-height: 420px;
@@ -279,24 +336,9 @@
       margin: 0 0 10px;
     }
 
-    .package-banner {
-      display: none;
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid #2a3a52;
-      background: #0f1720;
-      color: #d7e3f4;
-      line-height: 1.55;
-    }
-
-    .package-banner.show {
-      display: block;
-    }
-
     .package-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
       margin-top: 18px;
     }
@@ -344,10 +386,16 @@
 
     .footer a:hover { color: #ffffff; }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1080px) {
       .hero,
-      .grid-2 {
+      .grid-2,
+      .quick-grid,
+      .package-grid {
         grid-template-columns: 1fr;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
@@ -372,6 +420,11 @@
       .btn {
         width: 100%;
       }
+
+      .field-grid,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -382,13 +435,14 @@
       <div class="brand">
         <div>
           <div class="logo">LedgerHaul</div>
-          <div class="subbrand">Payroll + bookkeeping operations dashboard</div>
+          <div class="subbrand">1099 + bookkeeping operations dashboard</div>
         </div>
       </div>
 
       <div class="top-actions">
-        <a class="btn" href="/pricing.html">Pricing</a>
-        <a class="btn" href="/product.html">Product</a>
+        <a class="btn" href="/app/contractors.html">Contractors</a>
+        <a class="btn" href="/app/payments.html">Payments</a>
+        <a class="btn" href="/app/bookkeeping.html">Bookkeeping</a>
         <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
       </div>
     </div>
@@ -397,7 +451,7 @@
       <section class="panel">
         <h1>Financial operations dashboard</h1>
         <div class="muted">
-          Use this dashboard to review 1099 reports, bookkeeping records, and downloadable financial reports.
+          Start with contractor setup, payment entry, and bookkeeping transactions. Use reports after data has been entered and reviewed.
         </div>
 
         <div id="packageBanner" class="package-banner"></div>
@@ -430,9 +484,41 @@
       </section>
 
       <section class="panel">
-        <h2 class="section-title">Filters</h2>
+        <h2 class="section-title">Start here</h2>
+        <div class="muted">
+          Use these workspaces in order so your 1099 reports and bookkeeping exports are built from real customer data instead of blank report screens.
+        </div>
 
-        <div class="controls">
+        <div class="quick-grid">
+          <a id="cardContractors" class="quick-card" href="/app/contractors.html">
+            <div class="quick-title">Contractors</div>
+            <div class="quick-copy">Add contractor profiles, contact details, tax classification, and W-9 readiness.</div>
+            <div class="quick-link">Open contractors</div>
+          </a>
+
+          <a id="cardPayments" class="quick-card" href="/app/payments.html">
+            <div class="quick-title">Payments</div>
+            <div class="quick-copy">Record contractor payments, deductions, reimbursements, and payment dates.</div>
+            <div class="quick-link">Open payments</div>
+          </a>
+
+          <a id="cardBookkeeping" class="quick-card" href="/app/bookkeeping.html">
+            <div class="quick-title">Bookkeeping</div>
+            <div class="quick-copy">Enter bookkeeping transactions for fuel, maintenance, tolls, insurance, admin, and income.</div>
+            <div class="quick-link">Open bookkeeping</div>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid-2">
+      <section id="section1099" class="panel" data-feature="1099">
+        <h3 class="section-title">1099 reports</h3>
+        <div class="muted">
+          Review your 1099 summary or download a 1099 report after contractor records and contractor payments have been entered.
+        </div>
+
+        <div class="field-grid">
           <div class="field">
             <label for="yearInput">1099 year</label>
             <input id="yearInput" type="number" min="2000" max="2100" />
@@ -442,7 +528,23 @@
             <label for="companyIdInput">Company ID</label>
             <input id="companyIdInput" type="number" min="0" step="1" />
           </div>
+        </div>
 
+        <div class="tool-actions">
+          <button id="load1099Btn" class="btn btn-primary" type="button">View 1099 summary</button>
+          <button id="download1099Btn" class="btn" type="button">Download 1099 report</button>
+        </div>
+
+        <div id="message1099" class="message"></div>
+      </section>
+
+      <section id="sectionBookkeeping" class="panel" data-feature="bookkeeping">
+        <h3 class="section-title">Bookkeeping reports</h3>
+        <div class="muted">
+          Review your general ledger data or download a general ledger report after bookkeeping transactions have been entered.
+        </div>
+
+        <div class="field-grid">
           <div class="field">
             <label for="startDateInput">Report start date</label>
             <input id="startDateInput" type="date" />
@@ -464,33 +566,6 @@
           </div>
         </div>
 
-        <div class="field-help">
-          Available tools on this screen are shown based on the customer package assigned to the signed-in account.
-        </div>
-      </section>
-    </div>
-
-    <div class="grid-2">
-      <section id="section1099" class="panel" data-feature="1099">
-        <h3 class="section-title">1099 reports</h3>
-        <div class="muted">
-          Review your 1099 summary or download a 1099 report using your signed-in account.
-        </div>
-
-        <div class="tool-actions">
-          <button id="load1099Btn" class="btn btn-primary" type="button">View 1099 summary</button>
-          <button id="download1099Btn" class="btn" type="button">Download 1099 report</button>
-        </div>
-
-        <div id="message1099" class="message"></div>
-      </section>
-
-      <section id="sectionBookkeeping" class="panel" data-feature="bookkeeping">
-        <h3 class="section-title">Bookkeeping reports</h3>
-        <div class="muted">
-          Review your general ledger data or download a general ledger report.
-        </div>
-
         <div class="tool-actions">
           <button id="loadLedgerBtn" class="btn btn-primary" type="button">View general ledger</button>
           <button id="downloadLedgerBtn" class="btn" type="button">Download general ledger report</button>
@@ -503,24 +578,24 @@
     <section class="panel" style="margin-top:18px;">
       <h3 class="section-title">Package access</h3>
       <div class="package-grid">
-        <div id="cardPayroll" class="package-card">
-          <h4>Payroll access</h4>
-          <p>Payroll-related reports and compensation tools are shown only when enabled for the customer package.</p>
-        </div>
-        <div id="cardBookkeeping" class="package-card">
-          <h4>Bookkeeping access</h4>
-          <p>General ledger and bookkeeping exports are shown only when enabled for the customer package.</p>
-        </div>
-        <div id="card1099" class="package-card">
+        <div id="packageCard1099" class="package-card">
           <h4>1099 access</h4>
-          <p>1099 reports and exports are shown only when enabled for the customer package.</p>
+          <p>1099 summary and export tools are shown only when enabled for the customer package.</p>
+        </div>
+        <div id="packageCardBookkeeping" class="package-card">
+          <h4>Bookkeeping access</h4>
+          <p>Bookkeeping transaction and general ledger tools are shown only when enabled for the customer package.</p>
+        </div>
+        <div id="packageCardPayroll" class="package-card">
+          <h4>Payroll access</h4>
+          <p>Payroll tools remain hidden unless payroll is enabled for the customer package.</p>
         </div>
       </div>
     </section>
 
     <section class="panel" style="margin-top:18px;">
       <h3 class="section-title">Report preview</h3>
-      <div id="preview" class="preview empty">No data loaded yet.</div>
+      <div id="preview" class="preview empty">No report loaded yet.</div>
     </section>
 
     <div class="footer">
@@ -630,16 +705,24 @@
     let accessToken = getAccessToken();
 
     const previewEl = document.getElementById("preview");
-    const globalMessageEl = document.getElementById("globalMessage");
     const packageBannerEl = document.getElementById("packageBanner");
-    const message1099El = document.getElementById("message1099");
-    const messageLedgerEl = document.getElementById("messageLedger");
+    const globalMessageEl = document.getElementById("globalMessage");
     const companyIdValueEl = document.getElementById("companyIdValue");
     const userValueEl = document.getElementById("userValue");
     const authValueEl = document.getElementById("authValue");
     const packageValueEl = document.getElementById("packageValue");
     const systemStatusPillEl = document.getElementById("systemStatusPill");
     const signInPillEl = document.getElementById("signInPill");
+
+    const packageCard1099El = document.getElementById("packageCard1099");
+    const packageCardBookkeepingEl = document.getElementById("packageCardBookkeeping");
+    const packageCardPayrollEl = document.getElementById("packageCardPayroll");
+
+    const cardPaymentsEl = document.getElementById("cardPayments");
+    const cardBookkeepingEl = document.getElementById("cardBookkeeping");
+
+    const section1099El = document.getElementById("section1099");
+    const sectionBookkeepingEl = document.getElementById("sectionBookkeeping");
 
     const yearInput = document.getElementById("yearInput");
     const companyIdInput = document.getElementById("companyIdInput");
@@ -654,11 +737,8 @@
     const downloadLedgerBtn = document.getElementById("downloadLedgerBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
-    const section1099El = document.getElementById("section1099");
-    const sectionBookkeepingEl = document.getElementById("sectionBookkeeping");
-    const cardPayrollEl = document.getElementById("cardPayroll");
-    const cardBookkeepingEl = document.getElementById("cardBookkeeping");
-    const card1099El = document.getElementById("card1099");
+    const message1099El = document.getElementById("message1099");
+    const messageLedgerEl = document.getElementById("messageLedger");
 
     function setPreview(value) {
       if (typeof value === "string") {
@@ -786,17 +866,24 @@
       loadLedgerBtn.disabled = !canUseBookkeeping;
       downloadLedgerBtn.disabled = !canUseBookkeeping;
 
-      card1099El.classList.toggle("hidden-by-plan", !canUse1099);
-      cardBookkeepingEl.classList.toggle("hidden-by-plan", !canUseBookkeeping);
-      cardPayrollEl.classList.toggle("hidden-by-plan", !canUsePayroll);
+      if (cardPaymentsEl) {
+        cardPaymentsEl.style.display = canUse1099 ? "" : "none";
+      }
+      if (cardBookkeepingEl) {
+        cardBookkeepingEl.style.display = canUseBookkeeping ? "" : "none";
+      }
+
+      packageCard1099El.classList.toggle("hidden-by-plan", !canUse1099);
+      packageCardBookkeepingEl.classList.toggle("hidden-by-plan", !canUseBookkeeping);
+      packageCardPayrollEl.classList.toggle("hidden-by-plan", !canUsePayroll);
 
       const visibleAreas = [];
-      if (canUseBookkeeping) visibleAreas.push("bookkeeping reports");
-      if (canUse1099) visibleAreas.push("1099 reports");
-      if (canUsePayroll) visibleAreas.push("payroll tools");
+      if (canUseBookkeeping) visibleAreas.push("bookkeeping");
+      if (canUse1099) visibleAreas.push("1099");
+      if (canUsePayroll) visibleAreas.push("payroll");
 
-      const summary = visibleAreas.length ? visibleAreas.join(", ") : "no dashboard tools";
-      packageBannerEl.innerHTML = `<strong>Package access:</strong> This customer can currently use ${summary}.`;
+      const summary = visibleAreas.length ? visibleAreas.join(", ") : "no tools";
+      packageBannerEl.innerHTML = `<strong>Package access:</strong> This customer can currently use ${summary} tools.`;
       packageBannerEl.classList.add("show");
     }
 
