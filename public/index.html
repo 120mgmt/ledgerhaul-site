@@ -4,158 +4,397 @@
   <meta charset="utf-8" />
   <title>LedgerHaul | Trucking Payroll, Bookkeeping & Cost-Per-Mile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LedgerHaul is a trucking-first platform for payroll, contractor pay, bookkeeping, compliance, and cost-per-mile performance." />
+  <meta
+    name="description"
+    content="LedgerHaul is a trucking-first platform for payroll, contractor pay, bookkeeping, compliance, and cost-per-mile performance."
+  />
 
   <style>
     * { box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0f14;
+      --panel: #121a24;
+      --panel-2: #0f1620;
+      --panel-3: #162232;
+      --border: #223044;
+      --border-2: #2a3a52;
+      --text: #e9eef5;
+      --text-strong: #ffffff;
+      --muted: #b8c6d9;
+      --muted-2: #9bb0c9;
+      --accent: #38d39f;
+      --accent-2: #22b882;
+      --accent-text: #08140f;
+      --shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+      --radius: 18px;
+      --max: 1200px;
+      --header-height: 84px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #0b0f14;
-      color: #e9eef5;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #0b0f14 0%, #0a1118 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+
     a { color: inherit; text-decoration: none; }
 
     .container {
-      max-width: 1200px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 56px 24px;
+      padding: 0 24px;
+    }
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 15, 20, 0.84);
+      border-bottom: 1px solid rgba(34, 48, 68, 0.90);
     }
 
     header {
+      min-height: var(--header-height);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 96px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(56, 211, 159, 0.18);
+      background: rgba(56, 211, 159, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .logo-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
     }
 
     .logo {
       font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      color: #38d39f;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      color: var(--muted-2);
+      line-height: 1.2;
+      font-weight: 600;
     }
 
     nav {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 18px;
+      gap: 10px;
     }
 
-    nav a {
+    .nav-link,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
       font-size: 14px;
-      color: #c9d6ea;
-      padding: 10px 12px;
-      border-radius: 10px;
-    }
-
-    nav a:hover { color: #ffffff; }
-
-    .nav-cta {
-      border: 1px solid #2a3a52;
-      background: rgba(18,26,36,.35);
-    }
-
-    .nav-primary {
-      background: #38d39f;
-      color: #08140f !important;
       font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+      transition:
+        transform .15s ease,
+        border-color .15s ease,
+        background .15s ease,
+        color .15s ease,
+        box-shadow .15s ease,
+        filter .15s ease;
+    }
+
+    .nav-link {
+      color: #c9d6ea;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(18, 26, 36, 0.50);
+      border-color: rgba(42, 58, 82, 0.90);
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-cta,
+    .btn-secondary,
+    .btn-ghost {
+      border: 1px solid var(--border-2);
+      color: #c9d6ea;
+      background: rgba(18, 26, 36, 0.35);
+    }
+
+    .nav-cta:hover,
+    .btn-secondary:hover,
+    .btn-ghost:hover {
+      background: rgba(18, 26, 36, 0.55);
+      border-color: #334863;
+    }
+
+    .nav-primary,
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text) !important;
       border: 1px solid transparent;
     }
 
-    .nav-primary:hover { filter: brightness(1.02); }
+    .nav-primary:hover,
+    .btn-primary:hover {
+      filter: brightness(1.02);
+    }
+
+    .page {
+      padding: 36px 0 72px;
+    }
 
     .hero {
-      max-width: 820px;
-      margin-bottom: 120px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 112px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .band,
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(18, 26, 36, 0.96) 0%, rgba(15, 22, 32, 0.98) 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -120px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 211, 159, 0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .eyebrow,
+    .card-kicker,
+    .stat-kicker {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(56, 211, 159, 0.10);
+      border: 1px solid rgba(56, 211, 159, 0.18);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      min-height: 30px;
+      padding: 6px 12px;
+      letter-spacing: 0.10em;
+    }
+
+    h1, h2, h3, h4, p {
+      margin-top: 0;
     }
 
     h1 {
       font-size: 52px;
-      line-height: 1.15;
-      margin-bottom: 28px;
+      line-height: 1.10;
+      letter-spacing: -0.05em;
+      margin: 0 0 22px;
+      color: var(--text-strong);
+      max-width: 820px;
     }
 
-    .hero p {
-      font-size: 19px;
-      line-height: 1.65;
-      color: #b8c6d9;
-      margin-bottom: 40px;
+    .hero-copy {
+      font-size: 18px;
+      line-height: 1.72;
+      color: var(--muted);
+      margin: 0 0 30px;
+      max-width: 760px;
     }
 
-    .cta a {
-      display: inline-block;
-      padding: 16px 26px;
-      border-radius: 12px;
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .cta .btn {
+      min-height: 48px;
+      padding: 14px 22px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stat-title {
+      font-size: 22px;
+      line-height: 1.2;
+      margin: 0 0 8px;
+      color: var(--text-strong);
+    }
+
+    .stat-copy {
       font-size: 14px;
-      font-weight: 600;
-      margin-right: 18px;
-    }
-
-    .primary {
-      background: #38d39f;
-      color: #08140f;
-    }
-
-    .secondary {
-      border: 1px solid #2a3a52;
-      color: #c9d6ea;
-    }
-
-    .ghost {
-      border: 1px solid #2a3a52;
-      color: #c9d6ea;
-      background: rgba(18,26,36,.35);
+      line-height: 1.70;
+      color: var(--muted);
+      margin: 0;
     }
 
     section {
-      margin-bottom: 120px;
+      margin-bottom: 112px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
     }
 
     h2 {
       font-size: 36px;
-      margin-bottom: 20px;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      color: var(--text-strong);
     }
 
     .section-intro {
-      max-width: 720px;
+      max-width: 820px;
       font-size: 16px;
-      line-height: 1.65;
-      color: #b8c6d9;
-      margin-bottom: 52px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin: 0;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .card {
-      border: 1px solid #223044;
-      border-radius: 16px;
-      padding: 28px;
-      background: #121a24;
+      padding: 24px;
     }
 
     .card h3 {
-      font-size: 18px;
-      margin-bottom: 12px;
-      color: #38d39f;
+      font-size: 21px;
+      line-height: 1.25;
+      margin: 14px 0 12px;
+      color: var(--text-strong);
     }
 
     .card p {
       font-size: 14px;
-      line-height: 1.65;
-      color: #b8c6d9;
+      line-height: 1.75;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .band {
+      padding: 28px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .band h2 {
+      margin-bottom: 10px;
+    }
+
+    .band p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 780px;
     }
 
     footer {
-      border-top: 1px solid #223044;
+      border-top: 1px solid var(--border);
       padding: 36px 0;
       font-size: 13px;
-      color: #9bb0c9;
+      color: var(--muted-2);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -164,58 +403,143 @@
 
     footer a {
       margin-left: 18px;
-      color: #9bb0c9;
+      color: var(--muted-2);
     }
 
-    footer a:hover { color: #ffffff; }
+    footer a:hover {
+      color: var(--text-strong);
+    }
+
+    @media (max-width: 1100px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
 
     @media (max-width: 700px) {
-      header { gap: 14px; align-items: flex-start; }
-      nav { gap: 10px; }
-      h1 { font-size: 40px; }
-      .cta a { margin-bottom: 12px; }
+      header {
+        gap: 14px;
+        align-items: flex-start;
+      }
+
+      nav,
+      .cta {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .btn,
+      .nav-link,
+      .nav-cta,
+      .nav-primary {
+        width: 100%;
+      }
+
+      .hero-main,
+      .hero-side,
+      .card,
+      .band {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">LedgerHaul</div>
-      <nav>
-        <a href="/product.html">Product</a>
-        <a href="/pricing.html">Pricing</a>
-        <a class="nav-cta" href="/app/login.html">Log in</a>
-        <a class="nav-primary" href="/app/signup.html">Create account</a>
-        <a href="/legal/terms.html">Legal</a>
-      </nav>
-    </header>
+  <div class="topbar-shell">
+    <div class="container">
+      <header>
+        <div class="logo-block">
+          <div class="logo-mark">LH</div>
+          <div class="logo-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="logo-sub">Trucking-first financial operations</div>
+          </div>
+        </div>
 
+        <nav>
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="nav-link nav-cta" href="/app/login.html">Log in</a>
+          <a class="nav-link nav-primary" href="/app/signup.html">Create account</a>
+          <a class="nav-link" href="/legal/terms.html">Legal</a>
+        </nav>
+      </header>
+    </div>
+  </div>
+
+  <div class="container page">
     <section class="hero">
-      <h1>Trucking-first financial operations — built to protect margin</h1>
-      <p>
-        LedgerHaul unifies payroll, contractor settlements, bookkeeping, and cost-per-mile performance
-        into one trucking-focused system — so fleets, owner-operators, and logistics teams can pay
-        correctly, close books faster, and run every lane with financial clarity.
-      </p>
+      <div class="hero-main">
+        <div class="eyebrow">Trucking-first financial operations</div>
+        <h1>Trucking-first financial operations — built to protect margin</h1>
+        <p class="hero-copy">
+          LedgerHaul unifies payroll, contractor settlements, bookkeeping, and cost-per-mile performance
+          into one trucking-focused system so fleets, owner-operators, and logistics teams can pay
+          correctly, close books faster, and run every lane with financial clarity.
+        </p>
 
-      <div class="cta">
-        <a class="primary" href="/app/signup.html">Create account</a>
-        <a class="ghost" href="/app/login.html">Log in</a>
-        <a class="secondary" href="#features">Explore platform</a>
+        <div class="cta">
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
+          <a class="btn btn-ghost" href="/app/login.html">Log in</a>
+          <a class="btn btn-secondary" href="/product.html">Explore platform</a>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="stat-card">
+          <div class="stat-kicker">Payroll + settlements</div>
+          <div class="stat-title">Built for variable trucking pay</div>
+          <p class="stat-copy">
+            Support CPM, percentage, flat-rate, hourly, and hybrid pay structures without forcing teams into generic payroll workflows.
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-kicker">Bookkeeping</div>
+          <div class="stat-title">Operational financial records in one system</div>
+          <p class="stat-copy">
+            Keep vendors, expenses, transaction history, and financial activity connected to the same platform used for pay operations.
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-kicker">Cost visibility</div>
+          <div class="stat-title">Protect margin with cleaner cost awareness</div>
+          <p class="stat-copy">
+            Understand what each lane, driver, and operation is actually costing so leadership decisions are grounded in financial reality.
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="features">
-      <h2>What LedgerHaul delivers for trucking</h2>
-      <p class="section-intro">
-        A single platform that replaces spreadsheets, disconnected tools, and manual reconciliations —
-        purpose-built for fleets, dispatch-heavy operations, and contractor-based teams.
-      </p>
+      <div class="section-head">
+        <div>
+          <h2>What LedgerHaul delivers for trucking</h2>
+          <p class="section-intro">
+            A single platform that replaces spreadsheets, disconnected tools, and manual reconciliations —
+            purpose-built for fleets, dispatch-heavy operations, and contractor-based teams.
+          </p>
+        </div>
+      </div>
 
       <div class="grid">
         <div class="card">
-          <h3>Payroll + Contractor Settlements</h3>
+          <div class="card-kicker">Payroll</div>
+          <h3>Payroll + contractor settlements</h3>
           <p>
             Support CPM, percentage, flat-rate, hourly, and hybrid pay — including deductions, fuel advances,
             escrow, accessorials, and audit-ready pay statements.
@@ -223,15 +547,17 @@
         </div>
 
         <div class="card">
-          <h3>True Cost-Per-Mile (CPM) Visibility</h3>
+          <div class="card-kicker">CPM</div>
+          <h3>True cost-per-mile visibility</h3>
           <p>
             Model fixed and variable costs, fuel, maintenance, insurance, and margin to understand what each load
-            really earns — and where profit leaks.
+            really earns and where profit leaks.
           </p>
         </div>
 
         <div class="card">
-          <h3>Billing + Revenue Control</h3>
+          <div class="card-kicker">Revenue</div>
+          <h3>Billing + revenue control</h3>
           <p>
             Subscription billing, invoicing workflows, and customer payment management designed to keep cash flow
             predictable while reducing administrative overhead.
@@ -239,7 +565,8 @@
         </div>
 
         <div class="card">
-          <h3>Compliance + Audit Trails</h3>
+          <div class="card-kicker">Compliance</div>
+          <h3>Compliance + audit trails</h3>
           <p>
             Enforced legal acceptance, compliance tracking, and immutable audit trails across payroll, billing,
             and account activity — built for operational accountability.
@@ -247,7 +574,8 @@
         </div>
 
         <div class="card">
-          <h3>Reporting + Reconciliation</h3>
+          <div class="card-kicker">Reporting</div>
+          <h3>Reporting + reconciliation</h3>
           <p>
             Produce clean financial reporting, settlement summaries, and payroll exports — with reconciliation-ready
             outputs that reduce month-end cleanup.
@@ -255,7 +583,8 @@
         </div>
 
         <div class="card">
-          <h3>Operationally Aligned Workflows</h3>
+          <div class="card-kicker">Operations</div>
+          <h3>Operationally aligned workflows</h3>
           <p>
             Built for trucking realities: contractors, variable pay, lane-by-lane decisioning, and fast-moving
             operations — without forcing you into generic SMB workflows.
@@ -265,35 +594,98 @@
     </section>
 
     <section>
-      <h2>Designed for reliability, trust, and control</h2>
-      <p class="section-intro">
-        LedgerHaul is engineered as durable infrastructure — so you can run payroll, manage settlements, and
-        maintain financial accuracy without fragile processes.
-      </p>
+      <div class="section-head">
+        <div>
+          <h2>Why trucking businesses need a system like this</h2>
+          <p class="section-intro">
+            Generic business software rarely fits the financial pressure points inside trucking. LedgerHaul is positioned
+            around the real operating needs that drive margin, pay accuracy, and control.
+          </p>
+        </div>
+      </div>
 
       <div class="grid">
         <div class="card">
+          <div class="card-kicker">Control</div>
+          <h3>Replace spreadsheet dependency</h3>
+          <p>
+            Move away from scattered manual tracking and into a structured platform for payroll, settlements,
+            expenses, and reporting workflows.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-kicker">Clarity</div>
+          <h3>See what operations actually cost</h3>
+          <p>
+            Understand how fuel, maintenance, insurance, pay, and variable expenses affect profitability at the lane and fleet level.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-kicker">Execution</div>
+          <h3>Run finance operations with discipline</h3>
+          <p>
+            Give leadership and administrative teams a cleaner way to manage pay activity, bookkeeping records,
+            and reporting readiness without fragile workarounds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Designed for reliability, trust, and control</h2>
+          <p class="section-intro">
+            LedgerHaul is engineered as durable infrastructure so you can run payroll, manage settlements, and
+            maintain financial accuracy without fragile processes.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-kicker">Security</div>
           <h3>Security-first foundation</h3>
           <p>
-            Hardened APIs, modern authentication, role-based access, and safe integrations — designed to protect
+            Hardened APIs, modern authentication, role-based access, and safer integrations designed to protect
             sensitive payroll and financial data.
           </p>
         </div>
 
         <div class="card">
+          <div class="card-kicker">Deployment</div>
           <h3>Production-grade deployment</h3>
           <p>
-            Built for stable cloud operations with environment isolation and operational safety — so your core
-            finance workflows remain dependable.
+            Built for stable cloud operations with environment isolation and operational safety so core finance workflows remain dependable.
           </p>
         </div>
 
         <div class="card">
+          <div class="card-kicker">Ecosystem</div>
           <h3>Provider-ready payroll ecosystem</h3>
           <p>
-            Designed to integrate with trusted payroll providers while keeping your platform provider-agnostic —
+            Designed to integrate with trusted payroll providers while keeping the platform provider-agnostic,
             allowing upgrades without rewiring your entire product.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="band">
+        <div>
+          <h2>See the platform in the same design system.</h2>
+          <p>
+            Homepage, product, and pricing should feel like one professional site. This homepage now matches the darker
+            trucking-first direction and keeps the same typography, buttons, spacing, and color system.
+          </p>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn-primary" href="/product.html">View product</a>
+          <a class="btn btn-secondary" href="/pricing.html">View pricing</a>
         </div>
       </div>
     </section>
@@ -309,4 +701,3 @@
   </div>
 </body>
 </html>
-        
