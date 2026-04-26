@@ -2,161 +2,558 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Privacy Policy | LedgerHaul</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LedgerHaul Privacy Policy" />
-  <meta name="robots" content="noindex,nofollow" />
+  <title>Privacy Policy | LedgerHaul</title>
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="LedgerHaul Privacy Policy." />
 
   <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 26%),
+        linear-gradient(180deg, #121821 0%, #171f29 100%);
+      --panel: rgba(28, 36, 48, 0.96);
+      --panel-2: rgba(34, 43, 57, 0.96);
+      --border: #34465d;
+      --border-2: #41556f;
+      --text: #f4f7fb;
+      --text-strong: #ffffff;
+      --muted: #c4cfdb;
+      --muted-2: #9eb0c5;
+      --accent: #46c896;
+      --accent-2: #39bb89;
+      --accent-text: #07140f;
+      --ok: #b9f3d8;
+      --ok-bg: #18352a;
+      --ok-border: #316451;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.18);
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+      --radius: 22px;
+      --max: 1200px;
+      --header-height: 84px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #ffffff;
-      color: #0f172a;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     .wrap {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 24px;
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
     }
-    h1, h2, h3 {
-      color: #0f172a;
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(18, 24, 33, 0.84);
+      border-bottom: 1px solid rgba(52, 70, 93, 0.90);
     }
-    h1 { margin-bottom: 8px; }
-    h2 { margin-top: 28px; }
-    h3 { margin-top: 18px; }
-    p {
-      margin: 12px 0;
+
+    .topbar {
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(70, 200, 150, 0.12) 0%, rgba(70, 200, 150, 0.18) 100%);
+      border: 1px solid rgba(70, 200, 150, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .subbrand {
+      font-size: 12px;
+      color: var(--muted-2);
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
       font-size: 14px;
-      color: #334155;
+      font-weight: 700;
+      line-height: 1;
+      border: 1px solid transparent;
+      transition: color .15s ease, background .15s ease, border-color .15s ease, transform .15s ease;
     }
-    ul {
-      margin: 10px 0 10px 18px;
-      color: #334155;
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-2);
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #3e526b;
+      background: rgba(36, 48, 64, 0.80);
+      color: #eef4fa;
       font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+      line-height: 1;
     }
-    .muted {
-      color: #64748b;
+
+    .btn:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-secondary {
+      background: rgba(39, 51, 67, 0.88);
+      border-color: #3e526b;
+      color: #eef4fa;
+    }
+
+    .main {
+      padding: 28px 0 40px;
+    }
+
+    .hero {
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #3c6a57;
+      background: #18352a;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, p, ul {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 44px;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.82;
+      max-width: 860px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .toc,
+    .content-shell {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .toc {
+      padding: 20px;
+      position: sticky;
+      top: calc(var(--header-height) + 18px);
+    }
+
+    .toc h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+    }
+
+    .toc-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .toc-links a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .toc-links a:hover {
+      color: var(--text-strong);
+      background: rgba(39, 51, 67, 0.88);
+      border-color: var(--border-2);
+    }
+
+    .content-shell {
+      padding: 28px;
+    }
+
+    .section {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .section p,
+    .section li {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .section ul {
+      margin: 14px 0 0 20px;
+      padding: 0;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       font-size: 13px;
+      color: #95a9c2;
+    }
+
+    .footer a {
+      color: #95a9c2;
+      margin-left: 14px;
+    }
+
+    .footer a:hover {
+      color: var(--text-strong);
+    }
+
+    @media (max-width: 980px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .toc,
+      .content-shell {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .nav-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <h1>Privacy Policy</h1>
-    <p class="muted"><strong>Effective Date:</strong> January 25, 2026<br>
-    <strong>Last Updated:</strong> January 25, 2026</p>
+  <div class="topbar-shell">
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Privacy, data handling, and platform information practices</div>
+          </div>
+        </div>
 
-    <p>
-      This Privacy Policy explains how <strong>LedgerHaul</strong> (“Company,” “we,” “us,” or “our”)
-      collects, uses, discloses, and protects information when you access or use the LedgerHaul
-      platform (the “Service”), including our websites, applications, APIs, and integrations.
-    </p>
-
-    <p>By using the Service, you agree to this Privacy Policy.</p>
-
-    <h2>1) Information We Collect</h2>
-
-    <h3>a) Information You Provide</h3>
-    <ul>
-      <li>Account information: name, email, phone number, business name, role</li>
-      <li>Business and financial data: payroll inputs, contractor details, payment records, invoices</li>
-      <li>Compliance data: tax-related inputs, classifications, acknowledgments</li>
-      <li>Communications: support messages and feedback</li>
-    </ul>
-
-    <h3>b) Information Collected Automatically</h3>
-    <ul>
-      <li>Usage data: IP address, device info, browser type, pages viewed</li>
-      <li>Cookies and tracking technologies for authentication and analytics</li>
-    </ul>
-
-    <h3>c) Information From Third Parties</h3>
-    <p>
-      We may receive information from integrated services such as payment processors,
-      payroll providers, or banking partners based on your authorization.
-    </p>
-
-    <h2>2) How We Use Information</h2>
-    <ul>
-      <li>Operate and improve the Service</li>
-      <li>Process payments and subscriptions</li>
-      <li>Facilitate payroll and bookkeeping workflows</li>
-      <li>Authenticate users and secure accounts</li>
-      <li>Communicate with users</li>
-      <li>Detect fraud and enforce compliance</li>
-    </ul>
-
-    <h2>3) Legal Bases for Processing</h2>
-    <ul>
-      <li>Contractual necessity</li>
-      <li>Legitimate business interests</li>
-      <li>User consent where required</li>
-      <li>Legal obligations</li>
-    </ul>
-
-    <h2>4) How We Share Information</h2>
-    <p>We do not sell personal information. We may share data with:</p>
-    <ul>
-      <li>Service providers (hosting, payments, analytics)</li>
-      <li>Integrated third-party platforms</li>
-      <li>Legal authorities when required</li>
-      <li>Business transfers (merger/acquisition)</li>
-    </ul>
-
-    <h2>5) Data Retention</h2>
-    <p>
-      We retain data as needed to operate the Service, comply with laws,
-      resolve disputes, and enforce agreements.
-    </p>
-
-    <h2>6) Data Security</h2>
-    <p>
-      We implement reasonable safeguards including encryption, access controls,
-      and monitoring. No system is fully secure.
-    </p>
-
-    <h2>7) Your Rights and Choices</h2>
-    <ul>
-      <li>Access, update, or delete your data</li>
-      <li>Restrict or object to processing</li>
-      <li>Request data portability</li>
-      <li>Withdraw consent</li>
-    </ul>
-
-    <h2>8) Cookies and Tracking</h2>
-    <p>
-      Cookies are used for authentication, functionality, analytics, and security.
-      You may disable cookies in your browser settings.
-    </p>
-
-    <h2>9) Children’s Privacy</h2>
-    <p>
-      The Service is not intended for individuals under 18.
-    </p>
-
-    <h2>10) International Transfers</h2>
-    <p>
-      Data may be processed in the United States or other jurisdictions.
-    </p>
-
-    <h2>11) Third-Party Links</h2>
-    <p>
-      We are not responsible for third-party websites or services.
-    </p>
-
-    <h2>12) Changes to This Policy</h2>
-    <p>
-      Updates will be posted. Continued use constitutes acceptance.
-    </p>
-
-    <h2>13) Contact</h2>
-    <p>
-      LedgerHaul<br>
-      Email: support@ledgerhaul.com
-    </p>
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+          <a class="btn btn-primary" href="/app/signup.html">Create account</a>
+        </div>
+      </header>
+    </div>
   </div>
+
+  <main class="wrap main">
+    <section class="hero">
+      <div class="panel">
+        <div class="eyebrow">Legal</div>
+        <h1>Privacy Policy</h1>
+        <p class="lead">
+          This Privacy Policy explains how LedgerHaul collects, uses, stores, protects, and discloses information in connection with account creation, billing, contractor payment workflows, bookkeeping tools, reporting features, and related platform functionality.
+        </p>
+        <div class="meta-row">
+          <div class="pill">Applies to all platform users</div>
+          <div class="pill">Read with Terms and Refund Policy</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <aside class="toc">
+        <h2>Sections</h2>
+        <div class="toc-links">
+          <a href="#scope">1. Scope</a>
+          <a href="#information-collected">2. Information We Collect</a>
+          <a href="#usage">3. How We Use Information</a>
+          <a href="#sharing">4. How Information May Be Shared</a>
+          <a href="#retention">5. Data Retention</a>
+          <a href="#security">6. Security Measures</a>
+          <a href="#rights">7. Your Choices and Rights</a>
+          <a href="#third-parties">8. Third-Party Services</a>
+          <a href="#updates">9. Policy Updates</a>
+          <a href="#contact">10. Contact</a>
+        </div>
+      </aside>
+
+      <section class="content-shell">
+        <section id="scope" class="section">
+          <h2>1. Scope</h2>
+          <p>
+            This Privacy Policy applies to information collected through LedgerHaul websites, account registration, subscription workflows, application interfaces, communications, and related services. By using LedgerHaul, you acknowledge the practices described in this Privacy Policy.
+          </p>
+        </section>
+
+        <section id="information-collected" class="section">
+          <h2>2. Information We Collect</h2>
+          <p>
+            LedgerHaul may collect information you provide directly, information created through platform usage, and limited technical information associated with access and security.
+          </p>
+          <ul>
+            <li>Account registration details such as company name, administrator name, email address, and login credentials.</li>
+            <li>Billing and subscription information necessary to manage platform access and payment status.</li>
+            <li>Operational records entered into the platform, including contractor details, payment records, bookkeeping entries, and related business data.</li>
+            <li>Technical and device-related information such as browser type, approximate timestamps, session details, and log data used for security, troubleshooting, and service improvement.</li>
+          </ul>
+        </section>
+
+        <section id="usage" class="section">
+          <h2>3. How We Use Information</h2>
+          <p>
+            Information may be used to operate the platform, authenticate users, manage subscriptions, enforce access controls, process operational workflows, improve service quality, respond to support requests, communicate account-related updates, and protect the integrity and security of LedgerHaul.
+          </p>
+        </section>
+
+        <section id="sharing" class="section">
+          <h2>4. How Information May Be Shared</h2>
+          <p>
+            LedgerHaul does not sell your business data to advertisers. Information may be shared only as reasonably necessary to operate the service, comply with law, protect platform rights, respond to valid legal requests, or work with service providers supporting hosting, infrastructure, billing, security, analytics, communications, or other operational functions.
+          </p>
+          <ul>
+            <li>Service providers may receive limited information needed to perform contracted functions.</li>
+            <li>Information may be disclosed when required by law, court order, or valid governmental request.</li>
+            <li>Information may be disclosed to investigate fraud, misuse, security issues, or violations of platform terms.</li>
+          </ul>
+        </section>
+
+        <section id="retention" class="section">
+          <h2>5. Data Retention</h2>
+          <p>
+            LedgerHaul may retain information for as long as reasonably necessary to provide services, maintain security and audit records, enforce agreements, resolve disputes, satisfy legal obligations, and support legitimate business operations. Retention periods may vary depending on the nature of the data and applicable legal or operational requirements.
+          </p>
+        </section>
+
+        <section id="security" class="section">
+          <h2>6. Security Measures</h2>
+          <p>
+            LedgerHaul uses reasonable administrative, technical, and organizational measures intended to protect information against unauthorized access, disclosure, alteration, or destruction. However, no platform, network, or transmission method can be guaranteed completely secure, and you remain responsible for protecting account credentials and restricting access to authorized users.
+          </p>
+        </section>
+
+        <section id="rights" class="section">
+          <h2>7. Your Choices and Rights</h2>
+          <p>
+            Depending on applicable law, you may have rights to access, correct, update, or request deletion of certain personal information. LedgerHaul may need to retain some records where required for legal, operational, billing, security, audit, or contractual reasons.
+          </p>
+        </section>
+
+        <section id="third-parties" class="section">
+          <h2>8. Third-Party Services</h2>
+          <p>
+            LedgerHaul may rely on third-party infrastructure, payment, authentication, communications, analytics, or other service providers. Use of those integrated services may also be subject to their own terms and privacy practices. LedgerHaul is not responsible for third-party policies outside its control.
+          </p>
+        </section>
+
+        <section id="updates" class="section">
+          <h2>9. Policy Updates</h2>
+          <p>
+            LedgerHaul may update this Privacy Policy from time to time. Updated versions become effective when posted unless a different effective date is stated. Continued use of the platform after an update constitutes acknowledgment of the revised policy.
+          </p>
+        </section>
+
+        <section id="contact" class="section">
+          <h2>10. Contact</h2>
+          <p>
+            Questions about this Privacy Policy or LedgerHaul information handling practices should be submitted through the appropriate business or support contact channel associated with the platform.
+          </p>
+        </section>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>
