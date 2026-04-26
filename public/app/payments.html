@@ -8,6 +8,7 @@
   <meta name="ledgerhaul-api-base" content="" />
 
   <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/app-access.js"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -456,16 +457,16 @@
       <div class="top-actions">
         <a class="btn" href="/app/index.html">Dashboard</a>
         <a class="btn" href="/app/contractors.html">Contractors</a>
-        <a class="btn" href="/pricing.html">Pricing</a>
+        <a class="btn" href="/app/bookkeeping.html">Bookkeeping</a>
         <button id="logoutBtn" class="btn btn-danger" type="button">Log out</button>
       </div>
     </div>
 
     <div class="layout">
       <section class="panel">
-        <h1>Record contractor payment</h1>
+        <h1>Contractor payments</h1>
         <div class="muted">
-          Create contractor payment records with gross pay, reimbursements, deductions, and payment dates so 1099 reporting and contractor history are accurate.
+          Manage contractor payment activity, adjustments, reimbursements, and settlement dates used for contractor history and 1099 reporting.
         </div>
 
         <div class="status-row">
@@ -487,7 +488,7 @@
             <div id="countMetric" class="metric-value">0</div>
           </div>
           <div class="metric">
-            <div class="metric-label">Gross total</div>
+            <div class="metric-label">Gross Total</div>
             <div id="grossMetric" class="metric-value">$0.00</div>
           </div>
         </div>
@@ -501,7 +502,7 @@
               <select id="contractorSelect" required>
                 <option value="">Select contractor</option>
               </select>
-              <div class="field-help">Create contractor records first if this list is empty.</div>
+              <div class="field-help">Contractor records must be in place before payment activity can be recorded.</div>
             </div>
 
             <div class="field">
@@ -538,7 +539,7 @@
             </div>
 
             <div class="field full">
-              <label>Reimbursements and deductions</label>
+              <label>Adjustments</label>
               <div class="split-row">
                 <div class="field">
                   <label for="reimbursements">Reimbursements</label>
@@ -553,11 +554,11 @@
                   <input id="netPay" type="number" min="0" step="0.01" placeholder="Auto-calculated" />
                 </div>
               </div>
-              <div class="field-help">If net pay is blank, LedgerHaul will calculate gross plus reimbursements minus deductions.</div>
+              <div class="field-help">If net pay is not entered, the system will calculate gross pay plus reimbursements less deductions.</div>
             </div>
 
             <div class="field full">
-              <label for="memo">Memo / description</label>
+              <label for="memo">Description</label>
               <textarea id="memo" maxlength="2000"></textarea>
             </div>
           </div>
@@ -572,15 +573,15 @@
       </section>
 
       <section class="panel">
-        <h2>Payment records</h2>
+        <h2>Payment register</h2>
         <div class="muted">
-          Review contractor payment history, sort recent activity, and update payment records used for 1099 reporting and contractor settlement tracking.
+          Review, search, and update contractor payment records used for operational history and 1099 reporting support.
         </div>
 
         <div class="toolbar">
           <div class="field">
             <label for="searchInput">Search</label>
-            <input id="searchInput" type="text" placeholder="Contractor, memo, reference number" />
+            <input id="searchInput" type="text" placeholder="Contractor, description, reference number" />
           </div>
 
           <div class="field">
@@ -620,7 +621,7 @@
 
         <div id="listMessage" class="message"></div>
         <div id="emptyState" class="empty-state" hidden>
-          No payment records found. Record your first contractor payment on the left.
+          No payment records found.
         </div>
         <div id="paymentList" class="list-wrap"></div>
       </section>
@@ -637,96 +638,14 @@
   </div>
 
   <script>
-    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
-    const metaApiBase = metaApi && metaApi.getAttribute("content")
-      ? String(metaApi.getAttribute("content")).trim()
-      : "";
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
 
-    const API_BASE =
-      window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim()
-        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
-        : (metaApiBase ? metaApiBase.replace(/\/+$/, "") : "https://api.ledgerhaul.com");
-
-    function getStorageItem(key) {
-      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
-    }
-
-    function setStorageItem(key, value) {
-      localStorage.setItem(key, value);
-      sessionStorage.setItem(key, value);
-    }
-
-    function removeStorageItem(key) {
-      localStorage.removeItem(key);
-      sessionStorage.removeItem(key);
-    }
-
-    function clearAuthStorage() {
-      removeStorageItem("lh_access_token");
-      removeStorageItem("lh_refresh_token");
-      removeStorageItem("lh_company");
-      removeStorageItem("lh_user");
-      removeStorageItem("lh_auth_response");
-    }
-
-    function safeJsonParse(text) {
-      try { return JSON.parse(text); } catch { return null; }
-    }
-
-    function decodeJwtPayload(token) {
-      try {
-        const parts = String(token).split(".");
-        if (parts.length < 2) return null;
-        const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-        const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
-        const json = atob(padded);
-        return JSON.parse(json);
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function readStoredJson(key) {
-      const raw = getStorageItem(key);
-      try {
-        return raw ? JSON.parse(raw) : null;
-      } catch (_) {
-        return null;
-      }
-    }
-
-    function pickTokenFromAuthResponse(authResponse) {
-      const candidates = [
-        authResponse && authResponse.access_token,
-        authResponse && authResponse.accessToken,
-        authResponse && authResponse.token,
-        authResponse && authResponse.jwt,
-        authResponse && authResponse.id_token,
-        authResponse && authResponse.idToken
-      ];
-
-      for (const candidate of candidates) {
-        if (typeof candidate === "string" && candidate.trim()) {
-          return candidate.trim();
-        }
-      }
-      return "";
-    }
-
-    function getAccessToken() {
-      const direct = String(getStorageItem("lh_access_token") || "").trim();
-      if (direct) return direct;
-
-      const authResponse = readStoredJson("lh_auth_response");
-      const fallback = pickTokenFromAuthResponse(authResponse);
-      if (fallback) {
-        setStorageItem("lh_access_token", fallback);
-        return fallback;
-      }
-      return "";
-    }
-
-    let accessToken = getAccessToken();
     let contractors = [];
     let payments = [];
     let editingPaymentId = null;
@@ -799,43 +718,21 @@
       el.className = "message" + (type ? ` ${type}` : "");
     }
 
-    function getCompanyId() {
-      const company = readStoredJson("lh_company");
-      if (company && company.id !== undefined && company.id !== null) {
-        return String(company.id);
-      }
-      if (company && company.company_id !== undefined && company.company_id !== null) {
-        return String(company.company_id);
-      }
-
-      const user = readStoredJson("lh_user");
-      if (user && user.company_id !== undefined && user.company_id !== null) {
-        return String(user.company_id);
-      }
-
-      const jwt = decodeJwtPayload(accessToken);
-      if (jwt && jwt.company_id !== undefined && jwt.company_id !== null) {
-        return String(jwt.company_id);
-      }
-
-      return "";
+    function getStorageItem(key) {
+      return localStorage.getItem(key) || sessionStorage.getItem(key) || "";
     }
 
-    function buildHeaders() {
-      const headers = {
-        "Accept": "application/json"
-      };
-
-      if (accessToken) {
-        headers.Authorization = `Bearer ${accessToken}`;
+    function readStoredJson(key) {
+      const raw = getStorageItem(key);
+      try {
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
       }
+    }
 
-      const companyId = getCompanyId();
-      if (companyId) {
-        headers["X-Company-Id"] = companyId;
-      }
-
-      return headers;
+    function getCompanyId() {
+      return window.LH_APP_ACCESS.getCompanyId();
     }
 
     function contractorName(contractor) {
@@ -855,28 +752,21 @@
       return Number.isFinite(numeric) ? numeric : 0;
     }
 
-    function handleUnauthorized(detailText) {
-      clearAuthStorage();
-      accessToken = "";
-      setPill(authPill, "Session expired", "error");
-      setMessage(globalMessage, detailText || "Your session expired. Please sign in again.", "error");
-      setTimeout(() => {
-        window.location.href = "/app/login.html";
-      }, 1200);
-    }
-
     async function requestCandidates(urls, options) {
       let lastError = null;
 
       for (const url of urls) {
         const response = await fetch(`${API_BASE}${url}`, options);
         const raw = await response.text();
-        const json = safeJsonParse(raw);
+        const json = window.LH_APP_ACCESS.safeJsonParse(raw);
 
         if (response.status === 401) {
-          const detail = (json && (json.error || json.message || json.detail)) || raw || "Unauthorized";
-          handleUnauthorized(detail);
-          throw new Error(detail);
+          window.LH_APP_ACCESS.logout();
+          throw new Error((json && (json.error || json.message || json.detail)) || raw || "Unauthorized");
+        }
+
+        if (response.status === 403) {
+          throw new Error((json && (json.error || json.message || json.detail)) || raw || "Access is not enabled for this account.");
         }
 
         if (response.status === 404) {
@@ -899,7 +789,7 @@
       try {
         const data = await requestCandidates(ENDPOINTS.contractorList, {
           method: "GET",
-          headers: buildHeaders(),
+          headers: window.LH_APP_ACCESS.buildHeaders(),
           cache: "no-store"
         });
 
@@ -933,6 +823,7 @@
 
       contractors.forEach((item) => {
         const label = contractorName(item);
+
         const option = document.createElement("option");
         option.value = String(item.id);
         option.textContent = label;
@@ -954,7 +845,7 @@
       try {
         const data = await requestCandidates(ENDPOINTS.paymentList, {
           method: "GET",
-          headers: buildHeaders(),
+          headers: window.LH_APP_ACCESS.buildHeaders(),
           cache: "no-store"
         });
 
@@ -996,23 +887,18 @@
     function refreshMetrics() {
       const companyId = getCompanyId();
       const user = readStoredJson("lh_user");
-      const jwt = decodeJwtPayload(accessToken);
 
       companyMetric.textContent = companyId || "Unavailable";
 
       if (user && (user.email || user.first_name || user.last_name)) {
         const name = [user.first_name, user.last_name].filter(Boolean).join(" ").trim();
         userMetric.textContent = name || user.email || "Authenticated user";
-      } else if (jwt && jwt.sub) {
-        userMetric.textContent = String(jwt.sub);
       } else {
-        userMetric.textContent = "Unavailable";
+        userMetric.textContent = "Authenticated user";
       }
 
       countMetric.textContent = String(payments.length);
-
-      const grossTotal = payments.reduce((sum, item) => sum + Number(item.gross_pay || 0), 0);
-      grossMetric.textContent = formatMoney(grossTotal);
+      grossMetric.textContent = formatMoney(payments.reduce((sum, item) => sum + Number(item.gross_pay || 0), 0));
     }
 
     function filteredPayments() {
@@ -1190,10 +1076,9 @@
 
       return requestCandidates(urls, {
         method,
-        headers: {
-          ...buildHeaders(),
+        headers: window.LH_APP_ACCESS.buildHeaders({
           "Content-Type": "application/json"
-        },
+        }),
         body: JSON.stringify(payload),
         cache: "no-store"
       });
@@ -1260,8 +1145,7 @@
     resetBtn.addEventListener("click", resetForm);
     refreshBtn.addEventListener("click", loadPayments);
     logoutBtn.addEventListener("click", () => {
-      clearAuthStorage();
-      window.location.href = "/app/login.html";
+      window.LH_APP_ACCESS.logout();
     });
 
     [searchInput, contractorFilter, methodFilter, sortInput].forEach((el) => {
@@ -1269,21 +1153,35 @@
       el.addEventListener("change", renderPayments);
     });
 
-    if (!accessToken) {
-      window.location.href = "/app/login.html";
-    } else {
+    async function initializePage() {
+      const pageState = await window.LH_APP_ACCESS.init({
+        requirePaid: true,
+        feature: "reports1099",
+        redirectOnFail: true,
+        allowIfEndpointMissing: false
+      });
+
+      if (!pageState.ok) {
+        return;
+      }
+
       setPill(authPill, "Signed in", "ok");
+
       const company = readStoredJson("lh_company");
       if (company && company.name) {
         setMessage(globalMessage, `Signed in for ${company.name}.`, "ok");
       } else {
         setMessage(globalMessage, "Signed in.", "ok");
       }
+
       paymentDate.value = new Date().toISOString().slice(0, 10);
       refreshMetrics();
       checkHealth();
-      loadContractors().then(loadPayments);
+      await loadContractors();
+      await loadPayments();
     }
+
+    initializePage();
   </script>
 </body>
 </html>
