@@ -7,39 +7,54 @@
   <meta name="robots" content="noindex,nofollow" />
   <meta name="ledgerhaul-api-base" content="" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <script src="/assets/js/config.js"></script>
 
   <style>
     * { box-sizing: border-box; }
 
     :root {
-      --bg: #0b0f14;
-      --panel: #121a24;
-      --panel-2: #0e141d;
-      --border: #223044;
-      --text: #e9eef5;
-      --muted: #aebfd4;
-      --muted-2: #8ea4bf;
-      --accent: #38d39f;
-      --accent-text: #08140f;
-      --danger: #ffb8c4;
-      --danger-bg: #2a1016;
-      --danger-border: #5c2430;
-      --ok: #9ff2c9;
-      --ok-bg: #10281f;
-      --ok-border: #21533f;
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-2: rgba(246, 250, 253, 0.98);
+      --border: #d7e2ec;
+      --border-2: #dfe8f1;
+      --text: #132033;
+      --text-strong: #0b1628;
+      --muted: #526377;
+      --muted-2: #708298;
+      --accent: #2fb67f;
+      --accent-2: #269b6c;
+      --accent-text: #ffffff;
+      --danger: #b94a63;
+      --danger-bg: #fff4f6;
+      --danger-border: #efc4cd;
+      --ok: #237a56;
+      --ok-bg: #edf9f3;
+      --ok-border: #bfe3d0;
+      --info: #285b94;
+      --info-bg: #eef5ff;
+      --info-border: #c5d8f4;
+      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1240px;
+      --header-height: 88px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(180deg, #0b0f14 0%, #0d131b 100%);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      line-height: 1.6;
     }
 
     a {
@@ -47,122 +62,251 @@
       text-decoration: none;
     }
 
-    .shell {
-      width: 100%;
-      max-width: 1120px;
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 247, 251, 0.84);
+      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
+      border: 1px solid rgba(47, 182, 127, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f7c58;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #1f7c58;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .subbrand {
+      font-size: 13px;
+      color: var(--muted-2);
+      line-height: 1.3;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: #1f3046;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      filter: brightness(1.01);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+    }
+
+    .main {
+      padding: 28px 0 40px;
+    }
+
+    .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
       align-items: stretch;
     }
 
     .panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: var(--radius);
       padding: 28px;
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 620px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: .3px;
-      margin-bottom: 8px;
+      box-shadow: var(--shadow);
     }
 
     .eyebrow {
-      font-size: 12px;
-      color: var(--muted-2);
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #cce6da;
+      background: #edf9f3;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
       text-transform: uppercase;
-      letter-spacing: .12em;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, h4, p {
+      margin-top: 0;
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: 36px;
-      line-height: 1.08;
+      margin-bottom: 14px;
+      font-size: 46px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      max-width: 680px;
     }
 
-    .hero-copy {
+    .lead {
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.75;
-      max-width: 560px;
+      font-size: 16px;
+      line-height: 1.82;
+      max-width: 760px;
+      margin-bottom: 0;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .hero-card {
-      background: var(--panel-2);
-      border: 1px solid #1c2738;
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .hero-card-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .hero-card-copy {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    .hero-footer {
-      border-top: 1px solid #223044;
-      padding-top: 18px;
-      margin-top: 26px;
-      color: #95a9c2;
-      font-size: 13px;
+    .hero-actions {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
     }
 
-    .hero-footer a {
-      color: #95a9c2;
-      margin-left: 14px;
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
     }
 
-    .hero-footer a:hover {
-      color: #ffffff;
+    .mini-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 18px;
     }
 
-    .auth-panel h2 {
+    .mini-card h3 {
       margin: 0 0 8px;
-      font-size: 28px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
     }
 
-    .auth-copy {
+    .mini-card p {
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.72;
     }
 
-    .status-row {
+    .form-head h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .form-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-top: 18px;
     }
 
     .pill {
@@ -173,9 +317,9 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid #2a3a52;
-      background: #0f1720;
-      color: #c9d6ea;
+      border: 1px solid #d5e0ea;
+      background: #f7fbfd;
+      color: #6b7b8f;
     }
 
     .pill.ok {
@@ -190,123 +334,157 @@
       color: var(--danger);
     }
 
+    .pill.info {
+      border-color: var(--info-border);
+      background: var(--info-bg);
+      color: var(--info);
+    }
+
     .message {
       min-height: 20px;
-      margin-bottom: 14px;
+      margin-top: 14px;
       font-size: 14px;
     }
 
-    .message.error { color: var(--danger); }
     .message.ok { color: var(--ok); }
+    .message.error { color: var(--danger); }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
 
     .field {
-      margin-bottom: 14px;
+      display: grid;
+      gap: 8px;
     }
 
     .field label {
-      display: block;
-      margin-bottom: 8px;
       font-size: 13px;
-      font-weight: 600;
-      color: #b8c6d9;
+      font-weight: 700;
+      color: #213247;
     }
 
     .field input,
     .field select {
       width: 100%;
-      min-height: 46px;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid #2a3a52;
-      background: #0c1219;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
       color: var(--text);
       font-size: 14px;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #8fcfb1;
+      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
     }
 
     .field-help {
-      margin-top: 8px;
       color: var(--muted-2);
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
+      gap: 12px;
+      margin-top: 20px;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid #243246;
-      background: #121a24;
-      color: #d7e3f4;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn:hover { filter: brightness(1.03); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--accent-text);
-      border-color: transparent;
-    }
-
-    .btn[disabled] {
-      opacity: .55;
-      cursor: not-allowed;
-      filter: none;
-    }
-
-    .secondary-links {
+    .helper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       margin-top: 18px;
+    }
+
+    .helper-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .helper-card h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .helper-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
       font-size: 13px;
-      color: #95a9c2;
+      color: #7b8b9d;
     }
 
-    .secondary-links a:hover {
-      color: #ffffff;
+    .footer a {
+      color: #7b8b9d;
+      margin-left: 14px;
     }
 
-    @media (max-width: 980px) {
-      .shell {
+    .footer a:hover {
+      color: var(--text-strong);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .mini-grid,
+      .helper-grid {
         grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-      }
-    }
-
-    @media (max-width: 640px) {
-      body {
-        padding: 14px;
-      }
-
-      .panel {
-        padding: 20px;
       }
 
       h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .mini-card,
+      .helper-card {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .form-head h2 {
         font-size: 28px;
       }
 
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
+      .nav-actions,
+      .hero-actions,
       .actions {
         width: 100%;
       }
@@ -319,100 +497,141 @@
 </head>
 
 <body>
-  <div class="shell">
-    <section class="panel hero">
-      <div>
-        <div class="logo">LedgerHaul</div>
-        <div class="eyebrow">Financial Operations Platform</div>
-        <h1>Enterprise-grade contractor payments and bookkeeping operations.</h1>
-        <div class="hero-copy">
-          Access contractor records, contractor payment activity, bookkeeping operations, and reporting workflows within a controlled operational environment.
-        </div>
-
-        <div class="hero-grid">
-          <div class="hero-card">
-            <div class="hero-card-title">Contractor management</div>
-            <div class="hero-card-copy">Maintain contractor records, tax classification, contact details, and W-9 status.</div>
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-title">Payment operations</div>
-            <div class="hero-card-copy">Manage contractor payment activity, reimbursements, deductions, and settlement records.</div>
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-title">Bookkeeping control</div>
-            <div class="hero-card-copy">Record and review bookkeeping transactions, classifications, and account-coded activity.</div>
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-title">Controlled reporting</div>
-            <div class="hero-card-copy">View and export operational reports based on package access and active subscription status.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-footer">
-        <div>© 2026 LedgerHaul. All rights reserved.</div>
-        <div>
-          <a href="/legal/terms.html">Terms</a>
-          <a href="/legal/privacy.html">Privacy</a>
-          <a href="/legal/refund.html">Refund</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel auth-panel">
-      <h2>Sign in</h2>
-      <div class="auth-copy">
-        Enter your account credentials to access your assigned LedgerHaul workspace.
-      </div>
-
-      <div class="status-row">
-        <div id="apiPill" class="pill">API status unknown</div>
-        <div id="sessionPill" class="pill">Session not started</div>
-      </div>
-
-      <div id="message" class="message"></div>
-
-      <form id="loginForm" novalidate>
-        <div class="field">
-          <label for="email">Email address</label>
-          <input id="email" type="email" autocomplete="email" required />
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" autocomplete="current-password" required />
-        </div>
-
-        <div class="field">
-          <label for="companySelector">Company</label>
-          <select id="companySelector" hidden>
-            <option value="">Select company</option>
-          </select>
-          <div id="companyHelp" class="field-help">
-            If your email is associated with multiple companies, company selection will be required after credential validation.
+  <div class="topbar-shell">
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Sign in and continue onboarding</div>
           </div>
         </div>
 
-        <div class="actions">
-          <button id="submitBtn" class="btn btn-primary" type="submit">Sign in</button>
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/signup.html">Create account</a>
         </div>
-      </form>
-
-      <div class="secondary-links">
-        <a href="/pricing.html">Pricing</a>
-        <a href="/product.html">Product</a>
-      </div>
-    </section>
+      </header>
+    </div>
   </div>
 
+  <main class="wrap main">
+    <section class="hero-grid">
+      <section class="panel">
+        <div class="eyebrow">Account access</div>
+        <h1>Sign in and move directly into the next required operational step.</h1>
+        <p class="lead">
+          Login should not drop a new customer into empty register views. It should restore the authenticated company context, confirm access state, and route the user into the correct next step based on what has already been set up.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/pricing.html">View pricing</a>
+          <a class="btn btn-secondary" href="/app/signup.html">Create account</a>
+        </div>
+
+        <div class="mini-grid">
+          <article class="mini-card">
+            <h3>Company-aware sign-in</h3>
+            <p>The login flow should restore tenant context, administrator identity, and package access state before routing the customer forward.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>No broken redirect logic</h3>
+            <p>Post-login routing should not depend on a missing dashboard-only page or send users to an incorrect public root.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Onboarding-aware routing</h3>
+            <p>New customers without records should land on the main app index so they can begin contractors, payments, and bookkeeping in order.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Billing-aware access</h3>
+            <p>If access is restricted by subscription state, the user should be routed to pricing instead of receiving confusing empty screens.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="form-head">
+          <h2>Sign in</h2>
+          <p>
+            Enter your account credentials to restore your LedgerHaul company session.
+          </p>
+        </div>
+
+        <div class="pill-row">
+          <div id="apiPill" class="pill">API status unknown</div>
+          <div id="sessionPill" class="pill info">Session not started</div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" type="email" autocomplete="email" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" type="password" autocomplete="current-password" required />
+            </div>
+
+            <div class="field">
+              <label for="companySelector">Company</label>
+              <select id="companySelector" disabled>
+                <option value="">Select company if prompted</option>
+              </select>
+              <div id="companyHelp" class="field-help">
+                Company selection will only be needed if your email is connected to more than one company context.
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" class="btn btn-primary" type="submit">Sign in</button>
+            <a class="btn btn-secondary" href="/app/forgot-password.html">Forgot password</a>
+          </div>
+        </form>
+
+        <div class="helper-grid">
+          <div class="helper-card">
+            <h4>After sign-in</h4>
+            <p>The customer should be routed into the protected app start state at <code>/app/index.html</code> or to pricing if access is restricted.</p>
+          </div>
+
+          <div class="helper-card">
+            <h4>New customer experience</h4>
+            <p>Customers with no contractor, payment, or bookkeeping records should still land in the correct protected onboarding state.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </footer>
+  </main>
+
   <script>
-    const API_BASE = (
-      window.LH_CONFIG &&
-      window.LH_CONFIG.API_BASE_URL &&
-      String(window.LH_CONFIG.API_BASE_URL).trim()
-    )
-      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
-      : "https://api.ledgerhaul.com";
+    const metaApi = document.querySelector('meta[name="ledgerhaul-api-base"]');
+    const metaApiBase = (metaApi && metaApi.getAttribute("content"))
+      ? String(metaApi.getAttribute("content")).trim()
+      : "";
+
+    const API_BASE =
+      (window.LH_CONFIG && window.LH_CONFIG.API_BASE_URL && String(window.LH_CONFIG.API_BASE_URL).trim())
+        ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+        : (metaApiBase ? metaApiBase.replace(/\/+$/, "") : "https://api.ledgerhaul.com");
 
     const STORAGE_KEYS = {
       accessToken: "lh_access_token",
@@ -420,13 +639,13 @@
       company: "lh_company",
       user: "lh_user",
       authResponse: "lh_auth_response",
-      accessState: "lh_access_state",
-      subscriptionState: "lh_subscription_state"
+      accessState: "lh_access_state"
     };
 
     const apiPill = document.getElementById("apiPill");
     const sessionPill = document.getElementById("sessionPill");
     const messageEl = document.getElementById("message");
+
     const loginForm = document.getElementById("loginForm");
     const submitBtn = document.getElementById("submitBtn");
     const emailInput = document.getElementById("email");
@@ -447,7 +666,11 @@
     }
 
     function safeJsonParse(text) {
-      try { return JSON.parse(text); } catch (_) { return null; }
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return null;
+      }
     }
 
     function setStorageItem(key, value) {
@@ -473,7 +696,7 @@
         "";
 
       if (!token) {
-        throw new Error("Access token was not returned.");
+        throw new Error("Login succeeded but no token was returned.");
       }
 
       setStorageItem(STORAGE_KEYS.accessToken, token);
@@ -498,16 +721,29 @@
 
       pendingCompanies.forEach((company) => {
         const option = document.createElement("option");
-        option.value = String(company.id || "");
+        option.value = String(company.id || company.company_id || "");
         option.textContent = String(company.name || company.slug || company.id || "");
         companySelector.appendChild(option);
       });
 
-      const showSelector = pendingCompanies.length > 0;
-      companySelector.hidden = !showSelector;
-      companyHelp.textContent = showSelector
-        ? "Select the company context for this sign-in."
-        : "If your email is associated with multiple companies, company selection will be required after credential validation.";
+      const needsSelection = pendingCompanies.length > 0;
+      companySelector.disabled = !needsSelection;
+      companyHelp.textContent = needsSelection
+        ? "Select the correct company context to complete sign-in."
+        : "Company selection will only be needed if your email is connected to more than one company context.";
+    }
+
+    function getCompanyIdFromStorage() {
+      const rawCompany = localStorage.getItem(STORAGE_KEYS.company) || sessionStorage.getItem(STORAGE_KEYS.company) || "";
+      const company = safeJsonParse(rawCompany) || {};
+
+      if (company.id !== undefined && company.id !== null) {
+        return String(company.id);
+      }
+      if (company.company_id !== undefined && company.company_id !== null) {
+        return String(company.company_id);
+      }
+      return "";
     }
 
     async function checkHealth() {
@@ -528,7 +764,14 @@
       }
     }
 
-    async function fetchBillingAccess() {
+    async function fetchAccessState() {
+      const token = localStorage.getItem(STORAGE_KEYS.accessToken) || sessionStorage.getItem(STORAGE_KEYS.accessToken) || "";
+      const companyId = getCompanyIdFromStorage();
+
+      if (!token) {
+        return { ok: false, restricted: false, missing: true };
+      }
+
       const candidates = [
         "/billing/access",
         "/billing/subscription/access",
@@ -537,131 +780,139 @@
         "/api/billing/access"
       ];
 
-      const token = localStorage.getItem(STORAGE_KEYS.accessToken) || sessionStorage.getItem(STORAGE_KEYS.accessToken) || "";
-      const companyRaw = localStorage.getItem(STORAGE_KEYS.company) || sessionStorage.getItem(STORAGE_KEYS.company) || "";
-      const company = safeJsonParse(companyRaw) || {};
-      const companyId = company.id || company.company_id || "";
-
       for (const path of candidates) {
-        const res = await fetch(`${API_BASE}${path}`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-            ...(companyId ? { "X-Company-Id": String(companyId) } : {})
-          },
-          cache: "no-store"
-        });
+        try {
+          const res = await fetch(`${API_BASE}${path}`, {
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Authorization": `Bearer ${token}`,
+              ...(companyId ? { "X-Company-Id": companyId } : {})
+            },
+            cache: "no-store"
+          });
 
-        const raw = await res.text();
-        const json = safeJsonParse(raw) || {};
+          const raw = await res.text();
+          const json = safeJsonParse(raw) || {};
 
-        if (res.status === 404) {
+          if (res.status === 404) {
+            continue;
+          }
+
+          if (res.status === 401) {
+            return { ok: false, restricted: true, reason: "Authentication required." };
+          }
+
+          if (!res.ok) {
+            return {
+              ok: false,
+              restricted: true,
+              reason: String(json.error || json.message || json.detail || "Access is restricted.")
+            };
+          }
+
+          const normalized = {
+            active: Boolean(
+              json.active === true ||
+              json.subscription_active === true ||
+              String(json.status || "").toLowerCase() === "active" ||
+              String(json.status || "").toLowerCase() === "trialing"
+            ),
+            plan: String(json.plan || json.plan_name || json.package || "").trim(),
+            raw: json
+          };
+
+          setStorageItem(STORAGE_KEYS.accessState, JSON.stringify(normalized));
+
+          return {
+            ok: normalized.active,
+            restricted: !normalized.active,
+            reason: normalized.active ? "" : "Active subscription is required."
+          };
+        } catch (_) {
           continue;
         }
-
-        if (!res.ok) {
-          return {
-            ok: false,
-            payload: json,
-            status: res.status
-          };
-        }
-
-        const normalized = {
-          active: Boolean(
-            json.active === true ||
-            json.subscription_active === true ||
-            String(json.status || "").toLowerCase() === "active" ||
-            String(json.status || "").toLowerCase() === "trialing"
-          ),
-          plan: String(json.plan || json.plan_name || json.package || "").trim(),
-          features: json.features && typeof json.features === "object" ? json.features : {},
-          raw: json
-        };
-
-        setStorageItem(STORAGE_KEYS.accessState, JSON.stringify(normalized));
-        return {
-          ok: true,
-          payload: normalized,
-          status: 200
-        };
       }
 
-      return {
-        ok: true,
-        payload: null,
-        status: 404
-      };
+      return { ok: true, restricted: false, missing: true };
+    }
+
+    async function resolvePostLoginDestination() {
+      const access = await fetchAccessState();
+
+      if (access.restricted) {
+        return "/pricing.html";
+      }
+
+      return "/app/index.html";
     }
 
     async function completeLogin(payload) {
       storeAuthPayload(payload);
       setPill(sessionPill, "Session active", "ok");
+      setMessage("Sign-in successful. Redirecting…", "ok");
 
-      const access = await fetchBillingAccess();
-
-      if (access.ok && access.payload && access.payload.active === false) {
-        window.location.href = "/pricing.html";
-        return;
-      }
-
-      window.location.href = "/app/index.html";
+      const nextUrl = await resolvePostLoginDestination();
+      window.location.href = nextUrl;
     }
 
     async function submitLogin(companyIdOverride) {
       const email = String(emailInput.value || "").trim().toLowerCase();
       const password = String(passwordInput.value || "");
 
-      if (!email || !password) {
-        setMessage("Email address and password are required.", "error");
+      if (!email) {
+        setMessage("Email is required.", "error");
         return;
       }
 
-      const body = {
-        email,
-        password
-      };
-
-      if (companyIdOverride) {
-        body.company_id = Number(companyIdOverride);
+      if (!password) {
+        setMessage("Password is required.", "error");
+        return;
       }
 
       submitBtn.disabled = true;
+      submitBtn.textContent = "Signing in…";
       setMessage("", "");
+
+      const body = { email, password };
+      if (companyIdOverride) {
+        body.company_id = Number(companyIdOverride);
+      }
 
       try {
         const res = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json"
+            "Accept": "application/json"
           },
           body: JSON.stringify(body)
         });
 
         const raw = await res.text();
-        const json = safeJsonParse(raw) || {};
+        const data = safeJsonParse(raw) || {};
 
-        if (res.status === 409 && String(json.error || "") === "COMPANY_SELECTION_REQUIRED") {
-          populateCompanySelector(json.companies || []);
-          setMessage("Select a company to continue.", "error");
+        if (res.status === 409 && String(data.error || "") === "COMPANY_SELECTION_REQUIRED") {
+          populateCompanySelector(data.companies || []);
+          setPill(sessionPill, "Company selection required", "info");
+          setMessage("Select the company context to continue.", "error");
           return;
         }
 
         if (!res.ok) {
           throw new Error(
-            String(json.error || json.message || json.detail || raw || "Unable to sign in.")
+            String(data.error || data.message || data.detail || "Unable to sign in.")
           );
         }
 
-        await completeLogin(json);
+        await completeLogin(data);
       } catch (err) {
         clearAuthStorage();
         setPill(sessionPill, "Session not started", "error");
-        setMessage(err.message || "Unable to sign in.", "error");
+        setMessage((err && err.message) ? err.message : "Unable to sign in.", "error");
       } finally {
         submitBtn.disabled = false;
+        submitBtn.textContent = "Sign in";
       }
     }
 
@@ -671,14 +922,7 @@
       await submitLogin(selectedCompanyId || "");
     });
 
-    companySelector.addEventListener("change", () => {
-      if (companySelector.value) {
-        setMessage("", "");
-      }
-    });
-
     clearAuthStorage();
-    setPill(sessionPill, "Session not started", "");
     checkHealth();
   </script>
 </body>
