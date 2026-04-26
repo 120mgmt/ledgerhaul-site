@@ -2,64 +2,782 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Check Your Email | LedgerHaul</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Check Email | LedgerHaul</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Verify your email to activate your LedgerHaul account." />
+  <meta name="ledgerhaul-api-base" content="" />
+
+  <script src="/assets/js/config.js"></script>
 
   <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg:
+        radial-gradient(circle at top left, rgba(56, 211, 159, 0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7fb 0%, #eaf0f6 100%);
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-2: rgba(246, 250, 253, 0.98);
+      --border: #d7e2ec;
+      --border-2: #dfe8f1;
+      --text: #132033;
+      --text-strong: #0b1628;
+      --muted: #526377;
+      --muted-2: #708298;
+      --accent: #2fb67f;
+      --accent-2: #269b6c;
+      --accent-text: #ffffff;
+      --danger: #b94a63;
+      --danger-bg: #fff4f6;
+      --danger-border: #efc4cd;
+      --ok: #237a56;
+      --ok-bg: #edf9f3;
+      --ok-border: #bfe3d0;
+      --info: #285b94;
+      --info-bg: #eef5ff;
+      --info-border: #c5d8f4;
+      --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1160px;
+      --header-height: 88px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #0e1f17;
-      color: #ffffff;
-    }
-
-    .wrap {
-      max-width: 520px;
-      margin: 140px auto;
-      padding: 40px;
-      background: #13261e;
-      border: 1px solid #214536;
-      border-radius: 16px;
-      text-align: center;
-    }
-
-    h1 {
-      margin-bottom: 16px;
-      font-size: 28px;
-    }
-
-    p {
-      font-size: 15px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
-      color: #cfe6db;
-      margin-bottom: 24px;
-    }
-
-    .hint {
-      font-size: 13px;
-      color: #9bbfb0;
     }
 
     a {
-      color: #37d18c;
+      color: inherit;
       text-decoration: none;
-      font-weight: 600;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .topbar-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(244, 247, 251, 0.84);
+      border-bottom: 1px solid rgba(215, 226, 236, 0.92);
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(47, 182, 127, 0.12) 0%, rgba(47, 182, 127, 0.18) 100%);
+      border: 1px solid rgba(47, 182, 127, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f7c58;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #1f7c58;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .subbrand {
+      font-size: 13px;
+      color: var(--muted-2);
+      line-height: 1.3;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: #1f3046;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        filter .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      filter: brightness(1.01);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: var(--accent-text);
+      border-color: transparent;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+    }
+
+    .main {
+      padding: 28px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #cce6da;
+      background: #edf9f3;
+      color: var(--ok);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, h4, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+      font-size: 44px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      max-width: 640px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.82;
+      margin-bottom: 0;
+      max-width: 720px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .mini-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .status-head h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    .status-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #d5e0ea;
+      background: #f7fbfd;
+      color: #6b7b8f;
+    }
+
+    .pill.ok {
+      border-color: var(--ok-border);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .pill.error {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .pill.info {
+      border-color: var(--info-border);
+      background: var(--info-bg);
+      color: var(--info);
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .message.ok { color: var(--ok); }
+    .message.error { color: var(--danger); }
+
+    .status-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .status-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .status-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .status-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #213247;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #d4dee8;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 14px;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: #8fcfb1;
+      box-shadow: 0 0 0 4px rgba(47, 182, 127, 0.10);
+    }
+
+    .field-help {
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .helper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .helper-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .helper-card h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .helper-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #7b8b9d;
+    }
+
+    .footer a {
+      color: #7b8b9d;
+      margin-left: 14px;
+    }
+
+    .footer a:hover {
+      color: var(--text-strong);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .mini-grid,
+      .helper-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      .panel,
+      .mini-card,
+      .helper-card,
+      .status-card {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .status-head h2 {
+        font-size: 28px;
+      }
+
+      .nav-actions,
+      .hero-actions,
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <h1>Check your email</h1>
-    <p>
-      We’ve sent a verification link to your email address.
-      Please click the link to activate your LedgerHaul account.
-    </p>
-    <p class="hint">
-      Didn’t receive it? Check spam or contact
-      <a href="mailto:info@ledgerhaul.com">info@ledgerhaul.com</a>.
-    </p>
+  <div class="topbar-shell">
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">LH</div>
+          <div class="brand-copy">
+            <div class="logo">LedgerHaul</div>
+            <div class="subbrand">Verify your email and continue onboarding</div>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <a class="nav-link" href="/product.html">Product</a>
+          <a class="nav-link" href="/pricing.html">Pricing</a>
+          <a class="btn btn-secondary" href="/app/login.html">Sign in</a>
+        </div>
+      </header>
+    </div>
   </div>
+
+  <main class="wrap main">
+    <section class="hero-grid">
+      <section class="panel">
+        <div class="eyebrow">Verification step</div>
+        <h1>Check your email to activate your LedgerHaul account.</h1>
+        <p class="lead">
+          Account creation is not the final step. Email verification should confirm administrator ownership before sign-in and workspace access continue.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/app/login.html">Return to sign in</a>
+          <a class="btn btn-secondary" href="/pricing.html">View pricing</a>
+        </div>
+
+        <div class="mini-grid">
+          <article class="mini-card">
+            <h3>Verification first</h3>
+            <p>Email confirmation should complete account activation before the company administrator enters protected workspaces.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Billing still applies</h3>
+            <p>Verification does not replace package controls or subscription requirements for operational access.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Clear next action</h3>
+            <p>The customer should know to open the verification email, confirm the account, and then sign in.</p>
+          </article>
+
+          <article class="mini-card">
+            <h3>Controlled activation</h3>
+            <p>Workspace access should remain restricted until account verification and billing state are both satisfied.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="status-head">
+          <h2>Email verification</h2>
+          <p>
+            Enter the email address used during registration to resend the verification message if needed.
+          </p>
+        </div>
+
+        <div class="pill-row">
+          <div id="apiPill" class="pill">API status unknown</div>
+          <div id="emailPill" class="pill info">Verification pending</div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="status-stack">
+          <div class="status-card">
+            <h3>What to do now</h3>
+            <p>Open the verification email, select the activation link, and return to sign in once the account is confirmed.</p>
+          </div>
+
+          <div class="status-card">
+            <h3>If the email is missing</h3>
+            <p>Check spam or junk folders, confirm the address used during sign-up, and request a new verification email below.</p>
+          </div>
+        </div>
+
+        <form id="resendForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" type="email" maxlength="254" autocomplete="email" required />
+              <div class="field-help">Use the same email address entered during account registration.</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="resendBtn" class="btn btn-primary" type="submit">Resend verification email</button>
+            <a class="btn btn-secondary" href="/app/login.html">Return to sign in</a>
+          </div>
+        </form>
+
+        <div class="helper-grid">
+          <div class="helper-card">
+            <h4>After verification</h4>
+            <p>Return to sign in, complete authentication, and continue into package-controlled onboarding.</p>
+          </div>
+
+          <div class="helper-card">
+            <h4>Access after activation</h4>
+            <p>Protected workspaces should still respect active subscription status and assigned feature entitlements.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 LedgerHaul. All rights reserved.</div>
+      <div>
+        <a href="/legal/terms.html">Terms</a>
+        <a href="/legal/privacy.html">Privacy</a>
+        <a href="/legal/refund.html">Refund</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const API_BASE = (
+      window.LH_CONFIG &&
+      window.LH_CONFIG.API_BASE_URL &&
+      String(window.LH_CONFIG.API_BASE_URL).trim()
+    )
+      ? String(window.LH_CONFIG.API_BASE_URL).trim().replace(/\/+$/, "")
+      : "https://api.ledgerhaul.com";
+
+    const apiPill = document.getElementById("apiPill");
+    const emailPill = document.getElementById("emailPill");
+    const messageEl = document.getElementById("message");
+    const resendForm = document.getElementById("resendForm");
+    const resendBtn = document.getElementById("resendBtn");
+    const emailInput = document.getElementById("email");
+
+    function setPill(el, text, type) {
+      el.textContent = text;
+      el.className = "pill" + (type ? ` ${type}` : "");
+    }
+
+    function setMessage(text, type) {
+      messageEl.textContent = text || "";
+      messageEl.className = "message" + (type ? ` ${type}` : "");
+    }
+
+    function safeJsonParse(text) {
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`, {
+          method: "GET",
+          cache: "no-store"
+        });
+
+        if (!res.ok) {
+          setPill(apiPill, "API limited", "error");
+          return;
+        }
+
+        setPill(apiPill, "API online", "ok");
+      } catch (_) {
+        setPill(apiPill, "API unavailable", "error");
+      }
+    }
+
+    async function resendVerification(email) {
+      const candidates = [
+        "/auth/resend-verification",
+        "/auth/verify/resend",
+        "/api/auth/resend-verification"
+      ];
+
+      let lastError = "Verification resend is not yet connected.";
+
+      for (const path of candidates) {
+        try {
+          const res = await fetch(`${API_BASE}${path}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const raw = await res.text();
+          const json = safeJsonParse(raw) || {};
+
+          if (res.status === 404) {
+            continue;
+          }
+
+          if (!res.ok) {
+            throw new Error(
+              String(json.error || json.message || json.detail || raw || "Unable to resend verification email.")
+            );
+          }
+
+          return {
+            ok: true,
+            message: String(json.message || "Verification email sent.")
+          };
+        } catch (err) {
+          lastError = err.message || lastError;
+        }
+      }
+
+      return {
+        ok: false,
+        message: lastError
+      };
+    }
+
+    resendForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = String(emailInput.value || "").trim().toLowerCase();
+
+      if (!email) {
+        setMessage("Email address is required.", "error");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMessage("Email format is invalid.", "error");
+        return;
+      }
+
+      resendBtn.disabled = true;
+      setMessage("", "");
+
+      try {
+        const result = await resendVerification(email);
+
+        if (!result.ok) {
+          throw new Error(result.message);
+        }
+
+        setPill(emailPill, "Verification email sent", "ok");
+        setMessage(result.message, "ok");
+      } catch (err) {
+        setPill(emailPill, "Verification pending", "error");
+        setMessage(err.message || "Unable to resend verification email.", "error");
+      } finally {
+        resendBtn.disabled = false;
+      }
+    });
+
+    checkHealth();
+  </script>
 </body>
 </html>
